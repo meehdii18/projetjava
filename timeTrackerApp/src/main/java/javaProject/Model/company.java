@@ -1,4 +1,4 @@
-import javaProject.Model;
+package javaProject.Model;
 
 public class Company {
     private int companyId;
