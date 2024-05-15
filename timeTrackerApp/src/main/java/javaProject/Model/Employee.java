@@ -48,4 +48,7 @@ public class Employee {
         this.extra_hour = extra_hour;
     }
 
+    public ClockingHistory getWorker_history() { return worker_history; }
+
+    public void setWorker_history(ClockingHistory worker_history) { this.worker_history = worker_history; }
 }
