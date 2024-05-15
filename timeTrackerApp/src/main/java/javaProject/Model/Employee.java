@@ -6,6 +6,7 @@ public class Employee {
     private int start_hour;
     private int end_hour;
     private int extra_hour;
+    private ClockingHistory worker_history;
 
     // Constructeur
     public Employee(int id, int start_hour, int end_hour, int extra_hour) {
