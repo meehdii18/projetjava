@@ -2,10 +2,10 @@ package javaProject.Model;
 
 public class Department {
     private int departmentId;
-    private char departmentName;
+    private String departmentName;
     public Company company;
 
-    public Department(char name, int id){
+    public Department(String name, int id){
         departmentId = 0;
         departmentName = name;
     }
@@ -18,11 +18,11 @@ public class Department {
         this.departmentId = newId;
     }
 
-    public char getDepartmentName(){
+    public String getDepartmentName(){
         return departmentName;
     }
 
-    public void setDepartmentName(char newName){
+    public void setDepartmentName(String newName){
         this.departmentName  = newName;
     }
 }
