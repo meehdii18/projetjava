@@ -11,10 +11,9 @@ public class Parameters{
             trackerSocket=trackerSocket;
     }
 
-    public int getTrackerIpAdresse() {
+    public String getTrackerIpAdresse() {
         return trackerIpAdresse;
     }
-
     public void setTrackerIpAdresse(String trackerIpAdresse) {
         this.trackerIpAdresse = trackerIpAdresse;
     }
