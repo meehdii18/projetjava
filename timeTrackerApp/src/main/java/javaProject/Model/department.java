@@ -3,10 +3,11 @@ package javaProject.Model;
 public class Department {
     private int departmentId;
     private char departmentName;
-    private int idCompany;
+    public Company company;
 
-    public Departement(){
-
+    public Departement(char name, int id){
+        departmentId = 0;
+        departmentName = name;
     }
 
     public int getDepartmentId(){
