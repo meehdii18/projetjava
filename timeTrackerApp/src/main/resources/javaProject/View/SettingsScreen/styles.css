@@ -1,0 +1,13 @@
+.root {
+    -fx-font-family: System;
+    -fx-font-size: 18pt;
+}
+
+.input-settings{
+}
+
+.save-button{
+    -fx-background-radius: 30;
+    -fx-background-color: #555555;
+    -fx-text-fill: white;
+}

@@ -3,14 +3,19 @@ package javaProject.Controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
+import javafx.util.Duration;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.scene.control.TextField;
-import javafx.util.Duration;
 import java.util.Locale;
+import java.util.Objects;
 
 public class MainScreenController {
     @FXML
@@ -29,10 +34,19 @@ public class MainScreenController {
     private Button startButton;
 
     @FXML
+    private ImageView startIconView;
+
+    @FXML
     private Button stopButton;
 
     @FXML
+    private ImageView stopIconView;
+
+    @FXML
     private Button validateIDButton;
+
+    @FXML
+    private Button settingsButton;
 
     private LocalTime roundToNearestQuarterHour(LocalTime time) {
         int minute = time.getMinute();
@@ -62,6 +76,12 @@ public class MainScreenController {
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
 
+        // Créations des icônes pour les deux bouttons
+        Image startIcon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/javaProject/View/MainScreen/icons8-enter.png")));
+        startIconView.setImage(startIcon);
+        Image stopIcon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/javaProject/View/MainScreen/icons8-exit.png")));
+        stopIconView.setImage(stopIcon);
+
         // Désactiver le bouton "Stop Working!" par défaut
         startButton.setDisable(true);
         stopButton.setDisable(true);
@@ -70,16 +90,14 @@ public class MainScreenController {
         inputEmployeeId.setPromptText("Employee ID...");
 
         // Activer le bouton "Start Working!" uniquement lorsque l'ID de l'employé est entré
-        inputEmployeeId.textProperty().addListener((observable, oldValue, newValue) -> {
-            validateIDButton.setDisable(newValue.trim().isEmpty());
-        });
+        inputEmployeeId.textProperty().addListener((observable, oldValue, newValue) -> validateIDButton.setDisable(newValue.trim().isEmpty()));
 
     }
 
     @FXML
     protected void onStartButtonClick() {
         String employeeId = inputEmployeeId.getText();
-        statusText.setText("Bonne journée " + employeeId + "!");
+        statusText.setText("Hello " + employeeId + "!");
         // Activer le bouton "Stop Working!" et désactiver le bouton "Start Working!" après avoir cliqué sur "Start Working!"
         startButton.setDisable(true);
         stopButton.setDisable(false);
@@ -87,7 +105,8 @@ public class MainScreenController {
 
     @FXML
     protected void onStopButtonClick() {
-        statusText.setText("Aurevoir!");
+        String employeeId = inputEmployeeId.getText();
+        statusText.setText("Bye "+ employeeId + "!");
         // Activer le bouton "Start Working!" et désactiver le bouton "Stop Working!" après avoir cliqué sur "Stop Working!"
         startButton.setDisable(false);
         stopButton.setDisable(true);
@@ -97,5 +116,13 @@ public class MainScreenController {
     protected void onValidateIdButtonClick(){
         // Activer le bouton "Start Working!" lorsqu'on a valider l'ID employé
         startButton.setDisable(false);
+    }
+
+    @FXML
+    protected void onSettingsButtonClick() throws Exception {
+        Stage stage = new Stage();
+        SettingsScreenController controller = new SettingsScreenController();
+        controller.setStage(stage);
+        new javaProject.View.SettingsScreen().start(stage);
     }
 }

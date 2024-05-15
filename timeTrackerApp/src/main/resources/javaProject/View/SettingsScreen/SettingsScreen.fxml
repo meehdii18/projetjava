@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="javaProject.Controller.SettingsScreenController" spacing="10" alignment="CENTER">
+    <padding>
+        <Insets top="10" right="10" bottom="10" left="10"/>
+    </padding>
+        <Label text="Network settings"/>
+        <TextField fx:id="networkAddress" promptText="IP" styleClass="input-settings"/>
+        <TextField fx:id="networkPort" promptText="Socket" styleClass="input-settings"/>
+        <Button text="Save" onAction="#onSaveButtonClick" styleClass="save-button"/>
+</VBox>

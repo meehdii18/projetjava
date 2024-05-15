@@ -7,8 +7,8 @@ public class Parameters{
 
 
     public Parameters(String trackerIpAdresse, int trackerSocket) {
-            trackerIpAdresse = trackerIpAdresse;
-            trackerSocket=trackerSocket;
+            this.trackerIpAdresse = trackerIpAdresse;
+            this.trackerSocket=trackerSocket;
     }
 
     public String getTrackerIpAdresse() {

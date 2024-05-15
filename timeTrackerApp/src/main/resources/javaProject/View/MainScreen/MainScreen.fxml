@@ -4,41 +4,72 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="javaProject.Controller.MainScreenController">
-  <padding>
-    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-  </padding>
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="javaProject.Controller.MainScreenController">
+  <top>
+    <VBox>
+      <padding>
+        <Insets top="20" />
+      </padding>
+      <!--
+      Bloc pour le label date et heure
+      -->
+      <HBox alignment="TOP_CENTER">
+        <Label fx:id="dateText"/>
+      </HBox>
+      <HBox spacing="10.0" alignment="TOP_CENTER">
+        <Label fx:id="timeText" styleClass="time-text"/>
+      </HBox>
+    </VBox>
+  </top>
 
-  <!--
-  Bloc pour le label date et heure
-  -->
-  <HBox spacing="10.0" alignment="TOP_CENTER">
-    <Label fx:id="dateText"/>
-  </HBox>
-  <HBox spacing="10.0" alignment="TOP_CENTER">
-    <Label fx:id="timeText" styleClass="time-text"/>
-  </HBox>
+  <center>
+    <VBox alignment="CENTER" spacing="20.0">
+      <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+      </padding>
 
-  <!--
-  Bloc pour les boutons de start/stop et le texte de validation
-  -->
-  <HBox spacing="10.0" alignment="CENTER">
-    <Button fx:id="startButton" text="Start Working!" onAction="#onStartButtonClick" styleClass="start-button"/>
-    <Button fx:id="stopButton" text="Stop Working!" onAction="#onStopButtonClick" styleClass="stop-button"/>
-  </HBox>
-  <Label fx:id="statusText"/>
+      <!--
+      Bloc pour les boutons de start/stop et le texte de validation
+      -->
+      <HBox spacing="10.0" alignment="CENTER">
+        <Button fx:id="startButton" onAction="#onStartButtonClick" styleClass="start-button">
+          <graphic>
+            <VBox alignment="CENTER">
+              <ImageView fx:id="startIconView"/>
+              <Label text="Start Working" styleClass="start-button"/>
+            </VBox>
+          </graphic>
+        </Button>
+        <Button fx:id="stopButton" onAction="#onStopButtonClick" styleClass="stop-button">
+          <graphic>
+            <VBox alignment="CENTER">
+              <ImageView fx:id="stopIconView"/>
+              <Label text="Stop Working" styleClass="stop-button"/>
+            </VBox>
+          </graphic>
+        </Button>
+      </HBox>
+      <Label fx:id="statusText"/>
 
-  <!--
-  Bloc pour l'entrée de l'ID employé
-  -->
-  <HBox spacing="10.0" alignment="CENTER">
-    <TextField fx:id="inputEmployeeId"/>
-    <Button fx:id="validateIDButton" text="Valider ID" onAction="#onValidateIdButtonClick" styleClass="validate-id-button"/>
-  </HBox>
+      <!--
+      Bloc pour l'entrée de l'ID employé
+      -->
+      <HBox spacing="10.0" alignment="CENTER">
+        <TextField fx:id="inputEmployeeId" styleClass="input-field"/>
+        <Button fx:id="validateIDButton" text="Validate ID" onAction="#onValidateIdButtonClick" styleClass="validate-id-button"/>
+      </HBox>
+    </VBox>
+  </center>
 
-
-</VBox>
+  <bottom>
+    <AnchorPane>
+      <Button fx:id="settingsButton" text="Network Settings" onAction="#onSettingsButtonClick" AnchorPane.bottomAnchor="15" AnchorPane.leftAnchor="15" styleClass="settings-button"/>
+    </AnchorPane>
+  </bottom>
+</BorderPane>
