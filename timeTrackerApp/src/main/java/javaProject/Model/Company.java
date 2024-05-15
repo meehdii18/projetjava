@@ -2,10 +2,10 @@ package javaProject.Model;
 
 public class Company {
     private int companyId;
-    private char companyName;
+    private String companyName;
     public Department[] department;
 
-    public Company(char name){
+    public Company(String name){
         companyId = 0;
         companyName = name;
     }
@@ -14,13 +14,13 @@ public class Company {
         return companyId;
     }
     public void setCompanyId(int newId){
-        this.companyId = id;
+        this.companyId = newId;
     }
-    public char getCompanyName(){
+    public String getCompanyName(){
         return companyName;
     }
-    public void setCompanyName(int newName){
-        this.companyName = name;
+    public void setCompanyName(String newName){
+        this.companyName = newName;
     }
 
 }
