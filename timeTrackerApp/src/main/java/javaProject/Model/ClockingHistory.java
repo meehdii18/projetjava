@@ -1,10 +1,11 @@
 package javaProject.Model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Hashtable;
 
-public class ClockingHistory {
+public class ClockingHistory implements Serializable {
 
     private final Hashtable<LocalDate, LocalTime> clock_in = new Hashtable<>();
 
