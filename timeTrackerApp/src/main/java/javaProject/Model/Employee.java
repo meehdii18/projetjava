@@ -6,13 +6,16 @@ public class Employee {
     private int start_hour;
     private int end_hour;
     private int extra_hour;
+    public int departementId;
+
 
     // Constructeur
-    public Employee(int id, int start_hour, int end_hour, int extra_hour) {
-        this.id = id;
-        this.start_hour = start_hour;
-        this.end_hour = end_hour;
-        this.extra_hour = extra_hour;
+    public Employee(int id, int start_hour, int end_hour, int extra_hour,int departementId) {
+        id = id;
+        start_hour = start_hour;
+        end_hour = end_hour;
+        extra_hour = extra_hour;
+        departementId=0;
     }
 
     public int getId() {
