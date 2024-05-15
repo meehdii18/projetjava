@@ -6,7 +6,6 @@ public class Employee {
     private int start_hour;
     private int end_hour;
     private int extra_hour;
-    private ClockingHistory worker_history;
 
     // Constructeur
     public Employee(int id, int start_hour, int end_hour, int extra_hour) {
@@ -48,7 +47,4 @@ public class Employee {
         this.extra_hour = extra_hour;
     }
 
-    public ClockingHistory getWorker_history() { return worker_history; }
-
-    public void setWorker_history(ClockingHistory worker_history) { this.worker_history = worker_history; }
 }
