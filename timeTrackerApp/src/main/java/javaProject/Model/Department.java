@@ -5,7 +5,7 @@ public class Department {
     private char departmentName;
     public Company company;
 
-    public Departement(char name, int id){
+    public Department(char name, int id){
         departmentId = 0;
         departmentName = name;
     }
