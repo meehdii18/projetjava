@@ -7,14 +7,8 @@
     -fx-font-weight: bold;
 }
 
-.start-button{
-    -fx-background-color: green;
-    -fx-text-fill: white;
-    -fx-background-radius: 30;
-}
-
-.stop-button{
-    -fx-background-color: red;
+.clock-button{
+    -fx-background-color: #555555;
     -fx-text-fill: white;
     -fx-background-radius: 30;
 }

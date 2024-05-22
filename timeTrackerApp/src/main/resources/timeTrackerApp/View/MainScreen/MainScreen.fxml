@@ -35,22 +35,14 @@
       </padding>
 
       <!--
-      Bloc pour les boutons de start/stop et le texte de validation
+      Bloc pour les boutons de clock et le texte de validation
       -->
       <HBox spacing="10.0" alignment="CENTER">
-        <Button fx:id="startButton" onAction="#onStartButtonClick" styleClass="start-button">
+        <Button fx:id="clockButton" onAction="#onClockButtonClick" styleClass="clock-button">
           <graphic>
             <VBox alignment="CENTER">
-              <ImageView fx:id="startIconView"/>
-              <Label text="Start Working" styleClass="start-button"/>
-            </VBox>
-          </graphic>
-        </Button>
-        <Button fx:id="stopButton" onAction="#onStopButtonClick" styleClass="stop-button">
-          <graphic>
-            <VBox alignment="CENTER">
-              <ImageView fx:id="stopIconView"/>
-              <Label text="Stop Working" styleClass="stop-button"/>
+              <ImageView fx:id="clockIconView"/>
+              <Label text="Clock in/out" styleClass="clock-button"/>
             </VBox>
           </graphic>
         </Button>

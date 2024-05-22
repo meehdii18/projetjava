@@ -1,4 +1,4 @@
-package timeTrackerApp.Model;
+package mainApp.Model;
 
 import java.io.Serializable;
 import java.time.LocalDate;

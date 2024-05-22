@@ -1,4 +1,4 @@
-package timeTrackerApp.Model;
+package mainApp.Model;
 
 public class Parameters implements Serializable{
 
