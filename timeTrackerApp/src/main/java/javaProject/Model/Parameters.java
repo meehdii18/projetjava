@@ -1,6 +1,6 @@
 package javaProject.Model;
 
-public class Parameters{
+public class Parameters {
 
     private String trackerIpAdresse;
     private int trackerSocket;
