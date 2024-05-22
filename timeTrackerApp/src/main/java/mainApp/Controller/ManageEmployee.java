@@ -19,11 +19,16 @@ public class ManageEmployee{
     }
 
     public void removeEmployee(int id) {
-        employees.removeIf(employee -> employee.getId() == id);
+        for (int i = 0; i < employees.size(); i++) {
+            if (employees.get(i).getId() == id) {
+                employees.remove(i);
+            }
+        }
     }
 
+
     public Employee findEmployeeById(int id) {
-        for (Employee employee : employees) {
+        for (Employee employee : employees) { //for each
             if (employee.getId() == id) {
                 return employee;
             }
@@ -40,7 +45,7 @@ public class ManageEmployee{
         }
     }
 
-    public List<Employee> getAllEmployees() {
+    public ArrayList<Employee> getAllEmployees() {
         return employees;
     }
 
