@@ -1,4 +1,4 @@
-package javaProject.Controller;
+package timeTrackerApp.Controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -77,9 +77,9 @@ public class MainScreenController {
         timeline.play();
 
         // Créations des icônes pour les deux bouttons
-        Image startIcon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/javaProject/View/MainScreen/icons8-enter.png")));
+        Image startIcon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/timeTrackerApp/View/MainScreen/icons8-enter.png")));
         startIconView.setImage(startIcon);
-        Image stopIcon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/javaProject/View/MainScreen/icons8-exit.png")));
+        Image stopIcon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/timeTrackerApp/View/MainScreen/icons8-exit.png")));
         stopIconView.setImage(stopIcon);
 
         // Désactiver le bouton "Stop Working!" par défaut
@@ -123,6 +123,6 @@ public class MainScreenController {
         Stage stage = new Stage();
         SettingsScreenController controller = new SettingsScreenController();
         controller.setStage(stage);
-        new javaProject.View.SettingsScreen().start(stage);
+        new timeTrackerApp.View.SettingsScreen().start(stage);
     }
 }

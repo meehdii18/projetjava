@@ -1,4 +1,4 @@
-package javaProject.Controller;
+package timeTrackerApp.Controller;
 
 import javafx.fxml.FXML;
 

@@ -1,4 +1,4 @@
-package javaProject.Model;
+package timeTrackerApp.Model;
 
 public class Company {
     private int companyId;

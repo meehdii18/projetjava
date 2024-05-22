@@ -10,7 +10,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 
-<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="javaProject.Controller.SettingsScreenController" spacing="10" alignment="CENTER">
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="timeTrackerApp.Controller.SettingsScreenController" spacing="10" alignment="CENTER">
     <padding>
         <Insets top="10" right="10" bottom="10" left="10"/>
     </padding>
