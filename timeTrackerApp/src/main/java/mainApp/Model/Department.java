@@ -1,4 +1,4 @@
-package javaProject.Model;
+package mainApp.Model;
 
 public class Department {
     private int departmentId;

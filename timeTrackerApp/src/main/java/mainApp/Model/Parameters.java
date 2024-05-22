@@ -1,6 +1,6 @@
-package javaProject.Model;
+package mainApp.Model;
 
-public class Parameters {
+public class Parameters implements Serializable{
 
     private String trackerIpAdresse;
     private int trackerSocket;

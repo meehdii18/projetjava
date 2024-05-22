@@ -3,8 +3,8 @@ module org.example.timetrackerapp {
     requires javafx.fxml;
 
 
-    opens javaProject.View to javafx.fxml;
-    exports javaProject.View;
+    opens timeTrackerApp.View to javafx.fxml;
+    exports timeTrackerApp.View;
 
-    opens javaProject.Controller to javafx.fxml;
+    opens timeTrackerApp.Controller to javafx.fxml;
 }
