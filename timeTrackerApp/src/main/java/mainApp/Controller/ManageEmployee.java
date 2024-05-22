@@ -6,7 +6,7 @@ package javaProject.Controller;
 
 public class ManageEmployee{
 
-    private List<Employee> employees;
+    private ArrayList<Employee> employees;
 
 
     public ManageEmployee() {
