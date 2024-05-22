@@ -25,7 +25,6 @@ public class ManageEmployee{
         }
     }
 
-
     public Employee findEmployeeById(int id) {
         for (Employee employee : employees) { //for each
             if (employee.getId() == id) {
@@ -46,6 +45,15 @@ public class ManageEmployee{
 
     public ArrayList<Employee> getAllEmployees() {
         return employees;
+    }
+
+    public String findEmployeeDetails(int id) {
+        for (Employee employee : employees) {
+            if (employee.getId() == id) {
+                return employee.getDetails(); // Return the detail String from Employee
+            }
+        }
+        return null; // Return null if no Employee is found
     }
 
 
