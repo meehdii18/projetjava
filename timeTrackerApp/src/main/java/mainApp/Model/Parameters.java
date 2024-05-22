@@ -1,6 +1,8 @@
-package timeTrackerApp.Model;
+package mainApp.Model;
 
-public class Parameters implements Serializable{
+import java.io.Serializable;
+
+public class Parameters implements Serializable {
 
     private String trackerIpAdresse;
     private int trackerSocket;
