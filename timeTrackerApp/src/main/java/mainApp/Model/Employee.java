@@ -47,4 +47,8 @@ public class Employee {
         this.extra_hour = extra_hour;
     }
 
+    public String getDetails() {
+        return "ID: " + id + "\nName: " + name + "\nDepartment: " + department + "\nSalary: $" + salary;
+    }
+
 }
