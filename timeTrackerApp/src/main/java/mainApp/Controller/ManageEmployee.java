@@ -1,7 +1,6 @@
-package timeTrackerApp.Controller;
-import timeTrackerApp.Model.Employee;
-
-package javaProject.Controller;
+package mainApp.Controller;
+import mainApp.Model.Employee;
+import java.util.ArrayList;
 
 
 public class ManageEmployee{
@@ -50,7 +49,4 @@ public class ManageEmployee{
     }
 
 
-    public Employee getEmployee(int id){
-        return employees.get(id);
-    }
 }
