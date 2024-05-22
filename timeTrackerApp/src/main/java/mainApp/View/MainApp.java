@@ -4,6 +4,8 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -14,7 +16,7 @@ public class MainApp extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("/mainApp/View/MainApp.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1080, 480);
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/mainApp/View/styles.css")).toExternalForm());
-        stage.setTitle("Second Application");
+        stage.setTitle("Main Application");
         stage.setScene(scene);
         stage.show();
     }

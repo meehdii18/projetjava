@@ -31,16 +31,10 @@ public class MainScreenController {
     private TextField inputEmployeeId;
 
     @FXML
-    private Button startButton;
+    private Button clockButton;
 
     @FXML
-    private ImageView startIconView;
-
-    @FXML
-    private Button stopButton;
-
-    @FXML
-    private ImageView stopIconView;
+    private ImageView clockIconView;
 
     @FXML
     private Button validateIDButton;
@@ -77,14 +71,11 @@ public class MainScreenController {
         timeline.play();
 
         // Créations des icônes pour les deux bouttons
-        Image startIcon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/timeTrackerApp/View/MainScreen/icons8-enter.png")));
-        startIconView.setImage(startIcon);
-        Image stopIcon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/timeTrackerApp/View/MainScreen/icons8-exit.png")));
-        stopIconView.setImage(stopIcon);
+        Image startIcon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/timeTrackerApp/View/MainScreen/clock.png")));
+        clockIconView.setImage(startIcon);
 
         // Désactiver le bouton "Stop Working!" par défaut
-        startButton.setDisable(true);
-        stopButton.setDisable(true);
+        clockButton.setDisable(true);
 
         // Placeholder de l'entrée
         inputEmployeeId.setPromptText("Employee ID...");
@@ -95,27 +86,15 @@ public class MainScreenController {
     }
 
     @FXML
-    protected void onStartButtonClick() {
+    protected void onClockButtonClick() {
         String employeeId = inputEmployeeId.getText();
         statusText.setText("Hello " + employeeId + "!");
-        // Activer le bouton "Stop Working!" et désactiver le bouton "Start Working!" après avoir cliqué sur "Start Working!"
-        startButton.setDisable(true);
-        stopButton.setDisable(false);
-    }
-
-    @FXML
-    protected void onStopButtonClick() {
-        String employeeId = inputEmployeeId.getText();
-        statusText.setText("Bye "+ employeeId + "!");
-        // Activer le bouton "Start Working!" et désactiver le bouton "Stop Working!" après avoir cliqué sur "Stop Working!"
-        startButton.setDisable(false);
-        stopButton.setDisable(true);
     }
 
     @FXML
     protected void onValidateIdButtonClick(){
         // Activer le bouton "Start Working!" lorsqu'on a valider l'ID employé
-        startButton.setDisable(false);
+        clockButton.setDisable(false);
     }
 
     @FXML
