@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import mainApp.Model.Clocking;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -42,6 +43,8 @@ public class MainScreenController {
     @FXML
     private Button settingsButton;
 
+    private LocalTime approxTime;
+
     private LocalTime roundToNearestQuarterHour(LocalTime time) {
         int minute = time.getMinute();
         int second = time.getSecond();
@@ -63,8 +66,10 @@ public class MainScreenController {
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
         DateTimeFormatter approxTimeFormatter = DateTimeFormatter.ofPattern("HH:mm");
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0), event -> {
-            LocalTime now = LocalTime.now();
-            LocalTime approxTime = roundToNearestQuarterHour(now);
+            LocalTime now = LocalTime.now().withNano(0);
+            if (roundToNearestQuarterHour(now) != now) {
+                approxTime = roundToNearestQuarterHour(now);
+            }
             timeText.setText(now.format(timeFormatter) + " (approx " + approxTime.format(approxTimeFormatter) + ")");
         }), new KeyFrame(Duration.seconds(1)));
         timeline.setCycleCount(Timeline.INDEFINITE);
@@ -89,6 +94,9 @@ public class MainScreenController {
     protected void onClockButtonClick() {
         String employeeId = inputEmployeeId.getText();
         statusText.setText("Hello " + employeeId + "!");
+        Clocking clocking = new Clocking(employeeId, LocalDate.now(), approxTime);
+        System.out.println(clocking);
+        // TODO : Utiliser clocking en le stockant localement (temporairement) puis en l'envoyant via réseau à la mainApp
     }
 
     @FXML

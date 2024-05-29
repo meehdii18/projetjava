@@ -1,5 +1,7 @@
 package mainApp.Controller;
 import mainApp.Model.Employee;
+
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 
@@ -34,7 +36,7 @@ public class ManageEmployee{
         return null;
     }
 
-    public void updateEmployee(int id, int start_hour, int end_hour, int extra_hour) {
+    public void updateEmployee(int id, LocalTime start_hour, LocalTime end_hour, LocalTime extra_hour) {
         Employee employee = findEmployeeById(id);
         if (employee != null) {
             employee.setStart_hour(start_hour);
