@@ -1,6 +1,8 @@
 package mainApp.Model;
 
-public class Employee {
+import java.io.Serializable;
+
+public class Employee implements Serializable {
 
     private int id;
     private int start_hour;
@@ -48,6 +50,9 @@ public class Employee {
     }
 
     public String getDetails() {
+        String name = new String();
+        String department = new String();
+        String salary = new String();
         return "ID: " + id + "\nName: " + name + "\nDepartment: " + department + "\nSalary: $" + salary;
     }
 

@@ -1,6 +1,8 @@
 package mainApp.Model;
 
-public class Company {
+import java.io.Serializable;
+
+public class Company implements Serializable {
     private int companyId;
     private String companyName;
     public Department[] department;
