@@ -1,8 +1,9 @@
 package mainApp.Model;
 
+import java.io.Serializable;
 import java.time.LocalTime;
 
-public class Employee {
+public class Employee implements Serializable {
 
     private int id;
 
