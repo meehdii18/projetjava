@@ -1,23 +1,15 @@
 package mainApp.Model;
 
-import java.io.Serializable;
+import java.util.Hashtable;
 
-public class Department implements Serializable {
-    private int departmentId;
+public class Department {
+
     private String departmentName;
-    public Company company;
 
-    public Department(String name, int id){
-        departmentId = 0;
+    private final Hashtable<String, Employee> employeesList = new Hashtable<>();
+
+    public Department(String name){
         departmentName = name;
-    }
-
-    public int getDepartmentId(){
-        return departmentId;
-    }
-
-    public void setDepartmentId(int newId){
-        this.departmentId = newId;
     }
 
     public String getDepartmentName(){
@@ -26,5 +18,13 @@ public class Department implements Serializable {
 
     public void setDepartmentName(String newName){
         this.departmentName  = newName;
+    }
+
+    public Employee getEmployee(String idEmploye) {
+        return employeesList.get(idEmploye);
+    }
+
+    public void addEmployee(Employee employee) {
+        this.employeesList.put(employee.getId(), employee);
     }
 }

@@ -5,7 +5,7 @@ import java.time.LocalTime;
 
 public class Employee implements Serializable {
 
-    private int id;
+    private String id;
 
     private String name;
     private String departmentName;
@@ -16,7 +16,7 @@ public class Employee implements Serializable {
     private LocalTime extra_hour;
 
     // Constructeur
-    public Employee(int id, String name, String departmentName, float salary, LocalTime start_hour, LocalTime end_hour, LocalTime extra_hour) {
+    public Employee(String id, String name, String departmentName, float salary, LocalTime start_hour, LocalTime end_hour, LocalTime extra_hour) {
         this.id = id;
         this.name = name;
         this.departmentName = departmentName;
@@ -26,11 +26,11 @@ public class Employee implements Serializable {
         this.extra_hour = extra_hour;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
