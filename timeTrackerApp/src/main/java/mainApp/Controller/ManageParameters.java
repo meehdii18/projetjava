@@ -1,8 +1,7 @@
 package mainApp.Controller;
 import mainApp.Model.Parameters;
 
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 
 
 public class ManageParameters{
@@ -27,19 +26,19 @@ public class ManageParameters{
 
     // On sérialise les paramètres et les écrit dans le fichier
     private void saveParameters() {
-        /*
+
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILE_NAME))) {
             oos.writeObject(parameters);  // Écrit l'objet Parameters dans le fichier
         } catch (IOException e) {
             e.printStackTrace();
         }
-        TODO : A envoyer sur github SANS ERREUR
-         */
+
+
     }
 
     // Désérialisation des paramètres à partir du fichier
     private Parameters loadParameters() {
-        /*
+
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(FILE_NAME))) {
             return (Parameters) ois.readObject();  // Lit l'objet Parameters depuis le fichier
         } catch (FileNotFoundException exeption) {
@@ -49,8 +48,7 @@ public class ManageParameters{
             exception.printStackTrace();
             return null;
         }
-        TODO : A envoyer sur github SANS ERREUR
-         */
-        return null; // TODO : a supprimer quand code au dessus fonctionnel
+
+
     }
 }
