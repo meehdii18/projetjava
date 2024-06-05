@@ -19,7 +19,7 @@ public class ManageEmployee{
         employees.add(employee);
     }
 
-    public void removeEmployee(int id) {
+    public void removeEmployee(String id) {
         for (int i = 0; i < employees.size(); i++) {
             if (employees.get(i).getId() == id) {
                 employees.remove(i);
@@ -27,7 +27,7 @@ public class ManageEmployee{
         }
     }
 
-    public Employee findEmployeeById(int id) {
+    public Employee findEmployeeById(String id) {
         for (Employee employee : employees) { //for each
             if (employee.getId() == id) {
                 return employee;
@@ -36,7 +36,7 @@ public class ManageEmployee{
         return null;
     }
 
-    public void updateEmployee(int id, LocalTime start_hour, LocalTime end_hour, LocalTime extra_hour) {
+    public void updateEmployee(String id, LocalTime start_hour, LocalTime end_hour, LocalTime extra_hour) {
         Employee employee = findEmployeeById(id);
         if (employee != null) {
             employee.setStart_hour(start_hour);
@@ -49,7 +49,7 @@ public class ManageEmployee{
         return employees;
     }
 
-    public String findEmployeeDetails(int id) {
+    public String findEmployeeDetails(String id) {
         for (Employee employee : employees) {
             if (employee.getId() == id) {
                 return employee.getDetails(); // Return the detail String from Employee
