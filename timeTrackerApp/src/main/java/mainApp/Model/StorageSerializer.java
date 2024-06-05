@@ -29,10 +29,10 @@ public class StorageSerializer {
         }
         return employee;
     }
-/*
+
 
     public static void main(String[] args) {
-        Employee emp = new Employee(1, "John Doe", "IT", 50000.0f, LocalTime.of(9, 0), LocalTime.of(17, 0), LocalTime.of(18, 0));
+        Employee emp = new Employee("1", "Sara", "IT", 50000.0f, LocalTime.of(9, 0), LocalTime.of(17, 0), LocalTime.of(18, 0));
         String fileName = "employee.ser";
 
         // Sérialiser l'objet
@@ -46,5 +46,5 @@ public class StorageSerializer {
         }
     }
 
-*/
+
 }
