@@ -16,6 +16,7 @@ public class MainScreen extends Application {
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/timeTrackerApp/View/MainScreen/styles.css")).toExternalForm());
         stage.setTitle("Time Tracker App");
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
     }
 
