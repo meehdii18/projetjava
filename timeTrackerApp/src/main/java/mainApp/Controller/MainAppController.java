@@ -69,19 +69,17 @@ public class MainAppController {
     public void initialize() {
         tabPane.getSelectionModel().select(0); // Sélectionne le premier onglet
 
-        // Lien entre l'action d'appuyer sur le bouton et la fonction associées
-        addButton.setOnAction(event -> addEmployee());
-        deleteButton.setOnAction(event -> deleteEmployee());
-
         // Setup initial data and bindings for the TableView and its columns if needed
         // TODO : initialiser les données dans les deux TableView
     }
 
-    private void addEmployee() {
+    @FXML
+    protected void addEmployee() {
         // TODO : Code pour ajouter un employé
     }
 
-    private void deleteEmployee() {
+    @FXML
+    protected void deleteEmployee() {
         // TODO : Code pour supprimer un employé
     }
 

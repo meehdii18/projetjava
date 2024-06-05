@@ -16,39 +16,42 @@
 <TabPane fx:id="tabPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" side="LEFT" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mainApp.Controller.MainAppController">
     <Tab text="Employees">
         <AnchorPane prefHeight="200.0" prefWidth="200.0">
-         <children>
             <AnchorPane prefHeight="400.0" prefWidth="600.0">
-               <children>
-                  <VBox alignment="CENTER" prefHeight="800.0" prefWidth="1251.0" spacing="20">
-                     <children>
-                        <Label contentDisplay="CENTER" text="EMPLOYEES" textAlignment="CENTER">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                        </Label>
-                        <HBox alignment="TOP_RIGHT" prefHeight="26.0" prefWidth="1381.0" spacing="10">
-                           <children>
-                              <TextField alignment="TOP_RIGHT" prefHeight="26.0" prefWidth="228.0" promptText="Search employees..." />
-                              <Button style="-fx-background-color: #2c3e50; -fx-text-fill: white;" text="ADD" />
-                              <Button style="-fx-background-color: #2c3e50; -fx-text-fill: white;" text="REMOVE">
-                                 <HBox.margin>
-                                    <Insets right="20.0" />
-                                 </HBox.margin></Button>
-                           </children>
-                        </HBox>
-                        <TableView fx:id="employeesTable" prefHeight="460.0" prefWidth="1251.0">
-                           <columns>
-                              <TableColumn fx:id="nameColumnEmployees" prefWidth="203.10329818725586" text="Name" />
-                              <TableColumn fx:id="idColumnEmployees" minWidth="0.0" prefWidth="307.48680114746094" text="ID" />
-                              <TableColumn fx:id="departementEmployees" minWidth="0.0" prefWidth="369.5132141113281" text="Department" />
-                              <TableColumn fx:id="planningEmployees" prefWidth="369.5329895019531" text="Planning" />
-                           </columns>
-                        </TableView>
-                     </children>
-                  </VBox>
-               </children>
+                <VBox alignment="CENTER" prefHeight="800.0" prefWidth="1251.0" spacing="20">
+                    <Label contentDisplay="CENTER" text="EMPLOYEES" textAlignment="CENTER">
+                        <font>
+                            <Font size="24.0"/>
+                        </font>
+                    </Label>
+                    <HBox alignment="TOP_RIGHT" prefHeight="26.0" prefWidth="1381.0" spacing="10">
+                        <TextField alignment="TOP_RIGHT" prefHeight="26.0" prefWidth="228.0"
+                                   promptText="Search employees..."/>
+                        <Button fx:id="addEmployeeButton"
+                                style="-fx-background-color: #2c3e50; -fx-text-fill: white;" text="ADD"
+                                onAction="#addEmployee"/>
+                        <Button fx:id="removeEmployeeButton"
+                                style="-fx-background-color: #2c3e50; -fx-text-fill: white;" text="REMOVE"
+                                onAction="#deleteEmployee">
+                            <HBox.margin>
+                                <Insets right="20.0"/>
+                            </HBox.margin>
+                        </Button>
+                    </HBox>
+                    <TableView fx:id="employeesTable" prefHeight="460.0" prefWidth="1251.0">
+                        <columns>
+                            <TableColumn fx:id="nameColumnEmployees" prefWidth="203.10329818725586"
+                                         text="Name"/>
+                            <TableColumn fx:id="idColumnEmployees" minWidth="0.0" prefWidth="307.48680114746094"
+                                         text="ID"/>
+                            <TableColumn fx:id="departementEmployees" minWidth="0.0"
+                                         prefWidth="369.5132141113281" text="Department"/>
+                            <TableColumn fx:id="planningEmployees" prefWidth="369.5329895019531"
+                                         text="Planning"/>
+                        </columns>
+                    </TableView>
+                </VBox>
             </AnchorPane>
-         </children></AnchorPane>
+        </AnchorPane>
     </Tab>
     <Tab text="Time tracking">
         <AnchorPane prefHeight="400.0" prefWidth="600.0">
