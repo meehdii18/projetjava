@@ -102,7 +102,10 @@ public class MainScreenController {
         String employeeId = inputEmployeeId.getText();
         statusText.setText("Hello " + employeeId + "!");
         Clocking clocking = new Clocking(employeeId, LocalDate.now(), approxTime);
-        System.out.println(clocking);
+
+        app.sendClocking(clocking);
+
+        //System.out.println(clocking);
         // TODO : Utiliser clocking en le stockant localement (temporairement) puis en l'envoyant via réseau à la mainApp
     }
 

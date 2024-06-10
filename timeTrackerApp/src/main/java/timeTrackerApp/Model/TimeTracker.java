@@ -1,14 +1,20 @@
 package timeTrackerApp.Model;
 
+import common.Model.Clocking;
+
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
+
 public class TimeTracker {
 
     private String address;
 
-    private String socket;
+    private int socket;
 
     public TimeTracker() {
-        this.address = "IP address";
-        this.socket = "socket";
+        this.address = "";
+        this.socket = 0;
     }
 
     public String getAddress() {
@@ -19,11 +25,27 @@ public class TimeTracker {
         this.address = address;
     }
 
-    public String getSocket() {
+    public int getSocket() {
         return socket;
     }
 
-    public void setSocket(String socket) {
+    public void setSocket(int socket) {
         this.socket = socket;
+    }
+
+    public void sendClocking(Clocking clocking) {
+
+        try (Socket sock = new Socket(address, socket)) {
+
+            ObjectOutputStream out = new ObjectOutputStream(sock.getOutputStream());
+
+            out.writeObject(clocking);
+
+            out.flush();
+
+        } catch (IOException e) {
+            System.out.println(e + "ici");
+        }
+
     }
 }

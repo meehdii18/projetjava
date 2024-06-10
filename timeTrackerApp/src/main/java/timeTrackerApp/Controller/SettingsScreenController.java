@@ -32,7 +32,7 @@ public class SettingsScreenController {
         String port = networkPort.getText();
 
         app.setAddress(address);
-        app.setSocket(port);
+        app.setSocket(Integer.parseInt(port));
 
         System.out.println("IP: " + address);
         System.out.println("Socket: " + port);
