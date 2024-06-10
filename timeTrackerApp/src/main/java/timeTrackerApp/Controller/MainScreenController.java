@@ -1,6 +1,9 @@
 package timeTrackerApp.Controller;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -10,7 +13,9 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import mainApp.Model.Clocking;
+import common.Model.Clocking;
+import timeTrackerApp.Model.TimeTracker;
+import timeTrackerApp.View.MainScreen;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -44,6 +49,8 @@ public class MainScreenController {
     private Button settingsButton;
 
     private LocalTime approxTime;
+
+    private TimeTracker app;
 
     private LocalTime roundToNearestQuarterHour(LocalTime time) {
         int minute = time.getMinute();
@@ -108,8 +115,16 @@ public class MainScreenController {
     @FXML
     protected void onSettingsButtonClick() throws Exception {
         Stage stage = new Stage();
-        SettingsScreenController controller = new SettingsScreenController();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/timeTrackerApp/View/SettingsScreen/SettingsScreen.fxml"));
+        Parent root = fxmlLoader.load();
+        SettingsScreenController controller = fxmlLoader.getController();
+        controller.setApp(app);
         controller.setStage(stage);
-        new timeTrackerApp.View.SettingsScreen().start(stage);
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+
+    public void setApp(TimeTracker app) {
+        this.app = app;
     }
 }
