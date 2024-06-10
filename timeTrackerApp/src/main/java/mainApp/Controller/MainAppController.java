@@ -7,11 +7,9 @@ import mainApp.Model.ClockingHistory;
 import mainApp.Model.Company;
 import mainApp.Model.Employee;
 import mainApp.Model.Department;
-import mainApp.Model.StorageSerializer;
 
-import java.io.File;
 import java.time.LocalTime;
-import java.util.Locale;
+import java.util.Hashtable;
 import java.util.UUID;
 
 
@@ -91,9 +89,11 @@ public class MainAppController {
     @FXML
     private TextField inputLastName;
 
+    // TODO : Modifier le TextField en menu déroulant
     @FXML
     private TextField inputDepartment;
 
+    // TODO : Voir si on peut pas mettre un selecteur d'horloge plutot qu'un TextField
     @FXML
     private TextField inputIn;
 
@@ -103,7 +103,7 @@ public class MainAppController {
     @FXML
     private TextField inputSalary;
 
-    private Company company;
+    private static Company company;
 
 
     @FXML
@@ -112,19 +112,28 @@ public class MainAppController {
         lastNameColumnEmployees.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         idColumnEmployees.setCellValueFactory(new PropertyValueFactory<>("id"));
         departementEmployees.setCellValueFactory(new PropertyValueFactory<>("departmentName"));
-        inTimeEmployees.setCellValueFactory(new PropertyValueFactory<>("start_hour"));
-        outTimeEmployees.setCellValueFactory(new PropertyValueFactory<>("end_hour"));
+        inTimeEmployees.setCellValueFactory(new PropertyValueFactory<>("startHour"));
+        outTimeEmployees.setCellValueFactory(new PropertyValueFactory<>("endHour"));
 
-        company = Company.deserializeCompany("Polytech.ser");
 
-        // Ajoutez tous les employés de l'objet Company à la table
+        // TODO : Régler le fait que les données ne sont pas bien sauvegardées / restaurés
+
+        company = Company.deserializeCompany("timeTrackerApp/src/main/resources/data/company/Polytech.ser");
+        System.out.println(company.getCompanyName()+" company loading...");
+        System.out.println("Company object deserialized");
+        Hashtable<String,Department> departementlist =  company.getDepartmentsList();
+        System.out.println(departementlist);
+
+        // Add all employees from the Company object to the table
         for (Department department : company.getDepartmentsList().values()) {
+            System.out.println(department);
             for (Employee employee : department.getEmployeesList().values()) {
                 employeesTable.getItems().add(employee);
+                System.out.println("Ajout de :"+employee.getFirstName());
             }
         }
 
-        tabPane.getSelectionModel().select(0); // Sélectionne le premier onglet
+        tabPane.getSelectionModel().select(0); // Select the first tab
         addEmployeeButton.setOnAction(event -> addEmployee());
         removeEmployeeButton.setOnAction(event -> deleteEmployee());
     }

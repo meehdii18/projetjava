@@ -6,7 +6,6 @@ import java.util.Hashtable;
 public class Company implements Serializable {
 
     private String companyName;
-
     private final Hashtable<String, Department> departmentsList = new Hashtable<>();
 
     public Company(String name){
@@ -51,7 +50,7 @@ public class Company implements Serializable {
     public void serializeCompany() {
         try {
             File file = new File("timeTrackerApp/src/main/resources/data/company/" + companyName + ".ser");
-            file.getParentFile().mkdirs(); // Create the directory if it does not exist
+            file.getParentFile().mkdirs();
             FileOutputStream fileOut = new FileOutputStream(file);
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
             out.writeObject(this);
@@ -63,20 +62,23 @@ public class Company implements Serializable {
         }
     }
 
-    public static Company deserializeCompany(String fileName) {
+    public static Company deserializeCompany(String filename) {
         Company company = null;
-        File file = new File("timeTrackerApp/src/main/resources/data/company/" + fileName);
-        if (file.exists()) {
-            try (FileInputStream fileIn = new FileInputStream(file);
-                 ObjectInputStream in = new ObjectInputStream(fileIn)) {
-                company = (Company) in.readObject();
-                System.out.println("The Company object has been deserialized from " + fileName);
-            } catch (IOException | ClassNotFoundException e) {
-                e.printStackTrace();
+        try {
+            FileInputStream fileIn = new FileInputStream(filename);
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            company = (Company) in.readObject();
+            in.close();
+            fileIn.close();
+        } catch (IOException i) {
+            if (i instanceof FileNotFoundException) {
+                System.out.println("File not found");
+            } else {
+                i.printStackTrace();
             }
-        } else {
-            company = new Company("Polytech");
-            company.serializeCompany();
+        } catch (ClassNotFoundException c) {
+            System.out.println("Company class not found");
+            c.printStackTrace();
         }
         return company;
     }

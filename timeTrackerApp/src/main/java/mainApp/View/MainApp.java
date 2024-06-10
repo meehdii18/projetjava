@@ -5,6 +5,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import mainApp.Model.TrackerInput;
+import mainApp.Controller.MainAppController;
+import mainApp.Model.Company;
 
 import java.io.IOException;
 import java.util.Objects;
