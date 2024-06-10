@@ -7,23 +7,28 @@ public class Employee implements Serializable {
 
     private String id;
 
-    private String name;
+    private String firstName;
+    private String lastName;
     private String departmentName;
     private float salary;
 
-    private LocalTime start_hour;
-    private LocalTime end_hour;
-    private LocalTime extra_hour;
+    private LocalTime startHour;
+    private LocalTime endHour;
+    private LocalTime extraHour;
+
+    private ClockingHistory clockingHistory;
 
     // Constructeur
-    public Employee(String id, String name, String departmentName, float salary, LocalTime start_hour, LocalTime end_hour, LocalTime extra_hour) {
+    public Employee(String id, String firstName, String lastName, String departmentName, float salary, LocalTime startHour, LocalTime endHour, LocalTime extraHour,ClockingHistory clockingHistory) {
         this.id = id;
-        this.name = name;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.departmentName = departmentName;
         this.salary = salary;
-        this.start_hour = start_hour;
-        this.end_hour = end_hour;
-        this.extra_hour = extra_hour;
+        this.startHour = startHour;
+        this.endHour = endHour;
+        this.extraHour = extraHour;
+        this.clockingHistory = clockingHistory;
     }
 
     public String getId() {
@@ -34,36 +39,28 @@ public class Employee implements Serializable {
         this.id = id;
     }
 
-    public LocalTime getStart_hour() {
-        return start_hour;
+    public LocalTime getStartHour() {
+        return startHour;
     }
 
-    public void setStart_hour(LocalTime start_hour) {
-        this.start_hour = start_hour;
+    public void setStartHour(LocalTime startHour) {
+        this.startHour = startHour;
     }
 
-    public LocalTime getEnd_hour() {
-        return end_hour;
+    public LocalTime getEndHour() {
+        return endHour;
     }
 
-    public void setEnd_hour(LocalTime end_hour) {
-        this.end_hour = end_hour;
+    public void setEndHour(LocalTime endHour) {
+        this.endHour = endHour;
     }
 
-    public LocalTime getExtra_hour() {
-        return extra_hour;
+    public LocalTime getExtraHour() {
+        return extraHour;
     }
 
-    public void setExtra_hour(LocalTime extra_hour) {
-        this.extra_hour = extra_hour;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setExtraHour(LocalTime extraHour) {
+        this.extraHour = extraHour;
     }
 
     public String getDepartmentName() {
@@ -83,6 +80,30 @@ public class Employee implements Serializable {
     }
 
     public String getDetails() {
-        return "ID: " + id + "\nName: " + name + "\nDepartment: " + departmentName + "\nSalary: $" + salary;
+        return "ID: " + id + "\nFirst Name: " + firstName + "Last Name" + lastName + "\nDepartment: " + departmentName + "\nSalary: $" + salary;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public ClockingHistory getClockingHistory() {
+        return clockingHistory;
+    }
+
+    public void setClockingHistory(ClockingHistory clockingHistory) {
+        this.clockingHistory = clockingHistory;
     }
 }

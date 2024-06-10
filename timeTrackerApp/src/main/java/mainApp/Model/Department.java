@@ -1,8 +1,9 @@
 package mainApp.Model;
 
+import java.io.Serializable;
 import java.util.Hashtable;
 
-public class Department {
+public class Department implements Serializable {
 
     private String departmentName;
 
@@ -24,7 +25,7 @@ public class Department {
         return employeesList.get(idEmploye);
     }
 
-    public void addEmployee(Employee employee) {
-        this.employeesList.put(employee.getId(), employee);
+    public Hashtable<String, Employee> getEmployeesList() {
+        return employeesList;
     }
 }

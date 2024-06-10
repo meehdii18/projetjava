@@ -25,7 +25,6 @@
                     </Label>
                     <HBox alignment="TOP_RIGHT" prefHeight="26.0" prefWidth="1381.0" spacing="10">
                         <TextField alignment="TOP_RIGHT" prefHeight="26.0" prefWidth="228.0" promptText="Search employees..." />
-                        <Button fx:id="addEmployeeButton" onAction="#addEmployee" style="-fx-background-color: #2c3e50; -fx-text-fill: white;" text="ADD" />
                         <Button fx:id="removeEmployeeButton" onAction="#deleteEmployee" style="-fx-background-color: #2c3e50; -fx-text-fill: white;" text="REMOVE">
                             <HBox.margin>
                                 <Insets right="20.0" />
@@ -48,6 +47,45 @@
                      <Insets left="50.0" right="50.0" />
                   </VBox.margin>
                     </TableView>
+               <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
+                  <children>
+                     <TextField fx:id="inputFirstName" promptText="First Name">
+                        <HBox.margin>
+                           <Insets right="10.0" top="30.0" />
+                        </HBox.margin>
+                     </TextField>
+                     <TextField fx:id="inputLastName" promptText="Last Name">
+                        <HBox.margin>
+                           <Insets right="10.0" top="30.0" />
+                        </HBox.margin>
+                     </TextField>
+                     <TextField fx:id="inputDepartment" promptText="Department">
+                        <HBox.margin>
+                           <Insets right="10.0" top="30.0" />
+                        </HBox.margin>
+                     </TextField>
+                     <TextField fx:id="inputIn" promptText="Time in HH::MM">
+                        <HBox.margin>
+                           <Insets right="10.0" top="30.0" />
+                        </HBox.margin>
+                     </TextField>
+                     <TextField fx:id="inputOut" promptText="Time out HH::MM">
+                        <HBox.margin>
+                           <Insets right="10.0" top="30.0" />
+                        </HBox.margin>
+                     </TextField>
+                     <TextField fx:id="inputSalary" promptText="Salary">
+                        <HBox.margin>
+                           <Insets right="10.0" top="30.0" />
+                        </HBox.margin>
+                     </TextField>
+                           <Button fx:id="addEmployeeButton" onAction="#addEmployee" style="-fx-background-color: #2c3e50; -fx-text-fill: white;" text="ADD">
+                        <HBox.margin>
+                           <Insets top="30.0" />
+                        </HBox.margin>
+                     </Button>
+                  </children>
+               </HBox>
                 </VBox>
             </AnchorPane>
         </AnchorPane>

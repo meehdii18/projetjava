@@ -11,6 +11,10 @@ public class ClockingHistory implements Serializable {
 
     private final Hashtable<LocalDate, LocalTime> clock_out = new Hashtable<>();
 
+    // Constructeur par défaut
+    public ClockingHistory() {
+    }
+
     public void addClockIn(LocalDate date, LocalTime hour) {
         clock_in.put(date, hour);
     }
@@ -26,5 +30,4 @@ public class ClockingHistory implements Serializable {
     public LocalTime queryClockOut(LocalDate date) {
         return clock_out.get(date);
     }
-
 }

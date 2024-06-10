@@ -39,9 +39,9 @@ public class ManageEmployee{
     public void updateEmployee(String id, LocalTime start_hour, LocalTime end_hour, LocalTime extra_hour) {
         Employee employee = findEmployeeById(id);
         if (employee != null) {
-            employee.setStart_hour(start_hour);
-            employee.setEnd_hour(end_hour);
-            employee.setExtra_hour(extra_hour);
+            employee.setStartHour(start_hour);
+            employee.setEndHour(end_hour);
+            employee.setExtraHour(extra_hour);
         }
     }
 
