@@ -28,7 +28,10 @@ public class MainAppController {
     private TableView<?> employeesTable;
 
     @FXML
-    private TableColumn<?, ?> nameColumnEmployees;
+    private TableColumn<?, ?> firstNameColumnEmployees;
+
+    @FXML
+    private TableColumn<?, ?> lastNameColumnEmployees;
 
     @FXML
     private TableColumn<?,?> idColumnEmployees;
@@ -38,6 +41,12 @@ public class MainAppController {
 
     @FXML
     private TableColumn<?,?> planningEmployees;
+
+    @FXML
+    private TableColumn<?,?> inTimeEmlployees;
+
+    @FXML
+    private TableColumn<?,?> outTimeEmlployees;
 
     @FXML
     private Button addButton;
@@ -53,34 +62,33 @@ public class MainAppController {
     private TableView<?> timeTrakingTable;
 
     @FXML
-    private TableColumn<?, ?> nameColumnTT;
+    private TableColumn<?, ?> lastNameColumnTT;
 
     @FXML
     private TableColumn<?, ?> idColumnTT;
 
     @FXML
-    private TableColumn<?, ?> timeInColumnTT;
+    private TableColumn<?, ?> firstNameColumnTT;
 
     @FXML
-    private TableColumn<?, ?> timeOutColumnTT;
+    private TableColumn<?, ?> timeColumnTT;
 
 
     @FXML
     public void initialize() {
         tabPane.getSelectionModel().select(0); // Sélectionne le premier onglet
 
-        // Setup initial data and bindings for the TableView and its columns if needed
-        // TODO : initialiser les données dans les deux TableView
+        // TODO : initialiser les données dans les deux TableView à partir des données sérialisées
     }
 
     @FXML
     protected void addEmployee() {
-        // TODO : Code pour ajouter un employé
+        // TODO : Code pour ajouter un employé, il faut l'enregistrer dans les données sérialisées et rafraichir la vue
     }
 
     @FXML
     protected void deleteEmployee() {
-        // TODO : Code pour supprimer un employé
+        // TODO : Code pour supprimer un employé, il faut le supprimer dans les données sérialisées et rafraichir la vue
     }
 
 }

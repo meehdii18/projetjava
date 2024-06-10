@@ -20,34 +20,33 @@
                 <VBox alignment="CENTER" prefHeight="800.0" prefWidth="1251.0" spacing="20">
                     <Label contentDisplay="CENTER" text="EMPLOYEES" textAlignment="CENTER">
                         <font>
-                            <Font size="24.0"/>
+                            <Font size="24.0" />
                         </font>
                     </Label>
                     <HBox alignment="TOP_RIGHT" prefHeight="26.0" prefWidth="1381.0" spacing="10">
-                        <TextField alignment="TOP_RIGHT" prefHeight="26.0" prefWidth="228.0"
-                                   promptText="Search employees..."/>
-                        <Button fx:id="addEmployeeButton"
-                                style="-fx-background-color: #2c3e50; -fx-text-fill: white;" text="ADD"
-                                onAction="#addEmployee"/>
-                        <Button fx:id="removeEmployeeButton"
-                                style="-fx-background-color: #2c3e50; -fx-text-fill: white;" text="REMOVE"
-                                onAction="#deleteEmployee">
+                        <TextField alignment="TOP_RIGHT" prefHeight="26.0" prefWidth="228.0" promptText="Search employees..." />
+                        <Button fx:id="addEmployeeButton" onAction="#addEmployee" style="-fx-background-color: #2c3e50; -fx-text-fill: white;" text="ADD" />
+                        <Button fx:id="removeEmployeeButton" onAction="#deleteEmployee" style="-fx-background-color: #2c3e50; -fx-text-fill: white;" text="REMOVE">
                             <HBox.margin>
-                                <Insets right="20.0"/>
+                                <Insets right="20.0" />
                             </HBox.margin>
                         </Button>
                     </HBox>
-                    <TableView fx:id="employeesTable" prefHeight="460.0" prefWidth="1251.0">
+                    <TableView fx:id="employeesTable" prefHeight="460.0" prefWidth="731.0">
                         <columns>
-                            <TableColumn fx:id="nameColumnEmployees" prefWidth="203.10329818725586"
-                                         text="Name"/>
-                            <TableColumn fx:id="idColumnEmployees" minWidth="0.0" prefWidth="307.48680114746094"
-                                         text="ID"/>
-                            <TableColumn fx:id="departementEmployees" minWidth="0.0"
-                                         prefWidth="369.5132141113281" text="Department"/>
-                            <TableColumn fx:id="planningEmployees" prefWidth="369.5329895019531"
-                                         text="Planning"/>
+                            <TableColumn fx:id="idColumnEmployees" minWidth="0.0" prefWidth="125.94700622558594" text="ID" />
+                            <TableColumn fx:id="firstNameColumnEmployees" prefWidth="295.6048126220703" text="First Name" />
+                            <TableColumn fx:id="lastNameColumnEmployees" prefWidth="274.4724426269531" text="Last Name" />
+                            <TableColumn fx:id="departementEmployees" minWidth="0.0" prefWidth="217.23883056640625" text="Department" />
+                            <TableColumn fx:id="planningEmployees" prefWidth="235.99993896484375" text="Planning">
+                        <columns>
+                           <TableColumn fx:id="inTimeEmployees" prefWidth="122.5081787109375" text="IN" />
+                           <TableColumn fx:id="outTimeEmployees" prefWidth="113.9918212890625" text="OUT" />
+                        </columns></TableColumn>
                         </columns>
+                  <VBox.margin>
+                     <Insets left="50.0" right="50.0" />
+                  </VBox.margin>
                     </TableView>
                 </VBox>
             </AnchorPane>
@@ -63,11 +62,14 @@
                 </Label>
                 <TableView fx:id="timeTrakingTable" prefHeight="460.0" prefWidth="1251.0">
                     <columns>
-                        <TableColumn fx:id="nameColumnTT" prefWidth="203.10329818725586" text="Name" />
-                        <TableColumn fx:id="idColumnTT" minWidth="0.0" prefWidth="307.48680114746094" text="ID" />
-                        <TableColumn fx:id="timeInColumnTT" minWidth="0.0" prefWidth="369.5132141113281" text="Time IN" />
-                        <TableColumn fx:id="timeOutColumnTT" prefWidth="369.5329895019531" text="Time OUT" />
+                        <TableColumn fx:id="idColumnTT" prefWidth="145.33250427246094" text="ID" />
+                        <TableColumn fx:id="firstNameColumnTT" minWidth="0.0" prefWidth="365.66746520996094" text="First Name" />
+                        <TableColumn fx:id="lastNameColumnTT" minWidth="0.0" prefWidth="195.49761962890625" text="Last Name" />
+                        <TableColumn fx:id="timeColumnTT" prefWidth="443.49993896484375" text="Time" />
                     </columns>
+               <VBox.margin>
+                  <Insets left="50.0" right="50.0" />
+               </VBox.margin>
                 </TableView>
                 <HBox alignment="CENTER" spacing="10">
                     <Button style="-fx-background-color: #2c3e50; -fx-text-fill: white;" text="Today" />
