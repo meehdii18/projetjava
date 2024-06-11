@@ -1,6 +1,7 @@
 package mainApp.Controller;
 
 import javafx.fxml.FXML;
+import javafx.scene.layout.VBox;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import mainApp.Model.ClockingHistory;
@@ -45,9 +46,6 @@ public class MainAppController {
     private TableColumn<Employee, String> lastNameColumnEmployees;
 
     @FXML
-    private TableColumn<Employee,String> idColumnEmployees;
-
-    @FXML
     private TableColumn<Employee, String> departementEmployees;
 
     @FXML
@@ -55,12 +53,6 @@ public class MainAppController {
 
     @FXML
     private TableColumn<Employee, LocalTime> outTimeEmployees;
-
-    @FXML
-    private Button addButton;
-
-    @FXML
-    private Button deleteButton;
 
 
 
@@ -102,6 +94,12 @@ public class MainAppController {
     @FXML
     private TextField inputSalary;
 
+    // Onglet infos détaillées
+    @FXML
+    private Tab employeeDetailsTab;
+
+    private Employee selectedEmployee;
+
     private static Company company;
 
 
@@ -109,7 +107,6 @@ public class MainAppController {
     public void initialize() {
         firstNameColumnEmployees.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         lastNameColumnEmployees.setCellValueFactory(new PropertyValueFactory<>("lastName"));
-        idColumnEmployees.setCellValueFactory(new PropertyValueFactory<>("id"));
         departementEmployees.setCellValueFactory(new PropertyValueFactory<>("departmentName"));
         inTimeEmployees.setCellValueFactory(new PropertyValueFactory<>("startHour"));
         outTimeEmployees.setCellValueFactory(new PropertyValueFactory<>("endHour"));
@@ -118,6 +115,12 @@ public class MainAppController {
         // TODO : Régler le fait que les données ne sont pas bien sauvegardées / restaurés
 
         company = Company.deserializeCompany("timeTrackerApp/src/main/resources/data/company/Polytech.ser");
+        if (company == null) {
+            company = new Company("Polytech");
+        }
+        company.initializeDefaultDepartments();
+        company.serializeCompany();
+
         for (String departmentName : company.getDepartmentsList().keySet()) {
             inputDepartment.getItems().add(departmentName);
         }
@@ -126,7 +129,7 @@ public class MainAppController {
         Hashtable<String,Department> departementlist =  company.getDepartmentsList();
         System.out.println(departementlist);
 
-        // Add all employees from the Company object to the table
+        // Ajout de tout les employés dans la table
         for (Department department : company.getDepartmentsList().values()) {
             System.out.println(department);
             for (Employee employee : department.getEmployeesList().values()) {
@@ -134,6 +137,29 @@ public class MainAppController {
                 System.out.println("Ajout de :"+employee.getFirstName());
             }
         }
+
+
+        employeesTable.setRowFactory(tv -> {
+            TableRow<Employee> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (!row.isEmpty())) {
+                    Employee rowData = row.getItem();
+                    showEmployeeDetails(rowData);
+                }
+            });
+            return row;
+        });
+
+
+        tabPane.getSelectionModel().selectedItemProperty().addListener((obs, oldTab, newTab) -> {
+            if (newTab == employeeDetailsTab && selectedEmployee == null) {
+                // Si l'utilisateur tente de sélectionner l'onglet des détails de l'employé sans avoir sélectionné un employé,
+                // annulez le changement de sélection
+                tabPane.getSelectionModel().select(oldTab);
+            }
+        });
+
+        tabPane.getTabs().remove(employeeDetailsTab);
 
         tabPane.getSelectionModel().select(0); // Select the first tab
         addEmployeeButton.setOnAction(event -> addEmployee());
@@ -185,5 +211,23 @@ public class MainAppController {
             // Aucun employé n'est sélectionné
             System.out.println("Aucun employé sélectionné.");
         }
+    }
+
+    private void showEmployeeDetails(Employee employee) {
+        // Mettez à jour l'employé sélectionné
+        this.selectedEmployee = employee;
+
+        // Activez l'onglet
+        employeeDetailsTab.setDisable(false);
+
+        // Ajoutez l'onglet au TabPane
+        tabPane.getTabs().add(employeeDetailsTab);
+
+        // Sélectionnez l'onglet
+        tabPane.getSelectionModel().select(employeeDetailsTab);
+
+
+        // Désactivez l'onglet
+        employeeDetailsTab.setDisable(true);
     }
 }

@@ -82,4 +82,14 @@ public class Company implements Serializable {
         }
         return company;
     }
+
+    public void initializeDefaultDepartments() {
+        String[] defaultDepartments = {"Human Ressources", "Production", "Information Technology", "Executive"};
+
+        for (String departmentName : defaultDepartments) {
+            if (getDepartment(departmentName) == null) {
+                addDepartment(departmentName);
+            }
+        }
+    }
 }

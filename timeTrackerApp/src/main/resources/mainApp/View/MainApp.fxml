@@ -34,14 +34,13 @@
                     </HBox>
                     <TableView fx:id="employeesTable" prefHeight="460.0" prefWidth="731.0">
                         <columns>
-                            <TableColumn fx:id="idColumnEmployees" minWidth="0.0" prefWidth="125.94700622558594" text="ID" />
                             <TableColumn fx:id="firstNameColumnEmployees" prefWidth="295.6048126220703" text="First Name" />
                             <TableColumn fx:id="lastNameColumnEmployees" prefWidth="274.4724426269531" text="Last Name" />
                             <TableColumn fx:id="departementEmployees" minWidth="0.0" prefWidth="217.23883056640625" text="Department" />
-                            <TableColumn fx:id="planningEmployees" prefWidth="235.99993896484375" text="Planning">
+                            <TableColumn fx:id="planningEmployees" prefWidth="362.0" text="Planning">
                         <columns>
-                           <TableColumn fx:id="inTimeEmployees" prefWidth="122.5081787109375" text="IN" />
-                           <TableColumn fx:id="outTimeEmployees" prefWidth="113.9918212890625" text="OUT" />
+                           <TableColumn fx:id="inTimeEmployees" prefWidth="184.0" text="IN" />
+                           <TableColumn fx:id="outTimeEmployees" prefWidth="178.0" text="OUT" />
                         </columns></TableColumn>
                         </columns>
                   <VBox.margin>
@@ -151,5 +150,10 @@
                  </HBox>
              </VBox>
         </AnchorPane>
+    </Tab>
+    <Tab fx:id="employeeDetailsTab" text="Employee Details">
+        <VBox alignment="CENTER" prefHeight="800.0" prefWidth="1251.0" spacing="20">
+            <!-- Ajoutez ici les éléments pour afficher et modifier les informations de l'employé -->
+        </VBox>
     </Tab>
 </TabPane>
