@@ -89,9 +89,8 @@ public class MainAppController {
     @FXML
     private TextField inputLastName;
 
-    // TODO : Modifier le TextField en menu déroulant
     @FXML
-    private TextField inputDepartment;
+    private ComboBox inputDepartment;
 
     // TODO : Voir si on peut pas mettre un selecteur d'horloge plutot qu'un TextField
     @FXML
@@ -119,6 +118,9 @@ public class MainAppController {
         // TODO : Régler le fait que les données ne sont pas bien sauvegardées / restaurés
 
         company = Company.deserializeCompany("timeTrackerApp/src/main/resources/data/company/Polytech.ser");
+        for (String departmentName : company.getDepartmentsList().keySet()) {
+            inputDepartment.getItems().add(departmentName);
+        }
         System.out.println(company.getCompanyName()+" company loading...");
         System.out.println("Company object deserialized");
         Hashtable<String,Department> departementlist =  company.getDepartmentsList();
@@ -145,7 +147,7 @@ public class MainAppController {
         String id = UUID.randomUUID().toString(); // Générer un ID unique pour chaque employé
         String firstName = inputFirstName.getText();
         String lastName = inputLastName.getText();
-        String departmentName = inputDepartment.getText();
+        String departmentName = (String) inputDepartment.getValue();
         LocalTime start_hour = LocalTime.parse(inputIn.getText());
         LocalTime end_hour = LocalTime.parse(inputOut.getText());
         LocalTime extra_hour = LocalTime.of(0, 0); // Vous pouvez modifier cela en fonction de vos besoins

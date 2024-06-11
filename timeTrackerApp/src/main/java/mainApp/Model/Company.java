@@ -39,12 +39,12 @@ public class Company implements Serializable {
 
     public void addEmployee(String departmentName, Employee employee) {
         Department department = getDepartment(departmentName);
-        if (department != null) {
-            department.getEmployeesList().put(employee.getId(), employee);
-            serializeCompany();
-        } else {
-            System.out.println("The department named '" + departmentName + "' does not exist.");
+        if (department == null) {
+            department = new Department(departmentName);
+            departmentsList.put(departmentName, department);
         }
+        department.getEmployeesList().put(employee.getId(), employee);
+        serializeCompany();
     }
 
     public void serializeCompany() {

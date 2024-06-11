@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -59,11 +60,11 @@
                            <Insets right="10.0" top="30.0" />
                         </HBox.margin>
                      </TextField>
-                     <TextField fx:id="inputDepartment" promptText="Department">
+                     <ComboBox fx:id="inputDepartment" prefWidth="150.0" promptText="Departement">
                         <HBox.margin>
                            <Insets right="10.0" top="30.0" />
                         </HBox.margin>
-                     </TextField>
+                     </ComboBox>
                      <TextField fx:id="inputIn" promptText="Time in HH::MM">
                         <HBox.margin>
                            <Insets right="10.0" top="30.0" />
