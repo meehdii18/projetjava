@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import mainApp.Controller.ManageTrackerInput;
 import mainApp.Model.TrackerInput;
 import mainApp.Controller.MainAppController;
 import mainApp.Model.Company;
@@ -25,7 +26,11 @@ public class MainApp extends Application {
 
     public static void main(String[] args) {
 
-        Thread input = new Thread(new TrackerInput(1234));
+        Company company = Company.deserializeCompany("timeTrackerApp/src/main/resources/data/company/Polytech.ser");
+
+        MainAppController.setCompany(company);
+
+        Thread input = new Thread(new ManageTrackerInput(1234, company));
 
         input.start();
 

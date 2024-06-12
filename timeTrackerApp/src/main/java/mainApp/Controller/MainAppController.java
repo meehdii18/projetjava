@@ -102,6 +102,10 @@ public class MainAppController {
 
     private static Company company;
 
+    public static void setCompany(Company company) {
+        MainAppController.company = company;
+    }
+
 
     @FXML
     public void initialize() {
@@ -114,10 +118,6 @@ public class MainAppController {
 
         // TODO : Régler le fait que les données ne sont pas bien sauvegardées / restaurés
 
-        company = Company.deserializeCompany("timeTrackerApp/src/main/resources/data/company/Polytech.ser");
-        if (company == null) {
-            company = new Company("Polytech");
-        }
         company.initializeDefaultDepartments();
         company.serializeCompany();
 
@@ -181,7 +181,7 @@ public class MainAppController {
         int salary = Integer.valueOf(salaryString);
         ClockingHistory clockingHistory = new ClockingHistory();
 
-        Employee employee = new Employee(id, firstName, lastName, departmentName, salary, start_hour, end_hour, extra_hour,clockingHistory);
+        Employee employee = new Employee(id, firstName, lastName, departmentName, salary, start_hour, end_hour, extra_hour,clockingHistory,null);
 
         // Ajoutez l'employé à l'objet Company
         company.addEmployee(departmentName, employee);

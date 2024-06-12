@@ -8,8 +8,11 @@ public class Company implements Serializable {
     private String companyName;
     private final Hashtable<String, Department> departmentsList = new Hashtable<>();
 
+    private final Hashtable<String, String> employeDepartment;
+
     public Company(String name){
         companyName = name;
+        this.employeDepartment = new Hashtable<>();
     }
 
     public String getCompanyName(){
@@ -44,6 +47,7 @@ public class Company implements Serializable {
             departmentsList.put(departmentName, department);
         }
         department.getEmployeesList().put(employee.getId(), employee);
+        employeDepartment.put(employee.getId(),departmentName);
         serializeCompany();
     }
 
@@ -91,5 +95,9 @@ public class Company implements Serializable {
                 addDepartment(departmentName);
             }
         }
+    }
+
+    public String findDepartmentOfEmployee(String idEmploye) {
+        return employeDepartment.get(idEmploye);
     }
 }

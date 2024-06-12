@@ -1,7 +1,12 @@
 package mainApp.Model;
 
+import common.Model.Clocking;
+
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Hashtable;
+import java.util.Set;
 
 public class Employee implements Serializable {
 
@@ -18,8 +23,10 @@ public class Employee implements Serializable {
 
     private ClockingHistory clockingHistory;
 
+    private Set<Clocking> irregularities;
+
     // Constructeur
-    public Employee(String id, String firstName, String lastName, String departmentName, float salary, LocalTime startHour, LocalTime endHour, LocalTime extraHour,ClockingHistory clockingHistory) {
+    public Employee(String id, String firstName, String lastName, String departmentName, float salary, LocalTime startHour, LocalTime endHour, LocalTime extraHour, ClockingHistory clockingHistory, Set<Clocking> irregularities) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -29,6 +36,7 @@ public class Employee implements Serializable {
         this.endHour = endHour;
         this.extraHour = extraHour;
         this.clockingHistory = clockingHistory;
+        this.irregularities = irregularities;
     }
 
     public String getId() {
@@ -105,5 +113,23 @@ public class Employee implements Serializable {
 
     public void setClockingHistory(ClockingHistory clockingHistory) {
         this.clockingHistory = clockingHistory;
+    }
+
+    public Set<Clocking> getIrregularities() {
+        return irregularities;
+    }
+
+    public void setIrregularities(Set<Clocking> irregularities) {
+        this.irregularities = irregularities;
+    }
+
+    public void addClocking(LocalDate date, LocalTime time) {
+        if (clockingHistory.queryClockIn(date) == null) {
+            clockingHistory.addClockIn(date, time);
+        } else if (clockingHistory.queryClockOut(date) == null) {
+            clockingHistory.addClockOut(date, time);
+        } else {
+            irregularities.add(new Clocking(id, date, time));
+        }
     }
 }
