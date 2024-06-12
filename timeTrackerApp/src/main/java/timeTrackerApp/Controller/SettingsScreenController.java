@@ -1,3 +1,5 @@
+// TODO : standardiser et déplacer dans view, remplacer par un controller standard
+
 package timeTrackerApp.Controller;
 
 import javafx.fxml.FXML;

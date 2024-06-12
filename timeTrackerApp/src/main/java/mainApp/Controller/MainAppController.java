@@ -1,7 +1,8 @@
+// TODO : standardiser et déplacer dans view, remplacer par un controller standard
+
 package mainApp.Controller;
 
 import javafx.fxml.FXML;
-import javafx.scene.layout.VBox;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import mainApp.Model.ClockingHistory;
