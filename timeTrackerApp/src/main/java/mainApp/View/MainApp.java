@@ -4,7 +4,6 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import mainApp.Controller.MainAppController;
 import mainApp.Controller.ManageTrackerInput;
 
 import java.io.IOException;

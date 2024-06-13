@@ -3,10 +3,9 @@ package mainApp.Controller;
 import mainApp.Model.Company;
 import mainApp.Model.Department;
 import mainApp.Model.Employee;
+import mainApp.View.MainAppController;
 
 import java.time.LocalTime;
-import java.util.Collection;
-import java.util.Dictionary;
 import java.util.Hashtable;
 
 public class ManageCompany {

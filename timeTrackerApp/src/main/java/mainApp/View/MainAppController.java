@@ -1,10 +1,11 @@
 // TODO : standardiser et déplacer dans view, remplacer par un controller standard
 
-package mainApp.Controller;
+package mainApp.View;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import mainApp.Controller.ManageCompany;
 import mainApp.Model.*;
 
 import java.time.LocalTime;

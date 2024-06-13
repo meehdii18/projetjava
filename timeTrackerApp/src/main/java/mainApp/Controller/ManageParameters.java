@@ -3,6 +3,8 @@ import mainApp.Model.Parameters;
 
 import java.io.*;
 
+// TODO : A modifier / déplacer ou supprimer
+
 
 public class ManageParameters{
     private static final String FILE_NAME = "parameters.ser";  // Nom du fichier où les paramètres sont sauvegardés
