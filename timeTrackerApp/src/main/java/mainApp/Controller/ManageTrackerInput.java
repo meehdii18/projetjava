@@ -50,11 +50,11 @@ public class ManageTrackerInput implements Runnable {
                     if (obj != null) {
                         System.out.println(clocking);
 
-                        company.getDepartment(company.findDepartmentOfEmployee(clocking.idEmploye())).
-                                getEmployee(clocking.idEmploye()).
-                                addClocking(clocking.date(),clocking.hour());
-                    }
+                        company.getEmployee(clocking.idEmploye()).addClocking(clocking.date(),clocking.hour());
 
+                        company.serializeCompany();
+                    }
+                    // TODO : gérer les exceptions
                 } catch (ClassNotFoundException ex) {
                     System.out.println(ex);
                 }

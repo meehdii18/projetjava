@@ -1,6 +1,7 @@
 package mainApp.Model;
 
 import java.io.*;
+import java.time.LocalTime;
 import java.util.Hashtable;
 
 public class Company implements Serializable {
@@ -40,14 +41,31 @@ public class Company implements Serializable {
         }
     }
 
-    public void addEmployee(String departmentName, Employee employee) {
+    public String addEmployee(String firstName, String lastName, String departmentName, int salary, LocalTime start_hour, LocalTime end_hour) {
         Department department = getDepartment(departmentName);
-        if (department == null) {
+        if (department == null) { // TODO : changer ça
             department = new Department(departmentName);
             departmentsList.put(departmentName, department);
         }
+
+        Employee employee = new Employee(firstName, lastName, departmentName, salary, start_hour, end_hour);
+
+        department.addEmploye(employee);
+
         department.getEmployeesList().put(employee.getId(), employee);
         employeDepartment.put(employee.getId(),departmentName);
+        serializeCompany();
+
+        System.out.println(employee.getId());
+
+        return employee.getId();
+    }
+
+    public void deleteEmployee(String employeeId) {
+        Department department = getDepartment(findDepartmentOfEmployee(employeeId));
+
+        department.deleteEmploye(employeeId);
+
         serializeCompany();
     }
 
@@ -78,7 +96,9 @@ public class Company implements Serializable {
             if (i instanceof FileNotFoundException) {
                 System.out.println("File not found");
             } else {
-                i.printStackTrace();
+                System.out.println(i.toString());
+                company = new Company("Polytech"); // TODO : repasser ici et gérer correctement les erreurs d'import
+                company.initializeDefaultDepartments();
             }
         } catch (ClassNotFoundException c) {
             System.out.println("Company class not found");
@@ -97,7 +117,13 @@ public class Company implements Serializable {
         }
     }
 
-    public String findDepartmentOfEmployee(String idEmploye) {
-        return employeDepartment.get(idEmploye);
+    public String findDepartmentOfEmployee(String employeId) {
+        return employeDepartment.get(employeId);
+    }
+
+    public Employee getEmployee(String employeeId) {
+        Department department = getDepartment(findDepartmentOfEmployee(employeeId));
+
+        return department.getEmployee(employeeId);
     }
 }

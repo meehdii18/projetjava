@@ -5,12 +5,13 @@ import common.Model.Clocking;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Hashtable;
+import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 public class Employee implements Serializable {
 
-    private String id;
+    private final String id;
 
     private String firstName;
     private String lastName;
@@ -23,28 +24,24 @@ public class Employee implements Serializable {
 
     private ClockingHistory clockingHistory;
 
-    private Set<Clocking> irregularities;
+    private HashSet<Clocking> irregularities;
 
     // Constructeur
-    public Employee(String id, String firstName, String lastName, String departmentName, float salary, LocalTime startHour, LocalTime endHour, LocalTime extraHour, ClockingHistory clockingHistory, Set<Clocking> irregularities) {
-        this.id = id;
+    public Employee(String firstName, String lastName, String departmentName, float salary, LocalTime startHour, LocalTime endHour) {
+        this.id = UUID.randomUUID().toString();
         this.firstName = firstName;
         this.lastName = lastName;
         this.departmentName = departmentName;
         this.salary = salary;
         this.startHour = startHour;
         this.endHour = endHour;
-        this.extraHour = extraHour;
-        this.clockingHistory = clockingHistory;
-        this.irregularities = irregularities;
+        this.extraHour = LocalTime.MIN;
+        this.clockingHistory = new ClockingHistory();
+        this.irregularities = new HashSet<Clocking>();
     }
 
     public String getId() {
         return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public LocalTime getStartHour() {
@@ -115,11 +112,11 @@ public class Employee implements Serializable {
         this.clockingHistory = clockingHistory;
     }
 
-    public Set<Clocking> getIrregularities() {
+    public HashSet<Clocking> getIrregularities() {
         return irregularities;
     }
 
-    public void setIrregularities(Set<Clocking> irregularities) {
+    public void setIrregularities(HashSet<Clocking> irregularities) {
         this.irregularities = irregularities;
     }
 

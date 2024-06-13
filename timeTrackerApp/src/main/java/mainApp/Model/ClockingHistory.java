@@ -30,4 +30,6 @@ public class ClockingHistory implements Serializable {
     public LocalTime queryClockOut(LocalDate date) {
         return clock_out.get(date);
     }
+
+    // TODO : irregularities here
 }

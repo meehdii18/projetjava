@@ -5,10 +5,7 @@ package mainApp.Controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import mainApp.Model.ClockingHistory;
-import mainApp.Model.Company;
-import mainApp.Model.Employee;
-import mainApp.Model.Department;
+import mainApp.Model.*;
 
 import java.time.LocalTime;
 import java.util.Hashtable;
@@ -83,9 +80,9 @@ public class MainAppController {
     private TextField inputLastName;
 
     @FXML
-    private ComboBox inputDepartment;
+    private ComboBox<String> inputDepartment;
 
-    // TODO : Voir si on peut pas mettre un selecteur d'horloge plutot qu'un TextField
+    // TODO : Voir si on peut pas mettre un sélecteur d'horloge plutôt qu'un TextField
     @FXML
     private TextField inputIn;
 
@@ -101,10 +98,14 @@ public class MainAppController {
 
     private Employee selectedEmployee;
 
-    private static Company company;
+    private ManageCompany controller;
 
-    public static void setCompany(Company company) {
-        MainAppController.company = company;
+    public void setController(ManageCompany controller) {
+        this.controller = controller;
+    }
+
+    public ManageCompany getController() {
+        return controller;
     }
 
 
@@ -117,21 +118,21 @@ public class MainAppController {
         outTimeEmployees.setCellValueFactory(new PropertyValueFactory<>("endHour"));
 
 
+        ManageCompany controller = new ManageCompany(Company.deserializeCompany("timeTrackerApp/src/main/resources/data/company/Polytech.ser"),this);
+        setController(controller);
+
         // TODO : Régler le fait que les données ne sont pas bien sauvegardées / restaurés
 
-        company.initializeDefaultDepartments();
-        company.serializeCompany();
-
-        for (String departmentName : company.getDepartmentsList().keySet()) {
+        for (String departmentName : controller.getDepartments().keySet()) {
             inputDepartment.getItems().add(departmentName);
         }
-        System.out.println(company.getCompanyName()+" company loading...");
+        System.out.println(controller.getCompanyName()+" company loading..."); // TODO : afficher le nom dans l'appli plutôt
         System.out.println("Company object deserialized");
-        Hashtable<String,Department> departementlist =  company.getDepartmentsList();
+        Hashtable<String,Department> departementlist =  controller.getDepartments(); // TODO : enlever si juste debug
         System.out.println(departementlist);
 
-        // Ajout de tout les employés dans la table
-        for (Department department : company.getDepartmentsList().values()) {
+        // Ajout de tous les employés dans la table
+        for (Department department : controller.getDepartments().values()) {
             System.out.println(department);
             for (Employee employee : department.getEmployeesList().values()) {
                 employeesTable.getItems().add(employee);
@@ -179,19 +180,17 @@ public class MainAppController {
         LocalTime end_hour = LocalTime.parse(inputOut.getText());
         LocalTime extra_hour = LocalTime.of(0, 0); // Vous pouvez modifier cela en fonction de vos besoins
         String salaryString = inputSalary.getText(); // Vous pouvez modifier cela en fonction de vos besoins
-        int salary = Integer.valueOf(salaryString);
+        int salary = Integer.parseInt(salaryString);
         ClockingHistory clockingHistory = new ClockingHistory();
 
-        Employee employee = new Employee(id, firstName, lastName, departmentName, salary, start_hour, end_hour, extra_hour,clockingHistory,null);
-
         // Ajoutez l'employé à l'objet Company
-        company.addEmployee(departmentName, employee);
+        String employeeId = controller.addEmployee(firstName, lastName, departmentName, salary, start_hour, end_hour);
 
         // Sérialisez l'objet Company
-        company.serializeCompany();
+        controller.saveData(); // TODO delete, doublon
 
         // Ajoutez l'employé à la liste des items de la table
-        employeesTable.getItems().add(employee);
+        employeesTable.getItems().add(controller.getEmployee(employeeId));
     }
 
     @FXML
@@ -201,15 +200,12 @@ public class MainAppController {
 
         if (selectedEmployee != null) {
             // Supprimez l'employé de l'objet Company
-            company.getDepartment(selectedEmployee.getDepartmentName()).getEmployeesList().remove(selectedEmployee.getId());
-
-            // Sérialisez l'objet Company
-            company.serializeCompany();
+            controller.deleteEmploye(selectedEmployee.getId());
 
             // Supprimez l'employé de la table
             employeesTable.getItems().remove(selectedEmployee);
         } else {
-            // Aucun employé n'est sélectionné
+            // Aucun employé n'est sélectionné.
             System.out.println("Aucun employé sélectionné.");
         }
     }
