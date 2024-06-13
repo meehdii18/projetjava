@@ -13,8 +13,10 @@ public class TimeTracker {
     private int socket;
 
     public TimeTracker() {
-        this.address = "";
-        this.socket = 0;
+        this.address = "localhost";
+        this.socket = 1234;
+
+        // TODO : change default values (by constants ?)
     }
 
     public String getAddress() {
@@ -46,6 +48,8 @@ public class TimeTracker {
         } catch (IOException e) {
             System.out.println(e + "ici");
         }
+
+        // TODO : Utiliser clocking en le stockant localement (temporairement) puis en l'envoyant via réseau à la mainApp
 
     }
 }

@@ -1,6 +1,6 @@
 // TODO : standardiser et déplacer dans view, remplacer par un controller standard
 
-package timeTrackerApp.Controller;
+package timeTrackerApp.View;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,9 +15,8 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import common.Model.Clocking;
-import timeTrackerApp.Model.TimeTracker;
-import timeTrackerApp.View.MainScreen;
+import timeTrackerApp.Controller.SettingsController;
+import timeTrackerApp.Controller.TimeTrackerController;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -52,7 +51,7 @@ public class MainScreenController {
 
     private LocalTime approxTime;
 
-    private TimeTracker app;
+    private TimeTrackerController controller;
 
     private LocalTime roundToNearestQuarterHour(LocalTime time) {
         int minute = time.getMinute();
@@ -94,7 +93,7 @@ public class MainScreenController {
         // Placeholder de l'entrée
         inputEmployeeId.setPromptText("Employee ID...");
 
-        // Activer le bouton "Start Working!" uniquement lorsque l'ID de l'employé est entré
+        // Activer le bouton "Start Working !" uniquement lorsque l'ID de l'employé est entré
         inputEmployeeId.textProperty().addListener((observable, oldValue, newValue) -> validateIDButton.setDisable(newValue.trim().isEmpty()));
 
     }
@@ -103,12 +102,8 @@ public class MainScreenController {
     protected void onClockButtonClick() {
         String employeeId = inputEmployeeId.getText();
         statusText.setText("Hello " + employeeId + "!");
-        Clocking clocking = new Clocking(employeeId, LocalDate.now(), approxTime);
 
-        app.sendClocking(clocking);
-
-        //System.out.println(clocking);
-        // TODO : Utiliser clocking en le stockant localement (temporairement) puis en l'envoyant via réseau à la mainApp
+        controller.newClocking(employeeId, LocalDate.now(), approxTime);
     }
 
     @FXML
@@ -122,14 +117,20 @@ public class MainScreenController {
         Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/timeTrackerApp/View/SettingsScreen/SettingsScreen.fxml"));
         Parent root = fxmlLoader.load();
-        SettingsScreenController controller = fxmlLoader.getController();
-        controller.setApp(app);
-        controller.setStage(stage);
+
+        SettingsScreenController fxmlLoaderController = fxmlLoader.getController();
+
+        SettingsController controller = new SettingsController(this.controller.getModel(), fxmlLoaderController);
+        fxmlLoaderController.setController(controller);
+
+        controller.displayDataFromModel();
+
+        fxmlLoaderController.setStage(stage);
         stage.setScene(new Scene(root));
         stage.show();
     }
 
-    public void setApp(TimeTracker app) {
-        this.app = app;
+    public void setController(TimeTrackerController controller) {
+        this.controller = controller;
     }
 }
