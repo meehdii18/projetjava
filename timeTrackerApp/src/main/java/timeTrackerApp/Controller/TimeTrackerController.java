@@ -4,6 +4,9 @@ import common.Model.Clocking;
 import timeTrackerApp.Model.TimeTracker;
 import timeTrackerApp.View.MainScreenController;
 
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -26,6 +29,23 @@ public class TimeTrackerController {
 
         Clocking clocking = new Clocking(employeeId, now, approxTime);
 
-        model.sendClocking(clocking); // TODO : surement déplacer la méthode dans le controller
+        sendClocking(clocking);
+    }
+
+    private void sendClocking(Clocking clocking) {
+
+        try (Socket sock = new Socket(model.getAddress(), model.getSocket())) {
+
+            ObjectOutputStream out = new ObjectOutputStream(sock.getOutputStream());
+
+            out.writeObject(clocking);
+
+            out.flush();
+
+        } catch (IOException e) {
+            System.out.println(e + "ici");
+        }
+
+        // TODO : Utiliser clocking en le stockant localement (temporairement) puis en l'envoyant via réseau à la mainApp
     }
 }
