@@ -2,11 +2,13 @@
 
 package timeTrackerApp.View;
 
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -15,6 +17,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import mainApp.Model.Employee;
 import timeTrackerApp.Controller.SettingsController;
 import timeTrackerApp.Controller.TimeTrackerController;
 
@@ -35,7 +38,7 @@ public class MainScreenController {
     private Label timeText;
 
     @FXML
-    private TextField inputEmployeeId;
+    private ComboBox<Employee> employeeComboBox;
 
     @FXML
     private Button clockButton;
@@ -83,6 +86,10 @@ public class MainScreenController {
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
 
+        // TODO : remplacer getEmployees par la méthode renvoyant une liste d'employés
+        //employeeComboBox.setItems(FXCollections.observableArrayList(getEmployees()));
+
+
         // Créations des icônes pour les deux bouttons
         Image startIcon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/timeTrackerApp/View/MainScreen/clock.png")));
         clockIconView.setImage(startIcon);
@@ -90,26 +97,14 @@ public class MainScreenController {
         // Désactiver le bouton "Stop Working!" par défaut
         clockButton.setDisable(true);
 
-        // Placeholder de l'entrée
-        inputEmployeeId.setPromptText("Employee ID...");
-
-        // Activer le bouton "Start Working !" uniquement lorsque l'ID de l'employé est entré
-        inputEmployeeId.textProperty().addListener((observable, oldValue, newValue) -> validateIDButton.setDisable(newValue.trim().isEmpty()));
 
     }
 
     @FXML
     protected void onClockButtonClick() {
-        String employeeId = inputEmployeeId.getText();
-        statusText.setText("Hello " + employeeId + "!");
+        String employeeId = ""; // TODO : récupérer l'id de l'employé sélectionné dans le combo box
 
         controller.newClocking(employeeId, LocalDate.now(), approxTime);
-    }
-
-    @FXML
-    protected void onValidateIdButtonClick(){
-        // Activer le bouton "Start Working!" lorsqu'on a valider l'ID employé
-        clockButton.setDisable(false);
     }
 
     @FXML
@@ -133,4 +128,6 @@ public class MainScreenController {
     public void setController(TimeTrackerController controller) {
         this.controller = controller;
     }
+
+
 }

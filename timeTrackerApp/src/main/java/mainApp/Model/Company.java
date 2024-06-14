@@ -46,10 +46,6 @@ public class Company implements Serializable {
 
     public String addEmployee(String firstName, String lastName, String departmentName, int salary, LocalTime start_hour, LocalTime end_hour) {
         Department department = getDepartment(departmentName);
-        if (department == null) { // TODO : changer ça
-            department = new Department(departmentName);
-            departmentsList.put(departmentName, department);
-        }
 
         Employee employee = new Employee(firstName, lastName, departmentName, salary, start_hour, end_hour);
 

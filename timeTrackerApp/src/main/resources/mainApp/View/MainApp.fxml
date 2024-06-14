@@ -99,12 +99,11 @@
                         <Font size="24.0" />
                     </font>
                 </Label>
-                <TableView fx:id="timeTrakingTable" prefHeight="460.0" prefWidth="1251.0">
+                <TableView fx:id="timeTrackingTable" prefHeight="460.0" prefWidth="1251.0">
                     <columns>
                         <TableColumn fx:id="idColumnTT" prefWidth="145.33250427246094" text="ID" />
-                        <TableColumn fx:id="firstNameColumnTT" minWidth="0.0" prefWidth="365.66746520996094" text="First Name" />
-                        <TableColumn fx:id="lastNameColumnTT" minWidth="0.0" prefWidth="195.49761962890625" text="Last Name" />
-                        <TableColumn fx:id="timeColumnTT" prefWidth="443.49993896484375" text="Time" />
+                        <TableColumn fx:id="firstNameColumnTT" minWidth="0.0" prefWidth="247.0" text="First Name" />
+                        <TableColumn fx:id="lastNameColumnTT" minWidth="0.0" prefWidth="360.5" text="Last Name" />
                     </columns>
                <VBox.margin>
                   <Insets left="50.0" right="50.0" />

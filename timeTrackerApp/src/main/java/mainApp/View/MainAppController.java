@@ -11,6 +11,8 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import mainApp.Controller.ManageCompany;
 import mainApp.Model.*;
 import javafx.collections.ObservableList;
+
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Hashtable;
 import java.util.UUID;
@@ -59,21 +61,18 @@ public class MainAppController {
 
 
     // Time tracking tab
-    // TODO : changer tout les '?' avec le bon type de données
     @FXML
-    private TableView<?> timeTrakingTable;
+    private TableView<Employee> timeTrackingTable;
 
     @FXML
-    private TableColumn<?, ?> lastNameColumnTT;
+    private TableColumn<Employee, String> lastNameColumnTT;
 
     @FXML
-    private TableColumn<?, ?> idColumnTT;
+    private TableColumn<Employee, String> idColumnTT;
 
     @FXML
-    private TableColumn<?, ?> firstNameColumnTT;
+    private TableColumn<Employee, String> firstNameColumnTT;
 
-    @FXML
-    private TableColumn<?, ?> timeColumnTT;
 
 
     // Input pour l'ajout des employés
@@ -250,7 +249,6 @@ public class MainAppController {
                 }
         );
 
-
         // Recherche d'employé
         ObservableList<Employee> allEmployees = FXCollections.observableArrayList();
         for (Department department : controller.getDepartments().values()) {
@@ -274,7 +272,6 @@ public class MainAppController {
                 employeesTable.setItems(filteredEmployees);
             }
         });
-
 
         tabPane.getTabs().remove(employeeDetailsTab);
 
@@ -306,6 +303,7 @@ public class MainAppController {
 
         // Ajoutez l'employé à la liste des items de la table
         employeesTable.getItems().add(controller.getEmployee(employeeId));
+        updateTimeTrackingTable();
     }
 
     @FXML
@@ -323,6 +321,7 @@ public class MainAppController {
             // Aucun employé n'est sélectionné.
             System.out.println("Aucun employé sélectionné.");
         }
+        updateTimeTrackingTable();
     }
 
     private void showEmployeeDetails(Employee employee) {
@@ -356,5 +355,22 @@ public class MainAppController {
         controller.updateData(selectedEmployee);
         employeesTable.refresh();
         employeeDetailsTable.refresh();
+    }
+
+    public void updateTimeTrackingTable() {
+        // Clear the existing items in the table
+        timeTrackingTable.getItems().clear();
+
+        // Get all employees from the company
+        Hashtable<String, Department> departments = controller.getDepartments();
+        for (Department department : departments.values()) {
+            for (Employee employee : department.getEmployeesList().values()) {
+                // Add each employee to the table
+                timeTrackingTable.getItems().add(employee);
+            }
+        }
+
+        // Refresh the table to show the new data
+        timeTrackingTable.refresh();
     }
 }
