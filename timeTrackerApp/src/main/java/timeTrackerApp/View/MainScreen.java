@@ -18,7 +18,7 @@ public class MainScreen extends Application {
 
         MainScreenController fxmlLoaderController = fxmlLoader.getController();
 
-        TimeTrackerController controller = new TimeTrackerController(new TimeTracker(), fxmlLoaderController);
+        TimeTrackerController controller = new TimeTrackerController(TimeTracker.deserializeLocalData("timeTrackerApp/src/main/resources/data/timeTracker/localData.ser"), fxmlLoaderController);
         fxmlLoaderController.setController(controller);
 
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/timeTrackerApp/View/MainScreen/styles.css")).toExternalForm());
