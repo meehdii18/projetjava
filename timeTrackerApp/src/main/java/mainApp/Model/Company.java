@@ -97,9 +97,9 @@ public class Company implements Serializable {
                 System.out.println("File not found");
             } else {
                 System.out.println(i.toString());
-                company = new Company("Polytech"); // TODO : repasser ici et gérer correctement les erreurs d'import
-                company.initializeDefaultDepartments();
             }
+            company = new Company("Polytech"); // TODO : repasser ici et gérer correctement les erreurs d'import
+            company.initializeDefaultDepartments();
         } catch (ClassNotFoundException c) {
             System.out.println("Company class not found");
             c.printStackTrace();
@@ -115,6 +115,8 @@ public class Company implements Serializable {
                 addDepartment(departmentName);
             }
         }
+
+        // TODO : peut être sérialiser ici
     }
 
     public String findDepartmentOfEmployee(String employeId) {
