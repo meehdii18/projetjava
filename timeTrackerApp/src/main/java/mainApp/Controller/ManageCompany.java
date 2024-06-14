@@ -39,11 +39,18 @@ public class ManageCompany {
         company.deleteEmployee(employeID);
     }
 
+    public void updateData(Employee employee) {
+
+        company.updateEmployee(employee);
+
+        saveData();
+    }
+
     public void saveData() {
         company.serializeCompany();
     }
 
     public Employee getEmployee(String employeId) {
-        return company.getEmployee(employeId);
+        return company.getCopyOfEmployee(employeId);
     }
 }
