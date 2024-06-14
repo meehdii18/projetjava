@@ -352,7 +352,8 @@ public class MainAppController {
     }
 
     private void saveChanges() {
-        controller.saveData();
+
+        controller.updateData(selectedEmployee);
         employeesTable.refresh();
         employeeDetailsTable.refresh();
     }

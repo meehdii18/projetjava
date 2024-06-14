@@ -1,6 +1,9 @@
 package mainApp.Model;
 
+import common.Model.Clocking;
+
 import java.io.*;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Hashtable;
 
@@ -119,6 +122,12 @@ public class Company implements Serializable {
         // TODO : peut être sérialiser ici
     }
 
+    public void addClockingToEmployee(String employeeId, LocalDate date, LocalTime time) {
+
+        getEmployee(employeeId).addClocking(date, time);
+
+    }
+
     public String findDepartmentOfEmployee(String employeId) {
         return employeDepartment.get(employeId);
     }
@@ -127,5 +136,19 @@ public class Company implements Serializable {
         Department department = getDepartment(findDepartmentOfEmployee(employeeId));
 
         return department.getEmployee(employeeId);
+    }
+
+    public Employee getCopyOfEmployee(String employeeId) {
+        Department department = getDepartment(findDepartmentOfEmployee(employeeId));
+
+        return department.getEmployee(employeeId).clone();
+    }
+
+    public void updateEmployee(Employee employee) {
+        Employee old = getEmployee(employee.getId());
+
+        System.out.println(old.getDetails());
+
+        old = employee; // TODO : retoucher à ça pour être sur
     }
 }

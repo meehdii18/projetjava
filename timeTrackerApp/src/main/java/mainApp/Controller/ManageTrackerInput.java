@@ -50,7 +50,7 @@ public class ManageTrackerInput implements Runnable {
                     if (obj != null) {
                         System.out.println(clocking);
 
-                        company.getEmployee(clocking.idEmploye()).addClocking(clocking.date(),clocking.hour());
+                        company.addClockingToEmployee(clocking.idEmploye(),clocking.date(),clocking.hour());
 
                         company.serializeCompany();
                     }

@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-public class Employee implements Serializable {
+public class Employee implements Serializable, Cloneable {
 
     private final String id;
 
@@ -127,6 +127,17 @@ public class Employee implements Serializable {
             clockingHistory.addClockOut(date, time);
         } else {
             irregularities.add(new Clocking(id, date, time));
+        }
+    }
+
+    public Employee clone(){
+        try {
+            Employee employee = (Employee) super.clone();
+
+            return employee;
+
+        } catch (CloneNotSupportedException e) {
+            throw new RuntimeException(e);
         }
     }
 }
