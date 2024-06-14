@@ -24,7 +24,6 @@ public class MainApp extends Application {
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/mainApp/View/styles.css")).toExternalForm());
         stage.setTitle("Main Application");
         stage.setScene(scene);
-        stage.setResizable(false);
         stage.show();
     }
 
