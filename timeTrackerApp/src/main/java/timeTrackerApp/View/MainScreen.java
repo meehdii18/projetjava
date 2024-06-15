@@ -4,8 +4,6 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import timeTrackerApp.Controller.TimeTrackerController;
-import timeTrackerApp.Model.TimeTracker;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -15,11 +13,6 @@ public class MainScreen extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MainScreen.class.getResource("/timeTrackerApp/View/MainScreen/MainScreen.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1080, 480);
-
-        MainScreenController fxmlLoaderController = fxmlLoader.getController();
-
-        TimeTrackerController controller = new TimeTrackerController(TimeTracker.deserializeLocalData("timeTrackerApp/src/main/resources/data/timeTracker/localData.ser"), fxmlLoaderController);
-        fxmlLoaderController.setController(controller);
 
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/timeTrackerApp/View/MainScreen/styles.css")).toExternalForm());
         stage.setTitle("Time Tracker App");

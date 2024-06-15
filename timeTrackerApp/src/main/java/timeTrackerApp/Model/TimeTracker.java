@@ -1,9 +1,13 @@
 package timeTrackerApp.Model;
 
 import common.Model.Clocking;
+import common.Model.CompactEmployee;
 import mainApp.Model.Company;
+import mainApp.Model.Department;
+import mainApp.Model.Employee;
 
 import java.io.*;
+import java.util.Hashtable;
 import java.util.Stack;
 
 public class TimeTracker implements Serializable{
@@ -18,12 +22,28 @@ public class TimeTracker implements Serializable{
 
     private final Stack<Clocking> notSendClockings;
 
+    private final Hashtable<String,String> employeeList;
+
     public TimeTracker() {
         this.address = DEFAULT_ADDRESS;
         this.socket = DEFAULT_SOCKET;
         this.notSendClockings = new Stack<>();
+        this.employeeList = new Hashtable<>();
 
         // TODO : change default values (by constants ?)
+    }
+
+    private void debugImportEmployees() { // TODO : à dégager quand récupération des employés distants fonctionnelle
+
+        Company comp = Company.deserializeCompany("timeTrackerApp/src/main/resources/data/company/Polytech.ser");
+
+        for (Department dep : comp.getDepartmentsList().values()) {
+            for (Employee employee : dep.getEmployeesList().values()) {
+                CompactEmployee emp = new CompactEmployee(employee.getId(), employee.getFirstName(), employee.getLastName(), true);
+                store(emp);
+            }
+        }
+
     }
 
     public String getAddress() {
@@ -64,6 +84,23 @@ public class TimeTracker implements Serializable{
         return lastClocking;
     }
 
+    public void store(CompactEmployee employee) {
+
+        if (employee.toAdd()) {
+            employeeList.put(employee.employeeId(), employee.firstName() + " " + employee.lastName()); // TODO : à test
+        } else {
+            employeeList.remove(employee.employeeId());
+        }
+    }
+
+    public Hashtable<String, String> getEmployees() {
+        return employeeList;
+    }
+
+    public String getEmployeeDetails(String employeId) {
+        return employeeList.get(employeId);
+    }
+
     public void serializeLocalData() {
         try {
             File file = new File("timeTrackerApp/src/main/resources/data/timeTracker/localData.ser");
@@ -98,6 +135,9 @@ public class TimeTracker implements Serializable{
             System.out.println("TimeTracker class not found");
             c.printStackTrace();
         }
+
+        timeTracker.debugImportEmployees();
+
         return timeTracker;
     }
 }

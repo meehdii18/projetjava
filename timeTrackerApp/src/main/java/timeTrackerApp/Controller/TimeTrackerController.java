@@ -1,15 +1,16 @@
 package timeTrackerApp.Controller;
 
 import common.Model.Clocking;
+import common.Model.CompactEmployee;
 import timeTrackerApp.Model.TimeTracker;
 import timeTrackerApp.View.MainScreenController;
 
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.Socket;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.EmptyStackException;
+import java.util.Hashtable;
 
 public class TimeTrackerController {
 
@@ -31,6 +32,45 @@ public class TimeTrackerController {
         Clocking clocking = new Clocking(employeeId, now, approxTime);
 
         sendClocking(clocking);
+    }
+
+    public Hashtable<String, String> getEmployees() {
+        return model.getEmployees();
+    }
+
+    public String getEmployeeDetails(String employeeId) {
+        return model.getEmployeeDetails(employeeId);
+    }
+
+    private void fetchDistantEmployees() {
+
+        try (Socket sock = new Socket(model.getAddress(), model.getSocket())) {
+
+            DataOutputStream out = new DataOutputStream(sock.getOutputStream());
+
+            ObjectInputStream in = new ObjectInputStream(sock.getInputStream());
+
+            out.writeBytes("fetch"); // TODO : change message by constant
+
+            Object obj = in.readObject();
+
+            CompactEmployee employee = (CompactEmployee) obj;
+
+            if(obj != null) {
+                model.store(employee);
+            }
+
+            out.flush();
+
+            // TODO : gérer exceptions
+
+        } catch (IOException e) {
+
+            System.out.println(e + " : Verify the network parameters or try again later");
+
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void sendClocking(Clocking clocking) {

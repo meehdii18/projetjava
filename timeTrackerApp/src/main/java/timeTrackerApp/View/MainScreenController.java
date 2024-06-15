@@ -1,25 +1,19 @@
-// TODO : standardiser et déplacer dans view, remplacer par un controller standard
-
 package timeTrackerApp.View;
 
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import mainApp.Model.Employee;
 import timeTrackerApp.Controller.SettingsController;
 import timeTrackerApp.Controller.TimeTrackerController;
+import timeTrackerApp.Model.TimeTracker;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -38,7 +32,7 @@ public class MainScreenController {
     private Label timeText;
 
     @FXML
-    private ComboBox<Employee> employeeComboBox;
+    private ComboBox<String> employeeComboBox;
 
     @FXML
     private Button clockButton;
@@ -86,23 +80,54 @@ public class MainScreenController {
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
 
-        // TODO : remplacer getEmployees par la méthode renvoyant une liste d'employés
-        //employeeComboBox.setItems(FXCollections.observableArrayList(getEmployees()));
+        TimeTrackerController controller = new TimeTrackerController(TimeTracker.deserializeLocalData("timeTrackerApp/src/main/resources/data/timeTracker/localData.ser"), this);
+        setController(controller);
 
+        for (String employeeId : controller.getEmployees().keySet()) {
+            employeeComboBox.getItems().add(employeeId);
+        }
 
-        // Créations des icônes pour les deux bouttons
+        // Créations des icônes pour les deux boutons
         Image startIcon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/timeTrackerApp/View/MainScreen/clock.png")));
         clockIconView.setImage(startIcon);
 
-        // Désactiver le bouton "Stop Working!" par défaut
+        // Désactiver le bouton "Clock In/Out" par défaut
         clockButton.setDisable(true);
 
+        employeeComboBox.setOnAction(event -> employeeSelected());
+        employeeComboBox.setButtonCell(new ListCell<>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText("Select your ID");
+                } else {
+                    setText(item);
+                }
+            }
+        });
 
+    }
+
+    private void employeeSelected() {
+        if (employeeComboBox.getValue() != null) {
+            clockButton.setDisable(false);
+
+        String employeeDetails = controller.getEmployeeDetails(employeeComboBox.getValue());
+
+        statusText.setText("Bonjour, " + employeeDetails + " !");
+        }
     }
 
     @FXML
     protected void onClockButtonClick() {
-        String employeeId = ""; // TODO : récupérer l'id de l'employé sélectionné dans le combo box
+        String employeeId = employeeComboBox.getValue();
+
+        employeeComboBox.getSelectionModel().clearSelection();
+
+        statusText.setText("");
+
+        clockButton.setDisable(true);
 
         controller.newClocking(employeeId, LocalDate.now(), approxTime);
     }

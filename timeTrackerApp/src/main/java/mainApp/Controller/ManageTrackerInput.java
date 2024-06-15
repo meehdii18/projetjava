@@ -45,6 +45,9 @@ public class ManageTrackerInput implements Runnable {
 
                 try {
                     Object obj = in.readObject();
+
+                    System.out.println(obj.getClass());
+
                     Clocking clocking = (Clocking) obj;
 
                     if (obj != null) {

@@ -54,7 +54,7 @@
       Bloc pour l'entrée de l'ID employé
       -->
       <HBox spacing="10.0" alignment="CENTER">
-        <ComboBox fx:id="employeeComboBox" styleClass="input-field"/>
+        <ComboBox fx:id="employeeComboBox" styleClass="input-field" promptText="Select your ID"/>
       </HBox>
     </VBox>
   </center>
