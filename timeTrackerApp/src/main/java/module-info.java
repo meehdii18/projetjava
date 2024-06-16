@@ -4,19 +4,16 @@ module org.example.timetrackerapp {
 
     exports common.Model;
 
+    exports timeTrackerApp.View;
     exports timeTrackerApp.Controller;
     exports timeTrackerApp.Model;
 
+    exports  mainApp.View;
     exports mainApp.Controller;
+    exports mainApp.Model;
 
     opens timeTrackerApp.View to javafx.fxml;
-    exports timeTrackerApp.View;
-    opens timeTrackerApp.Controller to javafx.fxml;
 
     opens mainApp.View to javafx.fxml;
-    exports mainApp.View;
-    opens mainApp.Controller to javafx.fxml;
-
-    opens mainApp.Model to javafx.base;
 
 }

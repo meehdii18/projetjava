@@ -11,7 +11,7 @@ public class TrackerInput {
         try {
             this.server = new ServerSocket(port);
         } catch (IOException e) {
-            System.out.println(e);
+            System.out.println(e + " : Unable to create the server socket.");
         }
     }
 

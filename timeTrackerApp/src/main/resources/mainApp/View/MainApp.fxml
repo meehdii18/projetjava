@@ -37,7 +37,7 @@
                         <columns>
                             <TableColumn fx:id="firstNameColumnEmployees" prefWidth="295.6048126220703" text="First Name" />
                             <TableColumn fx:id="lastNameColumnEmployees" prefWidth="274.4724426269531" text="Last Name" />
-                            <TableColumn fx:id="departementEmployees" minWidth="0.0" prefWidth="217.23883056640625" text="Department" />
+                            <TableColumn fx:id="departmentEmployees" minWidth="0.0" prefWidth="217.23883056640625" text="Department" />
                             <TableColumn fx:id="planningEmployees" prefWidth="362.0" text="Planning">
                         <columns>
                            <TableColumn fx:id="inTimeEmployees" prefWidth="184.0" text="IN" />

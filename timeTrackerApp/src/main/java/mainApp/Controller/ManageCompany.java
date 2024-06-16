@@ -38,8 +38,8 @@ public class ManageCompany {
         return company.addEmployee(firstName, lastName, departmentName, salary, start_hour, end_hour);
     }
 
-    public void deleteEmploye(String employeID) {
-        company.deleteEmployee(employeID);
+    public void deleteEmployee(String employeeID) {
+        company.deleteEmployee(employeeID);
     }
 
     public void updateData(Employee employee) {
@@ -53,8 +53,8 @@ public class ManageCompany {
         company.serializeCompany();
     }
 
-    public Employee getEmployee(String employeId) {
-        return company.getCopyOfEmployee(employeId);
+    public Employee getEmployee(String employeeId) {
+        return company.getCopyOfEmployee(employeeId);
     }
 
     public void stopServerThread() {

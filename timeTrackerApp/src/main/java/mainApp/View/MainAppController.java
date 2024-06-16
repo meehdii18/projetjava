@@ -9,13 +9,11 @@ import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import mainApp.Controller.ManageCompany;
-import mainApp.Controller.ManageTrackerInput;
 import mainApp.Model.*;
 import javafx.collections.ObservableList;
 
 import java.time.LocalTime;
 import java.util.Hashtable;
-import java.util.UUID;
 
 
 public class MainAppController {
@@ -50,7 +48,7 @@ public class MainAppController {
     private TableColumn<Employee, String> lastNameColumnEmployees;
 
     @FXML
-    private TableColumn<Employee, String> departementEmployees;
+    private TableColumn<Employee, String> departmentEmployees;
 
     @FXML
     private TableColumn<Employee, LocalTime> inTimeEmployees;
@@ -144,7 +142,7 @@ public class MainAppController {
     public void initialize() {
         firstNameColumnEmployees.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         lastNameColumnEmployees.setCellValueFactory(new PropertyValueFactory<>("lastName"));
-        departementEmployees.setCellValueFactory(new PropertyValueFactory<>("departmentName"));
+        departmentEmployees.setCellValueFactory(new PropertyValueFactory<>("departmentName"));
         inTimeEmployees.setCellValueFactory(new PropertyValueFactory<>("startHour"));
         outTimeEmployees.setCellValueFactory(new PropertyValueFactory<>("endHour"));
 
@@ -159,8 +157,8 @@ public class MainAppController {
         // DEBUG
         System.out.println(controller.getCompanyName()+" company loading...");
         System.out.println("Company object deserialized");
-        Hashtable<String,Department> departementlist =  controller.getDepartments();
-        System.out.println(departementlist);
+        Hashtable<String,Department> departmentsList =  controller.getDepartments();
+        System.out.println(departmentsList);
 
         // Ajout de tous les employés dans la table
         for (Department department : controller.getDepartments().values()) {
@@ -185,33 +183,21 @@ public class MainAppController {
 
 
         inputIn.textProperty().addListener((obs, oldText, newText) -> {
-            if (!newText.matches("\\d{2}:\\d{2}")) {
-                // Si le nouveau texte ne correspond pas au format "HH:MM", désactivez le bouton addEmployeeButton
-                addEmployeeButton.setDisable(true);
-            } else {
-                // Si le nouveau texte correspond au format "HH:MM", activez le bouton addEmployeeButton
-                addEmployeeButton.setDisable(false);
-            }
+            // Si le nouveau texte ne correspond pas au format "HH : MM", désactivez le bouton addEmployeeButton
+            // Si le nouveau texte correspond au format "HH : MM", activez le bouton addEmployeeButton
+            addEmployeeButton.setDisable(!newText.matches("\\d{2}:\\d{2}"));
         });
 
         inputOut.textProperty().addListener((obs, oldText, newText) -> {
-            if (!newText.matches("\\d{2}:\\d{2}")) {
-                // Si le nouveau texte ne correspond pas au format "HH:MM", désactivez le bouton addEmployeeButton
-                addEmployeeButton.setDisable(true);
-            } else {
-                // Si le nouveau texte correspond au format "HH:MM", activez le bouton addEmployeeButton
-                addEmployeeButton.setDisable(false);
-            }
+            // Si le nouveau texte ne correspond pas au format "HH : MM", désactivez le bouton addEmployeeButton
+            // Si le nouveau texte correspond au format "HH : MM", activez le bouton addEmployeeButton
+            addEmployeeButton.setDisable(!newText.matches("\\d{2}:\\d{2}"));
         });
 
         inputSalary.textProperty().addListener((obs, oldText, newText) -> {
-            if (!newText.matches("\\d+")) {
-                // Si le nouveau texte n'est pas un nombre, désactivez le bouton addEmployeeButton
-                addEmployeeButton.setDisable(true);
-            } else {
-                // Si le nouveau texte est un nombre, activez le bouton addEmployeeButton
-                addEmployeeButton.setDisable(false);
-            }
+            // Si le nouveau texte n'est pas un nombre, désactivez le bouton addEmployeeButton
+            // Si le nouveau texte est un nombre, activez le bouton addEmployeeButton
+            addEmployeeButton.setDisable(!newText.matches("\\d+"));
         });
 
         tabPane.getSelectionModel().selectedItemProperty().addListener((obs, oldTab, newTab) -> {
@@ -284,16 +270,13 @@ public class MainAppController {
 
     @FXML
     protected void addEmployee() {
-        String id = UUID.randomUUID().toString(); // Générer un ID unique pour chaque employé
         String firstName = inputFirstName.getText();
         String lastName = inputLastName.getText();
-        String departmentName = (String) inputDepartment.getValue();
+        String departmentName = inputDepartment.getValue();
         LocalTime start_hour = LocalTime.parse(inputIn.getText());
         LocalTime end_hour = LocalTime.parse(inputOut.getText());
-        LocalTime extra_hour = LocalTime.of(0, 0);
         String salaryString = inputSalary.getText();
         int salary = Integer.parseInt(salaryString);
-        ClockingHistory clockingHistory = new ClockingHistory();
 
         // Ajoutez l'employé à l'objet Company
         String employeeId = controller.addEmployee(firstName, lastName, departmentName, salary, start_hour, end_hour);
@@ -313,7 +296,7 @@ public class MainAppController {
 
         if (selectedEmployee != null) {
             // Supprimez l'employé de l'objet Company
-            controller.deleteEmploye(selectedEmployee.getId());
+            controller.deleteEmployee(selectedEmployee.getId());
 
             // Supprimez l'employé de la table
             employeesTable.getItems().remove(selectedEmployee);
