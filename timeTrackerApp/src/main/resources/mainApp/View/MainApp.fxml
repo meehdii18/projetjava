@@ -48,45 +48,44 @@
                      <Insets left="50.0" right="50.0" />
                   </VBox.margin>
                     </TableView>
-               <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
-                  <children>
-                     <TextField fx:id="inputFirstName" promptText="First Name">
-                        <HBox.margin>
-                           <Insets right="10.0" top="30.0" />
-                        </HBox.margin>
-                     </TextField>
-                     <TextField fx:id="inputLastName" promptText="Last Name">
-                        <HBox.margin>
-                           <Insets right="10.0" top="30.0" />
-                        </HBox.margin>
-                     </TextField>
-                     <ComboBox fx:id="inputDepartment" prefWidth="150.0" promptText="Departement">
-                        <HBox.margin>
-                           <Insets right="10.0" top="30.0" />
-                        </HBox.margin>
-                     </ComboBox>
-                     <TextField fx:id="inputIn" promptText="Time in HH::MM">
-                        <HBox.margin>
-                           <Insets right="10.0" top="30.0" />
-                        </HBox.margin>
-                     </TextField>
-                     <TextField fx:id="inputOut" promptText="Time out HH::MM">
-                        <HBox.margin>
-                           <Insets right="10.0" top="30.0" />
-                        </HBox.margin>
-                     </TextField>
-                     <TextField fx:id="inputSalary" promptText="Salary">
-                        <HBox.margin>
-                           <Insets right="10.0" top="30.0" />
-                        </HBox.margin>
-                     </TextField>
-                           <Button fx:id="addEmployeeButton" onAction="#addEmployee" style="-fx-background-color: #2c3e50; -fx-text-fill: white;" text="ADD">
-                        <HBox.margin>
-                           <Insets top="30.0" />
-                        </HBox.margin>
-                     </Button>
-                  </children>
-               </HBox>
+                    <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
+                        <TextField fx:id="inputFirstName" promptText="First Name">
+                            <HBox.margin>
+                                <Insets right="10.0" top="30.0"/>
+                            </HBox.margin>
+                        </TextField>
+                        <TextField fx:id="inputLastName" promptText="Last Name">
+                            <HBox.margin>
+                                <Insets right="10.0" top="30.0"/>
+                            </HBox.margin>
+                        </TextField>
+                        <ComboBox fx:id="inputDepartment" prefWidth="150.0" promptText="Departement">
+                            <HBox.margin>
+                                <Insets right="10.0" top="30.0"/>
+                            </HBox.margin>
+                        </ComboBox>
+                        <TextField fx:id="inputIn" promptText="Time in HH::MM">
+                            <HBox.margin>
+                                <Insets right="10.0" top="30.0"/>
+                            </HBox.margin>
+                        </TextField>
+                        <TextField fx:id="inputOut" promptText="Time out HH::MM">
+                            <HBox.margin>
+                                <Insets right="10.0" top="30.0"/>
+                            </HBox.margin>
+                        </TextField>
+                        <TextField fx:id="inputSalary" promptText="Salary">
+                            <HBox.margin>
+                                <Insets right="10.0" top="30.0"/>
+                            </HBox.margin>
+                        </TextField>
+                        <Button fx:id="addEmployeeButton" onAction="#addEmployee"
+                                style="-fx-background-color: #2c3e50; -fx-text-fill: white;" text="ADD">
+                            <HBox.margin>
+                                <Insets top="30.0"/>
+                            </HBox.margin>
+                        </Button>
+                    </HBox>
                 </VBox>
             </AnchorPane>
         </AnchorPane>
@@ -113,8 +112,8 @@
                </VBox.margin>
                 </TableView>
                 <HBox alignment="CENTER" spacing="10">
-                    <Button style="-fx-background-color: #2c3e50; -fx-text-fill: white;" text="Today" />
-                    <Button style="-fx-background-color: #b0b0b0; -fx-text-fill: white;" text="All time" />
+                    <Button fx:id="todayTrackingButton" style="-fx-background-color: #2c3e50; -fx-text-fill: white;" text="Today" />
+                    <Button fx:id="allTimeTrackingButton" style="-fx-background-color: #2c3e50; -fx-text-fill: white;" text="All time" />
                 </HBox>
             </VBox>
         </AnchorPane>
@@ -170,7 +169,7 @@
                     <TableColumn fx:id="salaryColumn" editable="true" prefWidth="87.0" text="Salary" />
                     <TableColumn fx:id="startHourColumn" editable="true" prefWidth="88.0" text="Start Hour" />
                     <TableColumn fx:id="endHourColumn" editable="true" prefWidth="89.5" resizable="false" text="End Hour" />
-                    <TableColumn fx:id="extraHoursColumn" editable="false" prefWidth="89.5" resizable="false" text="End Hour" />
+                    <TableColumn fx:id="extraHoursColumn" editable="false" prefWidth="89.5" resizable="false" text="Extra Hours (H)" />
                 </columns>
             <VBox.margin>
                <Insets left="200.0" right="200.0" />

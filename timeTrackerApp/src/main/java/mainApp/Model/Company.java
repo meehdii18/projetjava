@@ -87,8 +87,6 @@ public class Company implements Serializable {
         employeeDepartment.put(employee.getId(),departmentName);
         serializeCompany();
 
-        System.out.println(employee.getId());
-
         return employee.getId();
     }
 
