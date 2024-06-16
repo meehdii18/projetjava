@@ -21,14 +21,14 @@ public class TimeTracker implements Serializable{
 
     private int socket;
 
-    private final Stack<Clocking> notSendClockings;
+    private final Stack<Clocking> notSendClocking;
 
     private final Hashtable<String,String> employeeList;
 
     public TimeTracker() {
         this.address = DEFAULT_ADDRESS;
         this.socket = DEFAULT_SOCKET;
-        this.notSendClockings = new Stack<>();
+        this.notSendClocking = new Stack<>();
         this.employeeList = new Hashtable<>();
 
         // TODO : change default values (by constants ?)
@@ -70,7 +70,7 @@ public class TimeTracker implements Serializable{
 
     public void addNotSendClocking(Clocking clocking) {
 
-        notSendClockings.push(clocking);
+        notSendClocking.push(clocking);
 
         serializeLocalData();
 
@@ -78,7 +78,7 @@ public class TimeTracker implements Serializable{
 
     public Clocking getNotSendClocking() {
 
-        Clocking lastClocking = notSendClockings.pop();
+        Clocking lastClocking = notSendClocking.pop();
 
         serializeLocalData();
 
@@ -109,8 +109,8 @@ public class TimeTracker implements Serializable{
         return employeeList;
     }
 
-    public String getEmployeeDetails(String employeId) {
-        return employeeList.get(employeId);
+    public String getEmployeeDetails(String employeeId) {
+        return employeeList.get(employeeId);
     }
 
     public void serializeLocalData() {

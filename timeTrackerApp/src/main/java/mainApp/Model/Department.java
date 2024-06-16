@@ -21,16 +21,16 @@ public class Department implements Serializable {
         this.departmentName  = newName;
     }
 
-    public void addEmploye(Employee employee) {
+    public void addEmployee(Employee employee) {
         employeesList.put(employee.getId(), employee); // TODO : check si employé pas existant
     }
 
-    public void deleteEmploye(String employeId) {
-        employeesList.remove(employeId); // TODO : check si employé existant
+    public void deleteEmployee(String employeeId) {
+        employeesList.remove(employeeId); // TODO : check si employé existant
     }
 
-    public Employee getEmployee(String idEmploye) {
-        return employeesList.get(idEmploye);
+    public Employee getEmployee(String idEmployee) {
+        return employeesList.get(idEmployee);
     }
 
     public Hashtable<String, Employee> getEmployeesList() {

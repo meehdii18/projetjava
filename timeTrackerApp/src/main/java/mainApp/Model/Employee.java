@@ -6,7 +6,6 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.UUID;
 
 public class Employee implements Serializable, Cloneable {
@@ -37,7 +36,7 @@ public class Employee implements Serializable, Cloneable {
         this.endHour = endHour;
         this.extraHour = LocalTime.MIN;
         this.clockingHistory = new ClockingHistory();
-        this.irregularities = new HashSet<Clocking>();
+        this.irregularities = new HashSet<>();
     }
 
     public String getId() {
@@ -132,9 +131,8 @@ public class Employee implements Serializable, Cloneable {
 
     public Employee clone(){
         try {
-            Employee employee = (Employee) super.clone();
 
-            return employee;
+            return (Employee) super.clone();
 
         } catch (CloneNotSupportedException e) {
             throw new RuntimeException(e);

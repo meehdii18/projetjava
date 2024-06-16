@@ -1,6 +1,5 @@
 package mainApp.Model;
 
-import common.Model.Clocking;
 import common.Model.CompactEmployee;
 
 import java.io.*;
@@ -14,11 +13,11 @@ public class Company implements Serializable {
     private String companyName;
     private final Hashtable<String, Department> departmentsList = new Hashtable<>();
 
-    private final Hashtable<String, String> employeDepartment;
+    private final Hashtable<String, String> employeeDepartment;
 
     public Company(String name){
         companyName = name;
-        this.employeDepartment = new Hashtable<>();
+        this.employeeDepartment = new Hashtable<>();
     }
 
     public String getCompanyName(){
@@ -69,12 +68,10 @@ public class Company implements Serializable {
 
         Employee employee = new Employee(firstName, lastName, departmentName, salary, start_hour, end_hour);
 
-        CompactEmployee compactEmployee = new CompactEmployee(employee.getId(), firstName, lastName, true);
-
-        department.addEmploye(employee);
+        department.addEmployee(employee);
 
         department.getEmployeesList().put(employee.getId(), employee);
-        employeDepartment.put(employee.getId(),departmentName);
+        employeeDepartment.put(employee.getId(),departmentName);
         serializeCompany();
 
         System.out.println(employee.getId());
@@ -85,7 +82,7 @@ public class Company implements Serializable {
     public void deleteEmployee(String employeeId) {
         Department department = getDepartment(findDepartmentOfEmployee(employeeId));
 
-        department.deleteEmploye(employeeId);
+        department.deleteEmployee(employeeId);
 
         serializeCompany();
     }
@@ -159,8 +156,8 @@ public class Company implements Serializable {
 
     }
 
-    public String findDepartmentOfEmployee(String employeId) {
-        return employeDepartment.get(employeId);
+    public String findDepartmentOfEmployee(String employeeId) {
+        return employeeDepartment.get(employeeId);
     }
 
     public Employee getEmployee(String employeeId) {
