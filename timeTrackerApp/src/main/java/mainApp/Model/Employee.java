@@ -59,8 +59,33 @@ public class Employee implements Serializable, Cloneable {
         this.endHour = endHour;
     }
 
-    public LocalTime getExtraHour() {
-        return extraHour;
+    public float getExtraHour() {
+
+        float extraTime = 0;
+
+        for (LocalDate date : clockingHistory.getDaysClocked()) {
+
+            LocalTime in = clockingHistory.queryClockIn(date);
+            LocalTime out = clockingHistory.queryClockOut(date);
+
+            extraTime += startHour.getHour()*60 + startHour.getMinute();
+
+            System.out.println(extraTime/60);
+
+            extraTime += in.getHour()*60 + in.getMinute();
+
+            System.out.println(extraTime/60);
+
+            extraTime -= (endHour.getHour()*60 + endHour.getMinute());
+
+            System.out.println(extraTime/60);
+
+            extraTime -= (out.getHour()*60 + out.getMinute());
+
+            System.out.println(extraTime/60);
+        }
+
+        return extraTime / 60;
     }
 
     public void setExtraHour(LocalTime extraHour) {

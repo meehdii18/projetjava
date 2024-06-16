@@ -17,20 +17,11 @@ public class MainApp extends Application {
 
         MainAppController fxmlLoaderController = fxmlLoader.getController();
 
-        Thread input = new Thread(new ManageTrackerInput(1234, fxmlLoaderController.getController().getCompany()));
-
-        input.start(); // TODO probablement à retoucher
-
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/mainApp/View/styles.css")).toExternalForm());
         stage.setTitle("Main Application");
         stage.setScene(scene);
         stage.setOnCloseRequest(windowEvent -> {
             fxmlLoaderController.getController().stopServerThread();
-            try {
-                stop();
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
         });
         stage.show();
     }

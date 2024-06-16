@@ -14,9 +14,11 @@ public class ManageTrackerInput implements Runnable {
 
     private final Company company;
 
-    public ManageTrackerInput(int sock, Company company) {
-        this.input = new TrackerInput(sock);
+    public ManageTrackerInput(Company company) {
+        this.input = new TrackerInput();
         this.company = company;
+
+        company.setPort(input.getPort());
     }
 
     public void run() {

@@ -91,7 +91,7 @@
             </AnchorPane>
         </AnchorPane>
     </Tab>
-    <Tab text="Time tracking">
+    <Tab fx:id="timeTrackingTab" text="Time tracking">
         <AnchorPane prefHeight="400.0" prefWidth="600.0">
             <VBox alignment="CENTER" prefHeight="800.0" prefWidth="1251.0" spacing="20">
                 <Label contentDisplay="CENTER" text="TIME TRACKER" textAlignment="CENTER">
@@ -173,7 +173,7 @@
                <Insets left="200.0" right="200.0" />
             </VBox.margin>
             </TableView>
-         <TableView fx:id="employeeDetailsTable1" editable="true" prefHeight="339.0" prefWidth="1151.0">
+         <TableView fx:id="timeTrackingDetailsTable" editable="true" prefHeight="339.0" prefWidth="1151.0">
             <columns>
                <TableColumn fx:id="complexViewFirstName" editable="true" prefWidth="307.0" text="First Name" />
                <TableColumn fx:id="complexViewTimeLastName" editable="true" prefWidth="320.0" text="Last Name" />

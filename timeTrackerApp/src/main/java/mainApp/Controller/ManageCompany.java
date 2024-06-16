@@ -1,5 +1,6 @@
 package mainApp.Controller;
 
+import common.Model.DisplayClocking;
 import mainApp.Model.Company;
 import mainApp.Model.Department;
 import mainApp.Model.Employee;
@@ -9,6 +10,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.time.LocalTime;
+import java.util.HashSet;
 import java.util.Hashtable;
 
 public class ManageCompany {
@@ -28,6 +30,10 @@ public class ManageCompany {
 
     public String getCompanyName() {
         return company.getCompanyName();
+    }
+
+    public int getSocket() {
+        return company.getPort();
     }
 
     public Hashtable<String, Department> getDepartments() {
@@ -57,8 +63,16 @@ public class ManageCompany {
         return company.getCopyOfEmployee(employeeId);
     }
 
+    public HashSet<DisplayClocking> getClocking() {
+        return company.getAllClocking();
+    }
+
+    public HashSet<DisplayClocking> getClocking(String employeeId) {
+        return company.getClockingOfEmployee(employeeId);
+    }
+
     public void stopServerThread() {
-        try (Socket sock = new Socket("localhost", 1234)) {
+        try (Socket sock = new Socket("localhost", getSocket())) { // TODO : change here
 
             ObjectOutputStream out = new ObjectOutputStream(sock.getOutputStream());
 

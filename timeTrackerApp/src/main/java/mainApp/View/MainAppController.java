@@ -2,6 +2,7 @@
 
 package mainApp.View;
 
+import common.Model.DisplayClocking;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -10,10 +11,14 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.Region;
 import mainApp.Controller.ManageCompany;
+import mainApp.Controller.ManageTrackerInput;
 import mainApp.Model.*;
 import javafx.collections.ObservableList;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.time.LocalTime;
+import java.util.HashSet;
 import java.util.Hashtable;
 
 
@@ -61,16 +66,28 @@ public class MainAppController {
 
     // Time tracking tab
     @FXML
-    private TableView<Employee> timeTrackingTable;
+    private TableView<DisplayClocking> timeTrackingTable;
 
     @FXML
-    private TableColumn<Employee, String> lastNameColumnTT;
+    private Tab timeTrackingTab;
 
     @FXML
-    private TableColumn<Employee, String> idColumnTT;
+    private TableColumn<DisplayClocking, String> idColumnTT;
 
     @FXML
-    private TableColumn<Employee, String> firstNameColumnTT;
+    private TableColumn<DisplayClocking, String> lastNameColumnTT;
+
+    @FXML
+    private TableColumn<DisplayClocking, String> firstNameColumnTT;
+
+    @FXML
+    private TableColumn<DisplayClocking, String> dateColumnTT;
+
+    @FXML
+    private TableColumn<DisplayClocking,String> hourColumnTT;
+
+    @FXML
+    private TableColumn<DisplayClocking,String> typeColumnTT;
 
     @FXML
     private TableColumn<Employee,String> timeColumnTT;
@@ -146,6 +163,25 @@ public class MainAppController {
 
 
     @FXML
+    private TableColumn<Employee, LocalTime> extraHoursColumn;
+
+    // Pointages vue détaillées
+
+    @FXML
+    private TableView<DisplayClocking> timeTrackingDetailsTable;
+
+    @FXML
+    private TableColumn<DisplayClocking, String> complexViewType;
+
+    @FXML
+    private TableColumn<DisplayClocking, String> complexViewDate;
+
+    @FXML
+    private TableColumn<DisplayClocking, String> complexViewHour;
+
+
+
+    @FXML
     private Button saveChangesButton;
 
     private Employee selectedEmployee;
@@ -172,6 +208,18 @@ public class MainAppController {
 
         ManageCompany controller = new ManageCompany(Company.deserializeCompany("timeTrackerApp/src/main/resources/data/company/Polytech.ser"),this);
         setController(controller);
+
+        Thread input = new Thread(new ManageTrackerInput(getController().getCompany()));
+
+        input.start();
+
+        try {
+            ipLabel.setText(InetAddress.getLocalHost().getHostAddress());
+        } catch (UnknownHostException e) {
+            throw new RuntimeException(e);
+        }
+
+        socketLabel.setText(String.valueOf(controller.getSocket()));
 
         for (String departmentName : controller.getDepartments().keySet()) {
             inputDepartment.getItems().add(departmentName);
@@ -228,6 +276,12 @@ public class MainAppController {
                 // Si l'utilisateur tente de sélectionner l'onglet des détails de l'employé sans avoir sélectionné un employé,
                 // annulez le changement de sélection
                 tabPane.getSelectionModel().select(oldTab);
+            }
+        });
+
+        tabPane.getSelectionModel().selectedItemProperty().addListener((obs, oldTab, newTab) -> {
+            if (newTab == timeTrackingTab) {
+                updateTimeTrackingTable();
             }
         });
 
@@ -342,11 +396,19 @@ public class MainAppController {
         salaryColumn.setCellValueFactory(new PropertyValueFactory<>("salary"));
         startHourColumn.setCellValueFactory(new PropertyValueFactory<>("startHour"));
         endHourColumn.setCellValueFactory(new PropertyValueFactory<>("endHour"));
+        extraHoursColumn.setCellValueFactory(new PropertyValueFactory<>("extraHour"));
 
         ObservableList<Employee> employeeDetails = FXCollections.observableArrayList();
         employeeDetails.add(employee);
         employeeDetailsTable.setItems(employeeDetails);
 
+        complexViewType.setCellValueFactory(new PropertyValueFactory<>("type"));
+        complexViewDate.setCellValueFactory(new PropertyValueFactory<>("date"));
+        complexViewHour.setCellValueFactory(new PropertyValueFactory<>("time"));
+
+        ObservableList<DisplayClocking> clockingDetails = FXCollections.observableArrayList();
+        clockingDetails.addAll(controller.getClocking(employee.getId()));
+        timeTrackingDetailsTable.setItems(clockingDetails);
 
         // Ajoutez l'onglet au TabPane
         tabPane.getTabs().add(employeeDetailsTab);
@@ -361,20 +423,27 @@ public class MainAppController {
         controller.updateData(selectedEmployee);
         employeesTable.refresh();
         employeeDetailsTable.refresh();
+        timeTrackingDetailsTable.refresh();
     }
 
     public void updateTimeTrackingTable() {
+
         // Clear the existing items in the table
         timeTrackingTable.getItems().clear();
 
-        // Get all employees from the company
-        Hashtable<String, Department> departments = controller.getDepartments();
-        for (Department department : departments.values()) {
-            for (Employee employee : department.getEmployeesList().values()) {
-                // Add each employee to the table
-                timeTrackingTable.getItems().add(employee);
-            }
-        }
+        idColumnTT.setCellValueFactory(new PropertyValueFactory<>("publicId"));
+        firstNameColumnTT.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        lastNameColumnTT.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+        dateColumnTT.setCellValueFactory(new PropertyValueFactory<>("date"));
+        hourColumnTT.setCellValueFactory(new PropertyValueFactory<>("time"));
+        typeColumnTT.setCellValueFactory(new PropertyValueFactory<>("type"));
+
+        ObservableList<DisplayClocking> clockingDetails = FXCollections.observableArrayList();
+
+        System.out.println(controller.getClocking());
+
+        clockingDetails.addAll(controller.getClocking());
+        timeTrackingTable.setItems(clockingDetails);
 
         // Refresh the table to show the new data
         timeTrackingTable.refresh();

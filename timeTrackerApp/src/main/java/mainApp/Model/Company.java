@@ -1,10 +1,13 @@
 package mainApp.Model;
 
+import common.Model.Clocking;
 import common.Model.CompactEmployee;
+import common.Model.DisplayClocking;
 
 import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.AbstractSet;
 import java.util.HashSet;
 import java.util.Hashtable;
 
@@ -15,9 +18,19 @@ public class Company implements Serializable {
 
     private final Hashtable<String, String> employeeDepartment;
 
+    private int port;
+
     public Company(String name){
         companyName = name;
         this.employeeDepartment = new Hashtable<>();
+    }
+
+    public void setPort(int port) {
+        this.port = port;
+    }
+
+    public int getPort() {
+        return port;
     }
 
     public String getCompanyName(){
@@ -85,6 +98,35 @@ public class Company implements Serializable {
         department.deleteEmployee(employeeId);
 
         serializeCompany();
+    }
+
+    public HashSet<DisplayClocking> getAllClocking() {
+
+        HashSet<DisplayClocking> clockingHashSet = new HashSet<>();
+
+        for (Employee employee : getAllEmployees()) {
+            clockingHashSet.addAll(getClockingOfEmployee(employee.getId()));
+        }
+
+        return clockingHashSet;
+    }
+
+    public HashSet<DisplayClocking> getClockingOfEmployee(String employeeId) {
+
+        HashSet<DisplayClocking> clockingHashSet = new HashSet<>();
+
+        Employee employee = getEmployee(employeeId);
+
+        ClockingHistory clockingHistory = employee.getClockingHistory();
+
+        for (LocalDate date : clockingHistory.getDaysClocked()) { // TODO : change employeeId by publicId
+            clockingHashSet.add(new DisplayClocking(employeeId, employee.getFirstName(), employee.getLastName(), date, clockingHistory.queryClockIn(date), "in"));
+            if(clockingHistory.queryClockOut(date) != null) {
+                clockingHashSet.add(new DisplayClocking(employeeId, employee.getFirstName(), employee.getLastName(), date, clockingHistory.queryClockOut(date), "out"));
+            }
+        }
+
+        return clockingHashSet;
     }
 
     public HashSet<CompactEmployee> sendLocalEmployeeToDistant() {
