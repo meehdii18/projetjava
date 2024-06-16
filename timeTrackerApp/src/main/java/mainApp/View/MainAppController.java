@@ -9,7 +9,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.scene.layout.Region;
 import mainApp.Controller.ManageCompany;
 import mainApp.Controller.ManageTrackerInput;
 import mainApp.Model.*;
@@ -18,7 +17,6 @@ import javafx.collections.ObservableList;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.time.LocalTime;
-import java.util.HashSet;
 import java.util.Hashtable;
 
 
@@ -142,25 +140,6 @@ public class MainAppController {
 
     @FXML
     private TableColumn<Employee, LocalTime> endHourColumn;
-
-    // Pointages vue détaillées
-
-    @FXML
-    private TableView<Employee> timeTrackingDetailsTable;
-
-    @FXML
-    private TableColumn<Employee, String> complexViewFirstName;
-
-    @FXML
-    private TableColumn<Employee, String> complexViewTimeLastName;
-
-    @FXML
-    private TableColumn<Employee, String> complexViewTime;
-
-    @FXML
-    private TableColumn<Employee, String> complexViewExtraHour;
-
-
 
     @FXML
     private TableColumn<Employee, LocalTime> extraHoursColumn;

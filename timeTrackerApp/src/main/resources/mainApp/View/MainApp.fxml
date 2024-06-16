@@ -104,7 +104,9 @@
                         <TableColumn fx:id="idColumnTT" prefWidth="257.0" text="ID" />
                         <TableColumn fx:id="firstNameColumnTT" minWidth="0.0" prefWidth="278.0" text="First Name" />
                         <TableColumn fx:id="lastNameColumnTT" minWidth="0.0" prefWidth="316.0" text="Last Name" />
-                  <TableColumn fx:id="timeColumnTT" minWidth="0.0" prefWidth="299.0" text="Time" />
+                        <TableColumn fx:id="dateColumnTT" minWidth="0.0" prefWidth="299.0" text="Date" />
+                        <TableColumn fx:id="hourColumnTT" minWidth="0.0" prefWidth="299.0" text="Hour" />
+                        <TableColumn fx:id="typeColumnTT" minWidth="0.0" prefWidth="299.0" text="Type" />
                     </columns>
                <VBox.margin>
                   <Insets left="50.0" right="50.0" />
@@ -168,6 +170,7 @@
                     <TableColumn fx:id="salaryColumn" editable="true" prefWidth="87.0" text="Salary" />
                     <TableColumn fx:id="startHourColumn" editable="true" prefWidth="88.0" text="Start Hour" />
                     <TableColumn fx:id="endHourColumn" editable="true" prefWidth="89.5" resizable="false" text="End Hour" />
+                    <TableColumn fx:id="extraHoursColumn" editable="false" prefWidth="89.5" resizable="false" text="End Hour" />
                 </columns>
             <VBox.margin>
                <Insets left="200.0" right="200.0" />
@@ -175,10 +178,9 @@
             </TableView>
          <TableView fx:id="timeTrackingDetailsTable" editable="true" prefHeight="339.0" prefWidth="1151.0">
             <columns>
-               <TableColumn fx:id="complexViewFirstName" editable="true" prefWidth="307.0" text="First Name" />
-               <TableColumn fx:id="complexViewTimeLastName" editable="true" prefWidth="320.0" text="Last Name" />
-               <TableColumn fx:id="complexViewTime" editable="true" prefWidth="315.0" text="Time" />
-               <TableColumn fx:id="complexViewExtraHour" editable="false" prefWidth="208.0" text="Extra Hour" />
+               <TableColumn fx:id="complexViewDate" editable="false" prefWidth="320.0" text="Date" />
+               <TableColumn fx:id="complexViewHour" editable="false" prefWidth="315.0" text="Hour" />
+               <TableColumn fx:id="complexViewType" editable="false" prefWidth="208.0" text="Type" />
             </columns>
             <VBox.margin>
                <Insets left="50.0" right="50.0" />
