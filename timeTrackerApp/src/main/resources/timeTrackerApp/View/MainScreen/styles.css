@@ -13,12 +13,6 @@
     -fx-background-radius: 30;
 }
 
-.validate-id-button{
-    -fx-background-radius: 30;
-    -fx-background-color: #555555;
-    -fx-text-fill: white;
-}
-
 .settings-button{
     -fx-background-radius: 30;
     -fx-background-color: #555555;

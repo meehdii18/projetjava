@@ -41,10 +41,10 @@ public class MainScreenController {
     private ImageView clockIconView;
 
     @FXML
-    private Button validateIDButton;
+    private Button settingsButton;
 
     @FXML
-    private Button settingsButton;
+    private Button updateButton;
 
     private LocalTime approxTime;
 
@@ -93,6 +93,8 @@ public class MainScreenController {
 
         // Désactiver le bouton "Clock In/Out" par défaut
         clockButton.setDisable(true);
+
+
 
         employeeComboBox.setOnAction(event -> employeeSelected());
         employeeComboBox.setButtonCell(new ListCell<>() {

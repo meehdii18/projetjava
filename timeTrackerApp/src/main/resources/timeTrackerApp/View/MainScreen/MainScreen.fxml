@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.ImageView?>
-
 <?import javafx.scene.control.ComboBox?>
-<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="timeTrackerApp.View.MainScreenController">
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/22" fx:controller="timeTrackerApp.View.MainScreenController">
   <top>
     <VBox>
       <padding>
@@ -21,10 +20,10 @@
       Bloc pour le label date et heure
       -->
       <HBox alignment="TOP_CENTER">
-        <Label fx:id="dateText"/>
+        <Label fx:id="dateText" />
       </HBox>
-      <HBox spacing="10.0" alignment="TOP_CENTER">
-        <Label fx:id="timeText" styleClass="time-text"/>
+      <HBox alignment="TOP_CENTER" spacing="10.0">
+        <Label fx:id="timeText" styleClass="time-text" />
       </HBox>
     </VBox>
   </top>
@@ -32,36 +31,45 @@
   <center>
     <VBox alignment="CENTER" spacing="20.0">
       <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
       </padding>
 
       <!--
       Bloc pour les boutons de clock et le texte de validation
       -->
-      <HBox spacing="10.0" alignment="CENTER">
+      <HBox alignment="CENTER" spacing="10.0">
         <Button fx:id="clockButton" onAction="#onClockButtonClick" styleClass="clock-button">
           <graphic>
             <VBox alignment="CENTER">
-              <ImageView fx:id="clockIconView"/>
-              <Label text="Clock in/out" styleClass="clock-button"/>
+              <ImageView fx:id="clockIconView" />
+              <Label styleClass="clock-button" text="Clock in/out" />
             </VBox>
           </graphic>
         </Button>
       </HBox>
-      <Label fx:id="statusText"/>
+      <Label fx:id="statusText" />
 
       <!--
       Bloc pour l'entrée de l'ID employé
       -->
-      <HBox spacing="10.0" alignment="CENTER">
-        <ComboBox fx:id="employeeComboBox" styleClass="input-field" promptText="Select your ID"/>
+      <HBox alignment="CENTER" spacing="10.0">
+        <ComboBox fx:id="employeeComboBox" promptText="Select your ID" styleClass="input-field" />
       </HBox>
     </VBox>
   </center>
 
+
   <bottom>
     <AnchorPane>
-      <Button fx:id="settingsButton" text="Network Settings" onAction="#onSettingsButtonClick" AnchorPane.bottomAnchor="15" AnchorPane.leftAnchor="15" styleClass="settings-button"/>
+      <!--
+      Bloc pour le bouton paramètre et update
+      -->
+      <Button fx:id="settingsButton" layoutX="48.0" onAction="#onSettingsButtonClick" styleClass="settings-button" text="Network Settings" AnchorPane.bottomAnchor="15" AnchorPane.leftAnchor="15">
+      </Button>
+
+      <Button fx:id="updateButton" onAction="#onUpdateEmployeesButtonClick" styleClass="settings-button" text="Refresh employee list" layoutX="48.0" AnchorPane.bottomAnchor="15" AnchorPane.rightAnchor="15" >
+      </Button>
+
     </AnchorPane>
   </bottom>
 </BorderPane>
