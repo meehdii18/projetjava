@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.animation.KeyFrame;
@@ -94,7 +95,7 @@ public class MainScreenController {
         // Désactiver le bouton "Clock In/Out" par défaut
         clockButton.setDisable(true);
 
-
+        updateButton.setOnAction(event -> onUpdateEmployeesButtonClick());
 
         employeeComboBox.setOnAction(event -> employeeSelected());
         employeeComboBox.setButtonCell(new ListCell<>() {
@@ -109,6 +110,11 @@ public class MainScreenController {
             }
         });
 
+    }
+
+    public void display(String text) {
+
+        statusText.setText(text);
     }
 
     private void employeeSelected() {
@@ -128,8 +134,6 @@ public class MainScreenController {
         employeeComboBoxReset();
 
         controller.newClocking(employeeId, LocalDate.now(), approxTime);
-
-        onUpdateEmployeesButtonClick(); // TODO : remove when button added
     }
 
     private void employeeComboBoxReset() {

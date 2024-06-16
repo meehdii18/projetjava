@@ -1,5 +1,3 @@
-// TODO : remplacer Employee par compactEmployee
-
 package mainApp.View;
 
 import common.Model.DisplayClocking;
@@ -30,8 +28,6 @@ public class MainAppController {
 
     @FXML
     private Label socketLabel;
-
-    // TODO : Ajouter un TextField pour changer le socketLabel
 
     @FXML
     private TextField searchEmployeeField;
@@ -107,7 +103,6 @@ public class MainAppController {
     @FXML
     private ComboBox<String> inputDepartment;
 
-    // TODO : Voir si on peut pas mettre un sélecteur d'horloge plutôt qu'un TextField
     @FXML
     private TextField inputIn;
 

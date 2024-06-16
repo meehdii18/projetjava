@@ -13,6 +13,8 @@ import java.util.EmptyStackException;
 import java.util.HashSet;
 import java.util.Hashtable;
 
+import static common.Model.Constants.FETCH;
+
 public class TimeTrackerController {
 
     private final TimeTracker model;
@@ -49,7 +51,7 @@ public class TimeTrackerController {
 
             ObjectOutputStream out = new ObjectOutputStream(sock.getOutputStream());
 
-            out.writeObject("fetch"); // TODO : change message by constant
+            out.writeObject(FETCH);
 
             out.flush();
 
@@ -80,9 +82,9 @@ public class TimeTrackerController {
 
             model.store(compactEmployeeHashSet);
 
-            // TODO : gérer exceptions
-
         } catch (IOException e) {
+
+            mainView.display("Verify the network parameters or try again later");
 
             System.out.println(e + " : Verify the network parameters or try again later");
 
@@ -125,12 +127,10 @@ public class TimeTrackerController {
 
         } catch (IOException e) {
 
-            System.out.println(e + " : The ready-to-send Clocking is stored locally and will be send when connexion is possible.");
+            mainView.display("The ready-to-send Clocking is stored locally and will be send when connexion is possible.");
 
             model.addNotSendClocking(clocking);
 
         }
-
-        // TODO : Utiliser clocking en le stockant localement (temporairement) puis en l'envoyant via réseau à la mainApp
     }
 }

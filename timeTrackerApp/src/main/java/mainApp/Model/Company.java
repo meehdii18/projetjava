@@ -1,13 +1,11 @@
 package mainApp.Model;
 
-import common.Model.Clocking;
 import common.Model.CompactEmployee;
 import common.Model.DisplayClocking;
 
 import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.AbstractSet;
 import java.util.HashSet;
 import java.util.Hashtable;
 
@@ -151,7 +149,7 @@ public class Company implements Serializable {
             fileOut.close();
             System.out.println("The Company object has been serialized and written to " + companyName + ".ser");
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e + " : Unable to serialize company " + companyName);
         }
     }
 
@@ -167,13 +165,12 @@ public class Company implements Serializable {
             if (i instanceof FileNotFoundException) {
                 System.out.println("File not found");
             } else {
-                System.out.println(i.toString());
+                System.out.println(i + " : unable to deserialize company");
             }
             company = new Company("Polytech"); // TODO : repasser ici et gérer correctement les erreurs d'import
             company.initializeDefaultDepartments();
         } catch (ClassNotFoundException c) {
             System.out.println("Company class not found");
-            c.printStackTrace();
         }
         return company;
     }
@@ -187,7 +184,7 @@ public class Company implements Serializable {
             }
         }
 
-        // TODO : peut être sérialiser ici
+        serializeCompany();
     }
 
     public void addClockingToEmployee(String employeeId, LocalDate date, LocalTime time) {
@@ -217,6 +214,8 @@ public class Company implements Serializable {
 
         System.out.println(old.getDetails());
 
-        old = employee; // TODO : retoucher à ça pour être sur
+        old = employee;
+
+        serializeCompany();
     }
 }

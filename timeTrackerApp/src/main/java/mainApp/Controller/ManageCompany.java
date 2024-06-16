@@ -13,8 +13,11 @@ import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.Hashtable;
 
+import static common.Model.Constants.QUIT;
+
 public class ManageCompany {
 
+    public static final String LOCALHOST = "localhost";
     private final Company company;
 
     private final MainAppController view;
@@ -49,14 +52,7 @@ public class ManageCompany {
     }
 
     public void updateData(Employee employee) {
-
         company.updateEmployee(employee);
-
-        saveData();
-    }
-
-    public void saveData() {
-        company.serializeCompany();
     }
 
     public Employee getEmployee(String employeeId) {
@@ -72,11 +68,11 @@ public class ManageCompany {
     }
 
     public void stopServerThread() {
-        try (Socket sock = new Socket("localhost", getSocket())) { // TODO : change here
+        try (Socket sock = new Socket(LOCALHOST, getSocket())) {
 
             ObjectOutputStream out = new ObjectOutputStream(sock.getOutputStream());
 
-            out.writeObject("quit"); // TODO : change message by constant
+            out.writeObject(QUIT);
 
             out.flush();
         } catch (IOException e) {

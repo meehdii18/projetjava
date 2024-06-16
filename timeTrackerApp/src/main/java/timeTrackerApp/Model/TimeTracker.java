@@ -30,21 +30,6 @@ public class TimeTracker implements Serializable{
         this.socket = DEFAULT_SOCKET;
         this.notSendClocking = new Stack<>();
         this.employeeList = new Hashtable<>();
-
-        // TODO : change default values (by constants ?)
-    }
-
-    private void debugImportEmployees() { // TODO : à dégager quand récupération des employés distants fonctionnelle
-
-        Company comp = Company.deserializeCompany("timeTrackerApp/src/main/resources/data/company/Polytech.ser");
-
-        for (Department dep : comp.getDepartmentsList().values()) {
-            for (Employee employee : dep.getEmployeesList().values()) {
-                CompactEmployee emp = new CompactEmployee(employee.getId(), employee.getFirstName(), employee.getLastName(), true);
-                store(emp);
-            }
-        }
-
     }
 
     public String getAddress() {
@@ -139,16 +124,11 @@ public class TimeTracker implements Serializable{
         } catch (IOException i) {
             if (i instanceof FileNotFoundException) {
                 System.out.println("File not found");
-            } else {
-                System.out.println(i.toString()); // TODO : repasser ici et gérer correctement les erreurs d'import
             }
             timeTracker = new TimeTracker();
-        } catch (ClassNotFoundException c) {
+        } catch (ClassNotFoundException classNotFoundException) {
             System.out.println("TimeTracker class not found");
-            c.printStackTrace();
         }
-
-        timeTracker.debugImportEmployees();
 
         return timeTracker;
     }

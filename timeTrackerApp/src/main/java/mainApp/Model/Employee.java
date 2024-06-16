@@ -1,11 +1,8 @@
 package mainApp.Model;
 
-import common.Model.Clocking;
-
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.HashSet;
 import java.util.UUID;
 
 public class Employee implements Serializable, Cloneable {
@@ -19,11 +16,8 @@ public class Employee implements Serializable, Cloneable {
 
     private LocalTime startHour;
     private LocalTime endHour;
-    private LocalTime extraHour;
 
     private ClockingHistory clockingHistory;
-
-    private HashSet<Clocking> irregularities;
 
     // Constructeur
     public Employee(String firstName, String lastName, String departmentName, float salary, LocalTime startHour, LocalTime endHour) {
@@ -34,9 +28,7 @@ public class Employee implements Serializable, Cloneable {
         this.salary = salary;
         this.startHour = startHour;
         this.endHour = endHour;
-        this.extraHour = LocalTime.MIN;
         this.clockingHistory = new ClockingHistory();
-        this.irregularities = new HashSet<>();
     }
 
     public String getId() {
@@ -88,10 +80,6 @@ public class Employee implements Serializable, Cloneable {
         return extraTime / 60;
     }
 
-    public void setExtraHour(LocalTime extraHour) {
-        this.extraHour = extraHour;
-    }
-
     public String getDepartmentName() {
         return departmentName;
     }
@@ -136,21 +124,11 @@ public class Employee implements Serializable, Cloneable {
         this.clockingHistory = clockingHistory;
     }
 
-    public HashSet<Clocking> getIrregularities() {
-        return irregularities;
-    }
-
-    public void setIrregularities(HashSet<Clocking> irregularities) {
-        this.irregularities = irregularities;
-    }
-
     public void addClocking(LocalDate date, LocalTime time) {
         if (clockingHistory.queryClockIn(date) == null) {
             clockingHistory.addClockIn(date, time);
         } else if (clockingHistory.queryClockOut(date) == null) {
             clockingHistory.addClockOut(date, time);
-        } else {
-            irregularities.add(new Clocking(id, date, time));
         }
     }
 

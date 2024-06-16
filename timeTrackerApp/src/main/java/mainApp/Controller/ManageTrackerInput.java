@@ -8,6 +8,9 @@ import mainApp.Model.TrackerInput;
 import java.io.*;
 import java.net.Socket;
 
+import static common.Model.Constants.FETCH;
+import static common.Model.Constants.QUIT;
+
 public class ManageTrackerInput implements Runnable {
 
     private final TrackerInput input;
@@ -52,7 +55,7 @@ public class ManageTrackerInput implements Runnable {
 
                         } else if (obj instanceof String instruction) {
 
-                            if (instruction.equals("fetch")) {
+                            if (instruction.equals(FETCH)) {
                                 ObjectOutputStream out = new ObjectOutputStream(sock.getOutputStream());
 
                                 for (CompactEmployee employee : company.sendLocalEmployeeToDistant()) {
@@ -65,7 +68,7 @@ public class ManageTrackerInput implements Runnable {
 
                                 out.close();
 
-                            } else if (instruction.equals("quit")) {
+                            } else if (instruction.equals(QUIT)) {
                                 throw new RuntimeException();
                             } else {
                                 System.out.println("Instruction not recognized : " + instruction);
@@ -74,13 +77,13 @@ public class ManageTrackerInput implements Runnable {
                     } catch (EOFException eofException) {
                         streamNotEmpty = false;
                     } catch (ClassNotFoundException ex) {
-                        System.out.println(ex + " Class not found");
+                        System.out.println(ex + " : Class not found");
                     }
                 }
             } catch (IOException e) {
-                System.out.println(e + " io exception");
+                System.out.println(e + " : IO exception");
             } catch (RuntimeException runtimeException) {
-                running = false;// TODO : gérer les exceptions
+                running = false;
             }
         }
     }

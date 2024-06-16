@@ -8,8 +8,6 @@ import java.util.Set;
 
 public class ClockingHistory implements Serializable {
 
-    // TODO : peut être à modifier et avoir qu'une seule hashtable clock comme le prof avait dit, pas de diff entre in et out
-
     private final Hashtable<LocalDate, LocalTime> clockIn = new Hashtable<>();
 
     private final Hashtable<LocalDate, LocalTime> clockOut = new Hashtable<>();
