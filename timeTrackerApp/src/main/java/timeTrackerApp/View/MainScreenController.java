@@ -123,13 +123,35 @@ public class MainScreenController {
     protected void onClockButtonClick() {
         String employeeId = employeeComboBox.getValue();
 
+        employeeComboBoxReset();
+
+        controller.newClocking(employeeId, LocalDate.now(), approxTime);
+
+        onUpdateEmployeesButtonClick();
+    }
+
+    private void employeeComboBoxReset() {
+
         employeeComboBox.getSelectionModel().clearSelection();
 
         statusText.setText("");
 
         clockButton.setDisable(true);
 
-        controller.newClocking(employeeId, LocalDate.now(), approxTime);
+    }
+
+    @FXML
+    protected void onUpdateEmployeesButtonClick() {
+
+        controller.fetchDistantEmployees();
+
+        employeeComboBoxReset();
+
+        employeeComboBox.getItems().clear();
+
+        for (String employeeId : controller.getEmployees().keySet()) {
+            employeeComboBox.getItems().add(employeeId);
+        }
     }
 
     @FXML

@@ -1,10 +1,12 @@
 package mainApp.Model;
 
 import common.Model.Clocking;
+import common.Model.CompactEmployee;
 
 import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.HashSet;
 import java.util.Hashtable;
 
 public class Company implements Serializable {
@@ -28,6 +30,11 @@ public class Company implements Serializable {
     }
 
     public Department getDepartment(String departmentName) {
+
+        if(departmentName == null) {
+            throw new RuntimeException("Non-existing department");
+        }
+
         return departmentsList.get(departmentName);
     }
 
@@ -44,10 +51,25 @@ public class Company implements Serializable {
         }
     }
 
+    public HashSet<Employee> getAllEmployees() {
+
+        HashSet<Employee> employeesList = new HashSet<>();
+
+        for (Department department : getDepartmentsList().values()) {
+            for (Employee employee : department.getEmployeesList().values()) {
+                employeesList.add(employee.clone());
+            }
+        }
+
+        return employeesList;
+    }
+
     public String addEmployee(String firstName, String lastName, String departmentName, int salary, LocalTime start_hour, LocalTime end_hour) {
         Department department = getDepartment(departmentName);
 
         Employee employee = new Employee(firstName, lastName, departmentName, salary, start_hour, end_hour);
+
+        CompactEmployee compactEmployee = new CompactEmployee(employee.getId(), firstName, lastName, true);
 
         department.addEmploye(employee);
 
@@ -66,6 +88,19 @@ public class Company implements Serializable {
         department.deleteEmploye(employeeId);
 
         serializeCompany();
+    }
+
+    public HashSet<CompactEmployee> sendLocalEmployeeToDistant() {
+
+        HashSet<CompactEmployee> compactEmployeeHashSet = new HashSet<>();
+
+        for (Employee employee : getAllEmployees()) {
+            CompactEmployee compactEmployee = new CompactEmployee(employee.getId(), employee.getFirstName(), employee.getLastName(), true);
+
+            compactEmployeeHashSet.add(compactEmployee);
+        }
+
+        return compactEmployeeHashSet;
     }
 
     public void serializeCompany() {

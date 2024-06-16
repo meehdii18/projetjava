@@ -1,4 +1,4 @@
-// TODO : standardiser et déplacer dans view, remplacer par un controller standard
+// TODO : remplacer Employee par compactEmployee
 
 package mainApp.View;
 
@@ -167,7 +167,7 @@ public class MainAppController {
             System.out.println(department);
             for (Employee employee : department.getEmployeesList().values()) {
                 employeesTable.getItems().add(employee);
-                System.out.println("Ajout de :"+employee.getFirstName());
+                System.out.println("Ajout de : " + employee.getFirstName());
             }
         }
 

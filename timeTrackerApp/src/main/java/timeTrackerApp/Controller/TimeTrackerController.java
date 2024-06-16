@@ -10,6 +10,7 @@ import java.net.Socket;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.EmptyStackException;
+import java.util.HashSet;
 import java.util.Hashtable;
 
 public class TimeTrackerController {
@@ -42,25 +43,43 @@ public class TimeTrackerController {
         return model.getEmployeeDetails(employeeId);
     }
 
-    private void fetchDistantEmployees() {
+    public void fetchDistantEmployees() {
 
         try (Socket sock = new Socket(model.getAddress(), model.getSocket())) {
 
-            DataOutputStream out = new DataOutputStream(sock.getOutputStream());
+            ObjectOutputStream out = new ObjectOutputStream(sock.getOutputStream());
+
+            out.writeObject("fetch"); // TODO : change message by constant
+
+            out.flush();
 
             ObjectInputStream in = new ObjectInputStream(sock.getInputStream());
 
-            out.writeBytes("fetch"); // TODO : change message by constant
+            boolean streamNotEmpty = true;
 
-            Object obj = in.readObject();
+            HashSet<CompactEmployee> compactEmployeeHashSet = new HashSet<>();
 
-            CompactEmployee employee = (CompactEmployee) obj;
+            while (streamNotEmpty) {
 
-            if(obj != null) {
-                model.store(employee);
+                try {
+
+                    Object obj = in .readObject();
+
+                    System.out.println(obj);
+
+                    CompactEmployee employee = (CompactEmployee) obj;
+
+                    compactEmployeeHashSet.add(employee);
+
+                } catch (EOFException eofException) {
+                    System.out.println("close");
+                    streamNotEmpty = false;
+                } catch (ClassNotFoundException classNotFoundException) {
+                    throw new RuntimeException(classNotFoundException);
+                }
             }
 
-            out.flush();
+            model.store(compactEmployeeHashSet);
 
             // TODO : gérer exceptions
 
@@ -68,8 +87,6 @@ public class TimeTrackerController {
 
             System.out.println(e + " : Verify the network parameters or try again later");
 
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
         }
     }
 

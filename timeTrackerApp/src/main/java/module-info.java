@@ -7,6 +7,8 @@ module org.example.timetrackerapp {
     exports timeTrackerApp.Controller;
     exports timeTrackerApp.Model;
 
+    exports mainApp.Controller;
+
     opens timeTrackerApp.View to javafx.fxml;
     exports timeTrackerApp.View;
     opens timeTrackerApp.Controller to javafx.fxml;

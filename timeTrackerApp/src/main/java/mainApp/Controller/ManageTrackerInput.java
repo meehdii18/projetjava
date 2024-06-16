@@ -1,12 +1,15 @@
 package mainApp.Controller;
 
 import common.Model.Clocking;
+import common.Model.CompactEmployee;
 import mainApp.Model.Company;
+import mainApp.Model.Department;
+import mainApp.Model.Employee;
 import mainApp.Model.TrackerInput;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
+import java.io.*;
 import java.net.Socket;
+import java.util.Arrays;
 
 public class ManageTrackerInput implements Runnable {
 
@@ -43,28 +46,56 @@ public class ManageTrackerInput implements Runnable {
 
                 ObjectInputStream in = new ObjectInputStream(sock.getInputStream());
 
-                try {
-                    Object obj = in.readObject();
+                boolean streamNotEmpty = true;
 
-                    System.out.println(obj.getClass());
+                while (streamNotEmpty) {
 
-                    Clocking clocking = (Clocking) obj;
+                    try {
+                        Object obj = in.readObject();
 
-                    if (obj != null) {
-                        System.out.println(clocking);
+                        System.out.println(obj.getClass());
 
-                        company.addClockingToEmployee(clocking.idEmploye(),clocking.date(),clocking.hour());
+                        if (obj instanceof Clocking clocking) {
 
-                        company.serializeCompany();
+                            System.out.println(clocking);
+
+                            try {
+                                company.addClockingToEmployee(clocking.idEmploye(), clocking.date(), clocking.hour());
+                            } catch (RuntimeException runtimeException) {
+                                System.out.println("Impossible d'ajouter le pointage");
+                            }
+
+                            company.serializeCompany();
+
+                        } else if (obj instanceof String instruction) {
+
+                            if (instruction.equals("fetch")) {
+                                ObjectOutputStream out = new ObjectOutputStream(sock.getOutputStream());
+
+                                for (CompactEmployee employee : company.sendLocalEmployeeToDistant()) {
+
+                                    out.writeObject(employee);
+
+                                    out.flush();
+
+                                }
+
+                                out.close();
+
+                            } else {
+                                System.out.println("Instruction not recognized : " + instruction);
+                            }
+                        }
+                    } catch (EOFException eofException) {
+                        System.out.println("close");
+                        streamNotEmpty = false;
+                    } catch (ClassNotFoundException ex) {
+                        System.out.println(ex + " Class not found");
                     }
-                    // TODO : gérer les exceptions
-                } catch (ClassNotFoundException ex) {
-                    System.out.println(ex);
                 }
-
             } catch (IOException e) {
-                System.out.println(e);
-            }
+                System.out.println(e + " io exception");
+            } // TODO : gérer les exceptions
         }
     }
 }

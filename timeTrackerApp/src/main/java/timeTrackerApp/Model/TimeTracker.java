@@ -7,6 +7,7 @@ import mainApp.Model.Department;
 import mainApp.Model.Employee;
 
 import java.io.*;
+import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Stack;
 
@@ -84,6 +85,15 @@ public class TimeTracker implements Serializable{
         return lastClocking;
     }
 
+    public void store(HashSet<CompactEmployee> compactEmployeeHashSet) {
+
+        employeeList.clear();
+
+        for (CompactEmployee employee : compactEmployeeHashSet) {
+            store(employee);
+        }
+    }
+
     public void store(CompactEmployee employee) {
 
         if (employee.toAdd()) {
@@ -91,6 +101,8 @@ public class TimeTracker implements Serializable{
         } else {
             employeeList.remove(employee.employeeId());
         }
+
+        serializeLocalData();
     }
 
     public Hashtable<String, String> getEmployees() {
