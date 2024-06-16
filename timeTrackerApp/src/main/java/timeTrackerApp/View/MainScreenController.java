@@ -127,7 +127,7 @@ public class MainScreenController {
 
         controller.newClocking(employeeId, LocalDate.now(), approxTime);
 
-        onUpdateEmployeesButtonClick();
+        onUpdateEmployeesButtonClick(); // TODO : remove when button added
     }
 
     private void employeeComboBoxReset() {

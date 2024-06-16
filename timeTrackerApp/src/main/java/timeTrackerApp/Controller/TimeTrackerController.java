@@ -72,7 +72,6 @@ public class TimeTrackerController {
                     compactEmployeeHashSet.add(employee);
 
                 } catch (EOFException eofException) {
-                    System.out.println("close");
                     streamNotEmpty = false;
                 } catch (ClassNotFoundException classNotFoundException) {
                     throw new RuntimeException(classNotFoundException);

@@ -5,6 +5,9 @@ import mainApp.Model.Department;
 import mainApp.Model.Employee;
 import mainApp.View.MainAppController;
 
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
 import java.time.LocalTime;
 import java.util.Hashtable;
 
@@ -53,4 +56,19 @@ public class ManageCompany {
     public Employee getEmployee(String employeId) {
         return company.getCopyOfEmployee(employeId);
     }
+
+    public void stopServerThread() {
+        try (Socket sock = new Socket("localhost", 1234)) {
+
+            ObjectOutputStream out = new ObjectOutputStream(sock.getOutputStream());
+
+            out.writeObject("quit"); // TODO : change message by constant
+
+            out.flush();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
+
+

@@ -1,9 +1,11 @@
 package mainApp.View;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import mainApp.Controller.ManageTrackerInput;
 
 import java.io.IOException;
@@ -24,6 +26,14 @@ public class MainApp extends Application {
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/mainApp/View/styles.css")).toExternalForm());
         stage.setTitle("Main Application");
         stage.setScene(scene);
+        stage.setOnCloseRequest(windowEvent -> {
+            fxmlLoaderController.getController().stopServerThread();
+            try {
+                stop();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
         stage.show();
     }
 
