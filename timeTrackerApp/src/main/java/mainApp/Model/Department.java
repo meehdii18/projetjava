@@ -22,11 +22,11 @@ public class Department implements Serializable {
     }
 
     public void addEmployee(Employee employee) {
-        employeesList.put(employee.getId(), employee); // TODO : check si employé pas existant
+        employeesList.put(employee.getId(), employee);
     }
 
     public void deleteEmployee(String employeeId) {
-        employeesList.remove(employeeId); // TODO : check si employé existant
+        employeesList.remove(employeeId);
     }
 
     public Employee getEmployee(String idEmployee) {

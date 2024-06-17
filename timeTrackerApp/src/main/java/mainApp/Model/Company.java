@@ -115,7 +115,7 @@ public class Company implements Serializable {
 
         ClockingHistory clockingHistory = employee.getClockingHistory();
 
-        for (LocalDate date : clockingHistory.getDaysClocked()) { // TODO : change employeeId by publicId
+        for (LocalDate date : clockingHistory.getDaysClocked()) {
             clockingHashSet.add(new DisplayClocking(employeeId, employee.getFirstName(), employee.getLastName(), date, clockingHistory.queryClockIn(date), "in"));
             if(clockingHistory.queryClockOut(date) != null) {
                 clockingHashSet.add(new DisplayClocking(employeeId, employee.getFirstName(), employee.getLastName(), date, clockingHistory.queryClockOut(date), "out"));
@@ -165,10 +165,11 @@ public class Company implements Serializable {
             if (i instanceof FileNotFoundException) {
                 System.out.println("File not found");
             } else {
-                System.out.println(i + " : unable to deserialize company");
+                System.out.println(i + " : Unable to deserialize company");
             }
-            company = new Company("Polytech"); // TODO : repasser ici et gérer correctement les erreurs d'import
+            company = new Company("Polytech");
             company.initializeDefaultDepartments();
+            company.initializeDefaultEmployees();
         } catch (ClassNotFoundException c) {
             System.out.println("Company class not found");
         }
@@ -183,8 +184,14 @@ public class Company implements Serializable {
                 addDepartment(departmentName);
             }
         }
-
         serializeCompany();
+    }
+
+    public void initializeDefaultEmployees() {
+        addEmployee("jean","bol", "Human Ressources", 2300, LocalTime.of(4,0), LocalTime.of(12,0));
+        addEmployee("pierre","gris", "Production", 2700, LocalTime.of(6,0), LocalTime.of(12,0));
+        addEmployee("marc","cerf", "Information Technology", 3000, LocalTime.of(9,0), LocalTime.of(15,0));
+        addEmployee("luc","bon", "Executive", 4200, LocalTime.of(7,0), LocalTime.of(18,0));
     }
 
     public void addClockingToEmployee(String employeeId, LocalDate date, LocalTime time) {
@@ -211,8 +218,6 @@ public class Company implements Serializable {
 
     public void updateEmployee(Employee employee) {
         Employee old = getEmployee(employee.getId());
-
-        System.out.println(old.getDetails());
 
         old = employee;
 

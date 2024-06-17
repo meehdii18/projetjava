@@ -62,19 +62,11 @@ public class Employee implements Serializable, Cloneable {
 
             extraTime += startHour.getHour()*60 + startHour.getMinute();
 
-            System.out.println(extraTime/60);
-
             extraTime += in.getHour()*60 + in.getMinute();
-
-            System.out.println(extraTime/60);
 
             extraTime -= (endHour.getHour()*60 + endHour.getMinute());
 
-            System.out.println(extraTime/60);
-
             extraTime -= (out.getHour()*60 + out.getMinute());
-
-            System.out.println(extraTime/60);
         }
 
         return extraTime / 60;

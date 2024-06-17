@@ -39,11 +39,7 @@ public class ManageTrackerInput implements Runnable {
                     try {
                         Object obj = in.readObject();
 
-                        System.out.println(obj.getClass());
-
                         if (obj instanceof Clocking clocking) {
-
-                            System.out.println(clocking);
 
                             try {
                                 company.addClockingToEmployee(clocking.idEmployee(), clocking.date(), clocking.hour());

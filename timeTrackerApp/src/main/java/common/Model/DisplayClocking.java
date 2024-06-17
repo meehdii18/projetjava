@@ -3,10 +3,10 @@ package common.Model;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public record DisplayClocking(String publicId, String firstName, String lastName, LocalDate date, LocalTime time, String type) {
+public record DisplayClocking(String id, String firstName, String lastName, LocalDate date, LocalTime time, String type) {
 
     public String getPublicId() {
-        return publicId;
+        return id;
     }
 
     public String getFirstName() {

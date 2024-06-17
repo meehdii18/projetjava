@@ -67,8 +67,6 @@ public class TimeTrackerController {
 
                     Object obj = in .readObject();
 
-                    System.out.println(obj);
-
                     CompactEmployee employee = (CompactEmployee) obj;
 
                     compactEmployeeHashSet.add(employee);

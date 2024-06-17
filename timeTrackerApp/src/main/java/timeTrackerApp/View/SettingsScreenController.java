@@ -42,9 +42,6 @@ public class SettingsScreenController {
         controller.setMainAppIP(address);
         controller.setMainAppSocket(socket);
 
-        System.out.println("IP: " + address);
-        System.out.println("Socket: " + socket);
-
         stage.close();
     }
 }

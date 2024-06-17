@@ -192,7 +192,7 @@ public class MainAppController {
         endHourColumn.setCellValueFactory(new PropertyValueFactory<>("endHour"));
         extraHoursColumn.setCellValueFactory(new PropertyValueFactory<>("extraHour"));
 
-        idColumnTT.setCellValueFactory(new PropertyValueFactory<>("publicId"));
+        idColumnTT.setCellValueFactory(new PropertyValueFactory<>("id"));
         firstNameColumnTT.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         lastNameColumnTT.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         dateColumnTT.setCellValueFactory(new PropertyValueFactory<>("date"));
@@ -227,14 +227,13 @@ public class MainAppController {
         System.out.println(controller.getCompanyName()+" company loading...");
         System.out.println("Company object deserialized");
         Hashtable<String,Department> departmentsList =  controller.getDepartments();
-        System.out.println(departmentsList);
 
         // Ajout de tous les employés dans la table
         for (Department department : controller.getDepartments().values()) {
-            System.out.println(department);
+            System.out.println("Département : " + department.getDepartmentName());
             for (Employee employee : department.getEmployeesList().values()) {
                 employeesTable.getItems().add(employee);
-                System.out.println("Ajout de : " + employee.getFirstName());
+                System.out.println("Ajout de " + employee.getFirstName() + " " + employee.getLastName());
             }
         }
 
