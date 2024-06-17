@@ -7,12 +7,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import mainApp.Model.Employee;
 import timeTrackerApp.Controller.SettingsController;
 import timeTrackerApp.Controller.TimeTrackerController;
 import timeTrackerApp.Model.TimeTracker;
@@ -24,38 +22,88 @@ import java.util.Hashtable;
 import java.util.Locale;
 import java.util.Objects;
 
+/**
+ * Represents the main screen javafx controller in a time tracker application.
+ * The main screen controller is responsible for handling user interactions on the main screen.
+ * Provides methods to initialize the main screen, handle button clicks, and update the display.
+ */
 public class MainScreenController {
+    /**
+     * The base number of characters from the employee UUID to display in the comboBox
+     */
     public static final int BASIC_EMPLOYEE_ID_SIZE = 4;
+
+    /**
+     * The status text label on the main screen.
+     */
     @FXML
     private Label statusText;
 
+    /**
+     * The date text label on the main screen.
+     */
     @FXML
     private Label dateText;
 
+    /**
+     * The time text label on the main screen.
+     */
     @FXML
     private Label timeText;
 
+    /**
+     * The employee combo box on the main screen.
+     */
     @FXML
     private ComboBox<String> employeeComboBox;
 
+    /**
+     * The clock button on the main screen.
+     */
     @FXML
     private Button clockButton;
 
+    /**
+     * The clock icon view on the main screen.
+     */
     @FXML
     private ImageView clockIconView;
 
+    /**
+     * The settings button on the main screen.
+     */
     @FXML
     private Button settingsButton;
 
+    /**
+     * The update button on the main screen.
+     */
     @FXML
     private Button updateButton;
 
+    // Other class fields
+
+    /**
+     * The table mapping custom employee IDs to actual employee IDs.
+     */
     private Hashtable<String, String> comboBoxIdTable;
 
+    /**
+     * The approximate time, rounded to the nearest quarter-hour.
+     */
     private LocalTime approxTime;
 
+    /**
+     * The controller for the time tracker.
+     */
     private TimeTrackerController controller;
 
+    /**
+     * Rounds a time to the nearest quarter-hour.
+     *
+     * @param time The time to round.
+     * @return The time rounded to the nearest quarter-hour.
+     */
     private LocalTime roundToNearestQuarterHour(LocalTime time) {
         int minute = time.getMinute();
         int second = time.getSecond();
@@ -67,16 +115,20 @@ public class MainScreenController {
         }
     }
 
+    /**
+     * Initializes the main screen.
+     * This method is called after all @FXML annotated members have been injected.
+     */
     @FXML
     public void initialize(){
 
         comboBoxIdTable = new Hashtable<>();
 
-        // Le texte est mis à jour pour afficher la date actuelle de l'ordinateur
+        // Text is updated to display the actual date of the computer
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("EEEE, MMMM d", Locale.ENGLISH);
         dateText.setText(LocalDate.now().format(dateFormatter));
 
-        // Le texte est mis à jour chaque seconde pour afficher l'heure
+        // The text is updated each second to keep up with the hour
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
         DateTimeFormatter approxTimeFormatter = DateTimeFormatter.ofPattern("HH:mm");
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0), event -> {
@@ -89,22 +141,26 @@ public class MainScreenController {
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
 
+        // initialize the MVC controller
         TimeTrackerController controller = new TimeTrackerController(TimeTracker.deserializeLocalData("timeTrackerApp/src/main/resources/data/timeTracker/localData.ser"), this);
         setController(controller);
 
+        // add employees in the comboBox selection
         for (String employeeId : controller.getEmployees().keySet()) {
             addEmployeeToComboBox(employeeId);
         }
 
-        // Créations des icônes pour les deux boutons
+        // creation of icons for the buttons
         Image startIcon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/timeTrackerApp/View/MainScreen/clock.png")));
         clockIconView.setImage(startIcon);
 
-        // Désactiver le bouton "Clock In/Out" par défaut
+        // disable the clock In/Out button by default
         clockButton.setDisable(true);
 
+        // set the event for the updateButton click
         updateButton.setOnAction(event -> onUpdateEmployeesButtonClick());
 
+        // set the event for the comboBox selection
         employeeComboBox.setOnAction(event -> employeeSelected());
         employeeComboBox.setButtonCell(new ListCell<>() {
             @Override
@@ -120,6 +176,11 @@ public class MainScreenController {
 
     }
 
+    /**
+     * Adds an employee to the combo box.
+     *
+     * @param employeeId The ID of the employee to add.
+     */
     private void addEmployeeToComboBox(String employeeId) {
             String customEmp = generateCustomEmployeeId(employeeId, BASIC_EMPLOYEE_ID_SIZE); // TODO : change by constant
 
@@ -145,15 +206,30 @@ public class MainScreenController {
             employeeComboBox.getItems().add(customEmp);
     }
 
+    /**
+     * Generates a custom employee ID.
+     *
+     * @param employeeId The actual employee ID.
+     * @param i The number of characters to include from the actual employee ID.
+     * @return The custom employee ID.
+     */
     private String generateCustomEmployeeId(String employeeId, int i) {
         return controller.getEmployees().get(employeeId) + " (" + employeeId.substring(0,i) + "...)";
     }
 
+    /**
+     * Displays a message on the status text label.
+     *
+     * @param text The message to display.
+     */
     public void display(String text) {
 
         statusText.setText(text);
     }
 
+    /**
+     * Handles the selection of an employee in the combo box.
+     */
     private void employeeSelected() {
         if (employeeComboBox.getValue() != null) {
             clockButton.setDisable(false);
@@ -164,6 +240,9 @@ public class MainScreenController {
         }
     }
 
+    /**
+     * Handles a click on the clock button.
+     */
     @FXML
     protected void onClockButtonClick() {
         String employeeId = employeeComboBox.getValue();
@@ -173,6 +252,9 @@ public class MainScreenController {
         controller.newClocking(comboBoxIdTable.get(employeeId), LocalDate.now(), approxTime);
     }
 
+    /**
+     * Resets the employee combo box.
+     */
     private void employeeComboBoxReset() {
 
         employeeComboBox.getSelectionModel().clearSelection();
@@ -183,6 +265,9 @@ public class MainScreenController {
 
     }
 
+    /**
+     * Handles a click on the update employees button.
+     */
     @FXML
     protected void onUpdateEmployeesButtonClick() {
 
@@ -200,6 +285,11 @@ public class MainScreenController {
         }
     }
 
+    /**
+     * Handles a click on the settings button.
+     *
+     * @throws Exception If an error occurs while loading the settings screen.
+     */
     @FXML
     protected void onSettingsButtonClick() throws Exception {
         Stage stage = new Stage();
@@ -218,6 +308,11 @@ public class MainScreenController {
         stage.show();
     }
 
+    /**
+     * Sets the controller for the time tracker.
+     *
+     * @param controller The controller for the time tracker.
+     */
     public void setController(TimeTrackerController controller) {
         this.controller = controller;
     }
