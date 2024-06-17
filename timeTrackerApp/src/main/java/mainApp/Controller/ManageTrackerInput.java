@@ -11,12 +11,19 @@ import java.net.Socket;
 import static common.Model.Constants.FETCH;
 import static common.Model.Constants.QUIT;
 
+/**
+ * This class is responsible for managing the input from the tracker.
+ */
 public class ManageTrackerInput implements Runnable {
 
     private final TrackerInput input;
-
     private final Company company;
 
+    /**
+     * Constructor for the ManageTrackerInput class.
+     *
+     * @param company The company object.
+     */
     public ManageTrackerInput(Company company) {
         this.input = new TrackerInput();
         this.company = company;
@@ -24,6 +31,10 @@ public class ManageTrackerInput implements Runnable {
         company.setPort(input.getPort());
     }
 
+    /**
+     * The run method for the Runnable interface.
+     * It listens for incoming connections and handles the received data.
+     */
     public void run() {
         boolean running = true;
         while (running) {

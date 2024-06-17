@@ -23,7 +23,7 @@ import java.util.Locale;
 import java.util.Objects;
 
 /**
- * Represents the main screen javafx controller in a time tracker application.
+ * Represents the time tracker screen javafx controller in a time tracker application.
  * The main screen controller is responsible for handling user interactions on the main screen.
  * Provides methods to initialize the main screen, handle button clicks, and update the display.
  */

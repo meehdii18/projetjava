@@ -16,22 +16,40 @@ import java.util.Hashtable;
 
 import static common.Model.Constants.FETCH;
 
+/**
+ * This class is the controller for the TimeTracker application.
+ * It handles the communication between the model and the view.
+ */
 public class TimeTrackerController {
 
     public static final int CONNECT_TIMEOUT = 50;
     private final TimeTracker model;
-
     private final MainScreenController mainView;
 
+    /**
+     * Constructor for the TimeTrackerController class.
+     * @param model The model of the TimeTracker application.
+     * @param mainView The main view of the TimeTracker application.
+     */
     public TimeTrackerController(TimeTracker model, MainScreenController mainView) {
         this.model = model;
         this.mainView = mainView;
     }
 
+    /**
+     * Getter for the model.
+     * @return The model of the TimeTracker application.
+     */
     public TimeTracker getModel() {
         return model;
     }
 
+    /**
+     * This method creates a new clocking for an employee.
+     * @param employeeId The ID of the employee.
+     * @param now The current date.
+     * @param approxTime The approximate time of the clocking.
+     */
     public void newClocking(String employeeId, LocalDate now, LocalTime approxTime) {
 
         Clocking clocking = new Clocking(employeeId, now, approxTime);
@@ -39,14 +57,26 @@ public class TimeTrackerController {
         sendClocking(clocking);
     }
 
+    /**
+     * This method returns a hashtable of employees.
+     * @return A hashtable of employees.
+     */
     public Hashtable<String, String> getEmployees() {
         return model.getEmployees();
     }
 
+    /**
+     * This method returns the details of an employee.
+     * @param employeeId The ID of the employee.
+     * @return The details of the employee.
+     */
     public String getEmployeeDetails(String employeeId) {
         return model.getEmployeeDetails(employeeId);
     }
 
+    /**
+     * This method fetches the distant employees and stores them in the model.
+     */
     public void fetchDistantEmployees() {
 
         try (Socket sock = new Socket()) {
@@ -72,6 +102,12 @@ public class TimeTrackerController {
         }
     }
 
+    /**
+     * This method gets the compact employees from the socket's input stream.
+     * @param sock The socket to get the input stream from.
+     * @return A hashset of compact employees.
+     * @throws IOException If an I/O error occurs.
+     */
     private static HashSet<CompactEmployee> getCompactEmployees(Socket sock) throws IOException {
         ObjectInputStream in = new ObjectInputStream(sock.getInputStream());
 
@@ -98,8 +134,12 @@ public class TimeTrackerController {
         return compactEmployeeHashSet;
     }
 
+    /**
+     * This method sends a clocking to the server.
+     * @param clocking The clocking to send.
+     */
     private void sendClocking(Clocking clocking) {
-        
+
         try (Socket sock = new Socket()){
 
             sock.connect(new InetSocketAddress(model.getAddress(), model.getSocket()), CONNECT_TIMEOUT);

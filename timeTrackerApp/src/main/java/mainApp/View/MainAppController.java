@@ -21,69 +21,135 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Hashtable;
 
-
+/**
+ * Represents the main app javafx controller in a time tracker application.
+ * The main app controller is responsible for handling user interactions on the main app.
+ * Provides methods to initialize the main screen, handle button clicks, and update the display.
+ */
 public class MainAppController {
+    /**
+     * The panel that contains all the tabs
+     */
     @FXML
     private TabPane tabPane;
 
+    /**
+     * Label for the IP
+     */
     @FXML
     private Label ipLabel;
 
+    /**
+     * Label for the socket
+     */
     @FXML
     private Label socketLabel;
 
+    /**
+     * Search field to search a specific employee via name
+     */
     @FXML
     private TextField searchEmployeeField;
 
+    /**
+     * Button to confirm the addition of an employee
+     */
     @FXML
     private Button addEmployeeButton;
 
+    /**
+     * Button to remove an amployéee
+     */
     @FXML
     private Button removeEmployeeButton;
 
     // Employees tab
+
+    /**
+     * Table with all the employees
+     */
     @FXML
     private TableView<Employee> employeesTable;
 
+    /**
+     * Column for the first name
+     */
     @FXML
     private TableColumn<Employee, String> firstNameColumnEmployees;
 
+    /**
+     * Column for the last name
+     */
     @FXML
     private TableColumn<Employee, String> lastNameColumnEmployees;
 
+    /**
+     * Column for the department name
+     */
     @FXML
     private TableColumn<Employee, String> departmentEmployees;
 
+    /**
+     * Column for the time in
+     */
     @FXML
     private TableColumn<Employee, LocalTime> inTimeEmployees;
 
+    /**
+     * Column for the time out
+     */
     @FXML
     private TableColumn<Employee, LocalTime> outTimeEmployees;
 
 
 
     // Time tracking tab
+
+    /**
+     * Table for the time tracking of all employees
+     */
     @FXML
     private TableView<DisplayClocking> timeTrackingTable;
 
+    /**
+     * Tab of the app
+     */
     @FXML
     private Tab timeTrackingTab;
 
+    /**
+     * Column for the id
+     */
     @FXML
     private TableColumn<DisplayClocking, String> idColumnTT;
 
+    /**
+     * Column for the last name
+     */
     @FXML
     private TableColumn<DisplayClocking, String> lastNameColumnTT;
 
+    /**
+     * Column for the first name
+     */
     @FXML
     private TableColumn<DisplayClocking, String> firstNameColumnTT;
 
+    /**
+     * Column for the date
+     */
     @FXML
     private TableColumn<DisplayClocking, String> dateColumnTT;
 
+    /**
+     * Column for the hour
+     */
     @FXML
     private TableColumn<DisplayClocking,String> hourColumnTT;
 
+    /**
+     * Column for the type (in/out)
+     */
     @FXML
     private TableColumn<DisplayClocking,String> typeColumnTT;
 
@@ -97,87 +163,164 @@ public class MainAppController {
 
     // Input pour l'ajout des employés
 
+    /**
+     * Input for adding and employee : first name
+     */
     @FXML
     private TextField inputFirstName;
 
+    /**
+     * Input for adding and employee : last name
+     */
     @FXML
     private TextField inputLastName;
 
+    /**
+     * Input for adding and employee : department name
+     */
     @FXML
     private ComboBox<String> inputDepartment;
 
+    /**
+     * Input for adding and employee : time in
+     */
     @FXML
     private TextField inputIn;
 
+    /**
+     * Input for adding and employee : time out
+     */
     @FXML
     private TextField inputOut;
 
+    /**
+     * Input for adding and employee : salary
+     */
     @FXML
     private TextField inputSalary;
 
     // Onglet infos détaillées
+
+    /**
+     * Table for the detailled view of each employees
+     */
     @FXML
     private TableView<Employee> employeeDetailsTable;
 
+    /**
+     * Tab for the detailled view of each employees
+     */
     @FXML
     private Tab employeeDetailsTab;
 
+    /**
+     * Column for the detailled view: id
+     */
     @FXML
     private TableColumn<Employee, String> idColumn;
 
+    /**
+     * Column for the detailled view: first name
+     */
     @FXML
     private TableColumn<Employee, String> firstNameColumn;
 
+    /**
+     * Column for the detailled view: last name
+     */
     @FXML
     private TableColumn<Employee, String> lastNameColumn;
 
+    /**
+     * Column for the detailled view: department name
+     */
     @FXML
     private TableColumn<Employee, String> departmentColumn;
 
+    /**
+     * Column for the detailled view: salary
+     */
     @FXML
     private TableColumn<Employee, Float> salaryColumn;
 
+    /**
+     * Column for the detailled view: time in
+     */
     @FXML
     private TableColumn<Employee, LocalTime> startHourColumn;
 
+    /**
+     * Column for the detailled view: time out
+     */
     @FXML
     private TableColumn<Employee, LocalTime> endHourColumn;
 
+    /**
+     * Column for the detailled view: extra hour
+     */
     @FXML
     private TableColumn<Employee, LocalTime> extraHoursColumn;
 
     // Pointages de la vue détaillée
 
+    /**
+     * Table for the time tracking of a detailled employee
+     */
     @FXML
     private TableView<DisplayClocking> timeTrackingDetailsTable;
 
+    /**
+     * Column for the type of the tracking (in/out)
+     */
     @FXML
     private TableColumn<DisplayClocking, String> complexViewType;
 
+    /**
+     * Column for the date of the tracking
+     */
     @FXML
     private TableColumn<DisplayClocking, String> complexViewDate;
 
+    /**
+     * Column for the hour of the tracking
+     */
     @FXML
     private TableColumn<DisplayClocking, String> complexViewHour;
 
-
-
+    /**
+     * Column for the save button in the editing tab
+     */
     @FXML
     private Button saveChangesButton;
 
+    /**
+     * Current selected employee by the user
+     */
     private Employee selectedEmployee;
 
+    /**
+     * Controller for JavaFx
+     */
     private ManageCompany controller;
 
+    /**
+     * Update the controller
+     */
     public void setController(ManageCompany controller) {
         this.controller = controller;
     }
 
+    /**
+     * Get the controller
+     */
     public ManageCompany getController() {
         return controller;
     }
 
 
+    /**
+     * Initialize all the component for each tab
+     */
     @FXML
     public void initialize() {
         firstNameColumnEmployees.setCellValueFactory(new PropertyValueFactory<>("firstName"));
@@ -374,6 +517,9 @@ public class MainAppController {
 
     }
 
+    /**
+     * Add an employee to the company and update the table.
+     */
     @FXML
     protected void addEmployee() {
         String firstName = inputFirstName.getText();
@@ -392,6 +538,9 @@ public class MainAppController {
         updateTimeTrackingTable();
     }
 
+    /**
+     * Delete the selected employee from the company and update the table.
+     */
     @FXML
     protected void deleteEmployee() {
         // Obtenir l'employé sélectionné
@@ -410,6 +559,10 @@ public class MainAppController {
         updateTimeTrackingTable();
     }
 
+    /**
+     * Show the details of the selected employee.
+     * @param employee The selected employee.
+     */
     private void showEmployeeDetails(Employee employee) {
         // Mettez à jour l'employé sélectionné
         this.selectedEmployee = employee;
@@ -430,6 +583,9 @@ public class MainAppController {
 
     }
 
+    /**
+     * Save the changes made to the employee details.
+     */
     private void saveChanges() {
 
         controller.updateData(selectedEmployee);
@@ -438,6 +594,9 @@ public class MainAppController {
         timeTrackingDetailsTable.refresh();
     }
 
+    /**
+     * Refresh the time tracking table.
+     */
     public void updateTimeTrackingTable() {
 
         ObservableList<DisplayClocking> clockingDetails = FXCollections.observableArrayList();
@@ -448,6 +607,9 @@ public class MainAppController {
         timeTrackingTable.refresh();
     }
 
+    /**
+     * Filter the time tracking table to show only today's entries.
+     */
     public void todayTracking() {
         LocalDate today = LocalDate.now();
 
@@ -461,6 +623,9 @@ public class MainAppController {
         todayTrackingButton.setDisable(true);
     }
 
+    /**
+     * Show all entries in the time tracking table.
+     */
     public void allTimeTracking() {
 
         updateTimeTrackingTable();
