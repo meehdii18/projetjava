@@ -7,11 +7,13 @@ import java.time.LocalTime;
 /**
  * Represents a clocking record for display purposes.
  */
-public record DisplayClocking(String id, String firstName, String lastName, LocalDate date, LocalTime time, String type) {
+public record DisplayClocking(String id, String firstName, String lastName, LocalDate date, LocalTime time,
+                              String type) {
 
     /**
      * Get the ID of the clocking record.
      * Needed for the TableView in javafx.
+     *
      * @return The ID.
      */
     public String getId() {
@@ -21,6 +23,7 @@ public record DisplayClocking(String id, String firstName, String lastName, Loca
     /**
      * Get the first name of the individual associated with the clocking record.
      * Needed for the TableView in javafx.
+     *
      * @return The first name.
      */
     public String getFirstName() {
@@ -30,6 +33,7 @@ public record DisplayClocking(String id, String firstName, String lastName, Loca
     /**
      * Get the last name of the individual associated with the clocking record.
      * Needed for the TableView in javafx.
+     *
      * @return The last name.
      */
     public String getLastName() {
@@ -39,6 +43,7 @@ public record DisplayClocking(String id, String firstName, String lastName, Loca
     /**
      * Get the date of the clocking record.
      * Needed for the TableView in javafx.
+     *
      * @return The date.
      */
     public LocalDate getDate() {
@@ -48,6 +53,7 @@ public record DisplayClocking(String id, String firstName, String lastName, Loca
     /**
      * Get the time of the clocking record.
      * Needed for the TableView in javafx.
+     *
      * @return The time.
      */
     public LocalTime getTime() {
@@ -57,6 +63,7 @@ public record DisplayClocking(String id, String firstName, String lastName, Loca
     /**
      * Get the type of the clocking record.
      * Needed for the TableView in javafx.
+     *
      * @return The type.
      */
     public String getType() {
