@@ -7,6 +7,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.util.converter.FloatStringConverter;
+import javafx.util.converter.IntegerStringConverter;
+import javafx.util.converter.LocalTimeStringConverter;
 import mainApp.Controller.ManageCompany;
 import mainApp.Controller.ManageTrackerInput;
 import mainApp.Model.*;
@@ -132,7 +135,7 @@ public class MainAppController {
     private TableColumn<Employee, String> departmentColumn;
 
     @FXML
-    private TableColumn<Employee, Integer> salaryColumn;
+    private TableColumn<Employee, Float> salaryColumn;
 
     @FXML
     private TableColumn<Employee, LocalTime> startHourColumn;
@@ -299,6 +302,31 @@ public class MainAppController {
                 (TableColumn.CellEditEvent<Employee, String> t) -> t.getTableView().getItems().get(
                         t.getTablePosition().getRow()).setLastName(t.getNewValue())
         );
+
+        salaryColumn.setCellFactory(TextFieldTableCell.forTableColumn(new FloatStringConverter()));
+        salaryColumn.setOnEditCommit(
+                (TableColumn.CellEditEvent<Employee, Float> t) -> {
+                    Employee employee = t.getTableView().getItems().get(t.getTablePosition().getRow());
+                    employee.setSalary(t.getNewValue());
+                }
+        );
+
+        startHourColumn.setCellFactory(TextFieldTableCell.forTableColumn(new LocalTimeStringConverter()));
+        startHourColumn.setOnEditCommit(
+                (TableColumn.CellEditEvent<Employee, LocalTime> t) -> {
+                    Employee employee = t.getTableView().getItems().get(t.getTablePosition().getRow());
+                    employee.setStartHour(t.getNewValue());
+                }
+        );
+
+        endHourColumn.setCellFactory(TextFieldTableCell.forTableColumn(new LocalTimeStringConverter()));
+        endHourColumn.setOnEditCommit(
+                (TableColumn.CellEditEvent<Employee, LocalTime> t) -> {
+                    Employee employee = t.getTableView().getItems().get(t.getTablePosition().getRow());
+                    employee.setEndHour(t.getNewValue());
+                }
+        );
+
 
         ObservableList<String> departmentNames = FXCollections.observableArrayList(controller.getDepartments().keySet());
 

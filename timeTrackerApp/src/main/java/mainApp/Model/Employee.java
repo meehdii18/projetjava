@@ -52,21 +52,21 @@ public class Employee implements Serializable, Cloneable {
     }
 
     public float getExtraHour() {
-
         float extraTime = 0;
 
         for (LocalDate date : clockingHistory.getDaysClocked()) {
-
             LocalTime in = clockingHistory.queryClockIn(date);
             LocalTime out = clockingHistory.queryClockOut(date);
 
-            extraTime += startHour.getHour()*60 + startHour.getMinute();
+            if (in != null) {
+                extraTime += startHour.getHour()*60 + startHour.getMinute();
+                extraTime += in.getHour()*60 + in.getMinute();
+            }
 
-            extraTime += in.getHour()*60 + in.getMinute();
-
-            extraTime -= (endHour.getHour()*60 + endHour.getMinute());
-
-            extraTime -= (out.getHour()*60 + out.getMinute());
+            if (out != null) {
+                extraTime -= (endHour.getHour()*60 + endHour.getMinute());
+                extraTime -= (out.getHour()*60 + out.getMinute());
+            }
         }
 
         return extraTime / 60;

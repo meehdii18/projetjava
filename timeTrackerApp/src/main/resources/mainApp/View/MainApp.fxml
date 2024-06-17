@@ -51,38 +51,37 @@
                     <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
                         <TextField fx:id="inputFirstName" promptText="First Name">
                             <HBox.margin>
-                                <Insets right="10.0" top="30.0"/>
+                                <Insets right="10.0" top="30.0" />
                             </HBox.margin>
                         </TextField>
                         <TextField fx:id="inputLastName" promptText="Last Name">
                             <HBox.margin>
-                                <Insets right="10.0" top="30.0"/>
+                                <Insets right="10.0" top="30.0" />
                             </HBox.margin>
                         </TextField>
                         <ComboBox fx:id="inputDepartment" prefWidth="150.0" promptText="Departement">
                             <HBox.margin>
-                                <Insets right="10.0" top="30.0"/>
+                                <Insets right="10.0" top="30.0" />
                             </HBox.margin>
                         </ComboBox>
                         <TextField fx:id="inputIn" promptText="Time in HH::MM">
                             <HBox.margin>
-                                <Insets right="10.0" top="30.0"/>
+                                <Insets right="10.0" top="30.0" />
                             </HBox.margin>
                         </TextField>
                         <TextField fx:id="inputOut" promptText="Time out HH::MM">
                             <HBox.margin>
-                                <Insets right="10.0" top="30.0"/>
+                                <Insets right="10.0" top="30.0" />
                             </HBox.margin>
                         </TextField>
                         <TextField fx:id="inputSalary" promptText="Salary">
                             <HBox.margin>
-                                <Insets right="10.0" top="30.0"/>
+                                <Insets right="10.0" top="30.0" />
                             </HBox.margin>
                         </TextField>
-                        <Button fx:id="addEmployeeButton" onAction="#addEmployee"
-                                style="-fx-background-color: #2c3e50; -fx-text-fill: white;" text="ADD">
+                        <Button fx:id="addEmployeeButton" onAction="#addEmployee" style="-fx-background-color: #2c3e50; -fx-text-fill: white;" text="ADD">
                             <HBox.margin>
-                                <Insets top="30.0"/>
+                                <Insets top="30.0" />
                             </HBox.margin>
                         </Button>
                     </HBox>
@@ -100,12 +99,12 @@
                 </Label>
                 <TableView fx:id="timeTrackingTable" prefHeight="460.0" prefWidth="1251.0">
                     <columns>
-                        <TableColumn fx:id="idColumnTT" prefWidth="257.0" text="ID" />
-                        <TableColumn fx:id="firstNameColumnTT" minWidth="0.0" prefWidth="278.0" text="First Name" />
-                        <TableColumn fx:id="lastNameColumnTT" minWidth="0.0" prefWidth="316.0" text="Last Name" />
-                        <TableColumn fx:id="dateColumnTT" minWidth="0.0" prefWidth="299.0" text="Date" />
-                        <TableColumn fx:id="hourColumnTT" minWidth="0.0" prefWidth="299.0" text="Hour" />
-                        <TableColumn fx:id="typeColumnTT" minWidth="0.0" prefWidth="299.0" text="Type" />
+                        <TableColumn fx:id="idColumnTT" prefWidth="160.0" text="ID" />
+                        <TableColumn fx:id="firstNameColumnTT" minWidth="0.0" prefWidth="193.0" text="First Name" />
+                        <TableColumn fx:id="lastNameColumnTT" minWidth="0.0" prefWidth="185.0" text="Last Name" />
+                        <TableColumn fx:id="dateColumnTT" minWidth="0.0" prefWidth="221.0" text="Date" />
+                        <TableColumn fx:id="hourColumnTT" maxWidth="147.0" minWidth="0.0" prefWidth="147.0" text="Hour" />
+                        <TableColumn fx:id="typeColumnTT" minWidth="0.0" prefWidth="244.0" text="Type" />
                     </columns>
                <VBox.margin>
                   <Insets left="50.0" right="50.0" />
@@ -160,19 +159,19 @@
                <Font size="42.0" />
             </font>
          </Text>
-            <TableView fx:id="employeeDetailsTable" editable="true" fixedCellSize="0.0" prefHeight="51.0" prefWidth="851.0">
+            <TableView fx:id="employeeDetailsTable" editable="true" prefHeight="72.0" prefWidth="1051.0">
                 <columns>
                     <TableColumn fx:id="idColumn" editable="false" prefWidth="133.0" text="ID" />
-                    <TableColumn fx:id="firstNameColumn" editable="true" prefWidth="213.0" text="First Name" />
-                    <TableColumn fx:id="lastNameColumn" editable="true" prefWidth="107.0" text="Last Name" />
-                    <TableColumn fx:id="departmentColumn" editable="true" prefWidth="130.0" text="Department" />
-                    <TableColumn fx:id="salaryColumn" editable="true" prefWidth="87.0" text="Salary" />
-                    <TableColumn fx:id="startHourColumn" editable="true" prefWidth="88.0" text="Start Hour" />
-                    <TableColumn fx:id="endHourColumn" editable="true" prefWidth="89.5" resizable="false" text="End Hour" />
-                    <TableColumn fx:id="extraHoursColumn" editable="false" prefWidth="89.5" resizable="false" text="Extra Hours (H)" />
+                    <TableColumn fx:id="firstNameColumn" editable="true" prefWidth="174.0" text="First Name" />
+                    <TableColumn fx:id="lastNameColumn" editable="true" prefWidth="146.0" text="Last Name" />
+                    <TableColumn fx:id="departmentColumn" editable="true" prefWidth="174.0" text="Department" />
+                    <TableColumn fx:id="salaryColumn" editable="true" prefWidth="81.0" text="Salary" />
+                    <TableColumn fx:id="startHourColumn" editable="true" prefWidth="84.0" text="Start Hour" />
+                    <TableColumn fx:id="endHourColumn" editable="true" prefWidth="96.0" resizable="false" text="End Hour" />
+                    <TableColumn fx:id="extraHoursColumn" editable="false" prefWidth="162.0" resizable="false" text="Extra Hours (H)" />
                 </columns>
             <VBox.margin>
-               <Insets left="200.0" right="200.0" />
+               <Insets left="100.0" right="100.0" />
             </VBox.margin>
             </TableView>
          <TableView fx:id="timeTrackingDetailsTable" editable="true" prefHeight="339.0" prefWidth="1151.0">

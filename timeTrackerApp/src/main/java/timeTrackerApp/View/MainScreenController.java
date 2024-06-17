@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import mainApp.Model.Employee;
 import timeTrackerApp.Controller.SettingsController;
 import timeTrackerApp.Controller.TimeTrackerController;
 import timeTrackerApp.Model.TimeTracker;
