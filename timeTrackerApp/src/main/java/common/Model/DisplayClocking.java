@@ -10,11 +10,11 @@ import java.time.LocalTime;
 public record DisplayClocking(String id, String firstName, String lastName, LocalDate date, LocalTime time, String type) {
 
     /**
-     * Get the public ID of the clocking record.
+     * Get the ID of the clocking record.
      * Needed for the TableView in javafx.
-     * @return The public ID.
+     * @return The ID.
      */
-    public String getPublicId() {
+    public String getId() {
         return id;
     }
 

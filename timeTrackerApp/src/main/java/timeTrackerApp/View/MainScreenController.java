@@ -20,10 +20,12 @@ import timeTrackerApp.Model.TimeTracker;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
+import java.util.Hashtable;
 import java.util.Locale;
 import java.util.Objects;
 
 public class MainScreenController {
+    public static final int BASIC_EMPLOYEE_ID_SIZE = 4;
     @FXML
     private Label statusText;
 
@@ -48,6 +50,8 @@ public class MainScreenController {
     @FXML
     private Button updateButton;
 
+    private Hashtable<String, String> comboBoxIdTable;
+
     private LocalTime approxTime;
 
     private TimeTrackerController controller;
@@ -65,6 +69,9 @@ public class MainScreenController {
 
     @FXML
     public void initialize(){
+
+        comboBoxIdTable = new Hashtable<>();
+
         // Le texte est mis à jour pour afficher la date actuelle de l'ordinateur
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("EEEE, MMMM d", Locale.ENGLISH);
         dateText.setText(LocalDate.now().format(dateFormatter));
@@ -86,7 +93,7 @@ public class MainScreenController {
         setController(controller);
 
         for (String employeeId : controller.getEmployees().keySet()) {
-            employeeComboBox.getItems().add(employeeId);
+            addEmployeeToComboBox(employeeId);
         }
 
         // Créations des icônes pour les deux boutons
@@ -113,6 +120,35 @@ public class MainScreenController {
 
     }
 
+    private void addEmployeeToComboBox(String employeeId) {
+            String customEmp = generateCustomEmployeeId(employeeId, BASIC_EMPLOYEE_ID_SIZE); // TODO : change by constant
+
+            if (comboBoxIdTable.get(customEmp) == null) {
+                comboBoxIdTable.put(customEmp, employeeId);
+            } else {
+                String conflictEmployeeId = comboBoxIdTable.get(customEmp);
+
+                String customEmpId1 = new String(customEmp);
+                String customEmpId2 = new String(customEmp);
+
+                int newIdSize = BASIC_EMPLOYEE_ID_SIZE + 1;
+
+                while (customEmpId1.equals(customEmpId2)) {
+                    customEmpId1 = generateCustomEmployeeId(conflictEmployeeId,newIdSize);
+                    customEmpId2 = generateCustomEmployeeId(employeeId, newIdSize);
+                    newIdSize += 1;
+                }
+                comboBoxIdTable.put(customEmpId1, conflictEmployeeId);
+                comboBoxIdTable.put(customEmpId2, employeeId);
+            }
+
+            employeeComboBox.getItems().add(customEmp);
+    }
+
+    private String generateCustomEmployeeId(String employeeId, int i) {
+        return controller.getEmployees().get(employeeId) + " (" + employeeId.substring(0,i) + "...)";
+    }
+
     public void display(String text) {
 
         statusText.setText(text);
@@ -122,7 +158,7 @@ public class MainScreenController {
         if (employeeComboBox.getValue() != null) {
             clockButton.setDisable(false);
 
-        String employeeDetails = controller.getEmployeeDetails(employeeComboBox.getValue());
+        String employeeDetails = controller.getEmployeeDetails(comboBoxIdTable.get(employeeComboBox.getValue()));
 
         statusText.setText("Bonjour, " + employeeDetails + " !");
         }
@@ -134,7 +170,7 @@ public class MainScreenController {
 
         employeeComboBoxReset();
 
-        controller.newClocking(employeeId, LocalDate.now(), approxTime);
+        controller.newClocking(comboBoxIdTable.get(employeeId), LocalDate.now(), approxTime);
     }
 
     private void employeeComboBoxReset() {
@@ -154,10 +190,13 @@ public class MainScreenController {
 
         employeeComboBoxReset();
 
+        comboBoxIdTable.clear();
+
         employeeComboBox.getItems().clear();
 
         for (String employeeId : controller.getEmployees().keySet()) {
-            employeeComboBox.getItems().add(employeeId);
+
+            addEmployeeToComboBox(employeeId);
         }
     }
 

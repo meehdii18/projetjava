@@ -6,6 +6,7 @@ import timeTrackerApp.Model.TimeTracker;
 import timeTrackerApp.View.MainScreenController;
 
 import java.io.*;
+import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -17,6 +18,7 @@ import static common.Model.Constants.FETCH;
 
 public class TimeTrackerController {
 
+    public static final int CONNECT_TIMEOUT = 50;
     private final TimeTracker model;
 
     private final MainScreenController mainView;
@@ -47,7 +49,9 @@ public class TimeTrackerController {
 
     public void fetchDistantEmployees() {
 
-        try (Socket sock = new Socket(model.getAddress(), model.getSocket())) {
+        try (Socket sock = new Socket()) {
+
+            sock.connect(new InetSocketAddress(model.getAddress(), model.getSocket()), CONNECT_TIMEOUT);
 
             ObjectOutputStream out = new ObjectOutputStream(sock.getOutputStream());
 
@@ -55,28 +59,7 @@ public class TimeTrackerController {
 
             out.flush();
 
-            ObjectInputStream in = new ObjectInputStream(sock.getInputStream());
-
-            boolean streamNotEmpty = true;
-
-            HashSet<CompactEmployee> compactEmployeeHashSet = new HashSet<>();
-
-            while (streamNotEmpty) {
-
-                try {
-
-                    Object obj = in .readObject();
-
-                    CompactEmployee employee = (CompactEmployee) obj;
-
-                    compactEmployeeHashSet.add(employee);
-
-                } catch (EOFException eofException) {
-                    streamNotEmpty = false;
-                } catch (ClassNotFoundException classNotFoundException) {
-                    throw new RuntimeException(classNotFoundException);
-                }
-            }
+            HashSet<CompactEmployee> compactEmployeeHashSet = getCompactEmployees(sock);
 
             model.store(compactEmployeeHashSet);
 
@@ -89,9 +72,37 @@ public class TimeTrackerController {
         }
     }
 
-    private void sendClocking(Clocking clocking) {
+    private static HashSet<CompactEmployee> getCompactEmployees(Socket sock) throws IOException {
+        ObjectInputStream in = new ObjectInputStream(sock.getInputStream());
 
-        try (Socket sock = new Socket(model.getAddress(), model.getSocket())) {
+        boolean streamNotEmpty = true;
+
+        HashSet<CompactEmployee> compactEmployeeHashSet = new HashSet<>();
+
+        while (streamNotEmpty) {
+
+            try {
+
+                Object obj = in .readObject();
+
+                CompactEmployee employee = (CompactEmployee) obj;
+
+                compactEmployeeHashSet.add(employee);
+
+            } catch (EOFException eofException) {
+                streamNotEmpty = false;
+            } catch (ClassNotFoundException classNotFoundException) {
+                throw new RuntimeException(classNotFoundException);
+            }
+        }
+        return compactEmployeeHashSet;
+    }
+
+    private void sendClocking(Clocking clocking) {
+        
+        try (Socket sock = new Socket()){
+
+            sock.connect(new InetSocketAddress(model.getAddress(), model.getSocket()), CONNECT_TIMEOUT);
 
             ObjectOutputStream out = new ObjectOutputStream(sock.getOutputStream());
 
