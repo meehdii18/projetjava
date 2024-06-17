@@ -130,7 +130,7 @@ public class Company implements Serializable {
         HashSet<CompactEmployee> compactEmployeeHashSet = new HashSet<>();
 
         for (Employee employee : getAllEmployees()) {
-            CompactEmployee compactEmployee = new CompactEmployee(employee.getId(), employee.getFirstName(), employee.getLastName(), true);
+            CompactEmployee compactEmployee = new CompactEmployee(employee.getId(), employee.getFirstName(), employee.getLastName());
 
             compactEmployeeHashSet.add(compactEmployee);
         }

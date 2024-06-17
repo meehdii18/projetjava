@@ -81,11 +81,7 @@ public class TimeTracker implements Serializable{
 
     public void store(CompactEmployee employee) {
 
-        if (employee.toAdd()) {
-            employeeList.put(employee.employeeId(), employee.firstName() + " " + employee.lastName());
-        } else {
-            employeeList.remove(employee.employeeId());
-        }
+        employeeList.put(employee.employeeId(), employee.firstName() + " " + employee.lastName());
 
         serializeLocalData();
     }
